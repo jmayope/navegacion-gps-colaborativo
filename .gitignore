@@ -1,0 +1,41 @@
+# Node / JavaScript
+node_modules/
+npm-debug.log*
+yarn-error.log
+.pnpm-debug.log*
+
+# Maven / Spring Boot
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+.sts4-cache/
+.springBeans
+
+# Flutter / Dart
+.dart_tool/
+.packages
+build/
+.pub-cache/
+.pub/
+pubspec.lock
+
+# IDEs and Editors (IntelliJ, VS Code, Eclipse)
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+.metadata
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+```
+
+### Key Ignore Categories
+
+* **Dependencies:** Skips heavy package directories like `node_modules` and `.dart_tool` that download automatically via package managers.
+* **Build Outputs:** Ignores compiled Java/Maven outputs in `/target/` and Flutter build directories.
+* **IDE Files:** Keeps local workspace configurations out of version control.
