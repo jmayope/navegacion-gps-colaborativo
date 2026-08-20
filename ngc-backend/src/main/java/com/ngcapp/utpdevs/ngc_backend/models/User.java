@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="users")
-public class UserModel {
+public class User {
   @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

@@ -3,44 +3,70 @@ package com.ngcapp.utpdevs.ngc_backend.services;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ngcapp.utpdevs.ngc_backend.models.UserModel;
-import com.ngcapp.utpdevs.ngc_backend.repositories.UserRepository;
+import com.ngcapp.utpdevs.ngc_backend.models.User;
 
 @Service
 public class UserService {
-  private UserRepository repository;
-    
-  public List<UserModel> findAll() {
-      return repository.findAll();
-  }
-  
-  public UserModel findById(UUID id) {
-      return repository.findById(id).orElse(null);
-  }
-  
-  public UserModel findByEmail(String email) {
-      return repository.findByEmail(email).orElse(null);
-  }
-  
-  public UserModel findByPhone(String phone) {
-      return repository.findByPhone(phone).orElse(null);
-  }
-  
-  public UserModel save(UserModel usuario) {
-      return repository.save(usuario);
-  }
-  
-  public void delete(UUID id) {
-      repository.deleteById(id);
-  }
-  
-  public boolean existsEmail(String email) {
-      return repository.existsByEmail(email);
-  }
-  
-  public boolean existsPhone(String phone) {
-      return repository.existsByPhone(phone);
-  }
+    @Autowired
+    private SupabaseCrudService crudService;
+
+    private static final String TABLE = "users";
+
+    public List<User> findAll() {
+        return crudService.findAll(TABLE, User[].class);
+    }
+
+    public User findById(UUID id) {
+        return crudService.findById(TABLE, id, User[].class);
+    }
+
+    public User findByUsername(String username) {
+        List<User> result = crudService.find(
+            TABLE, 
+            "username=eq." + username, 
+            User[].class
+        );
+        return result.isEmpty() ? null : result.get(0);
+    }
+
+    public User findByEmail(String email) {
+        List<User> result = crudService.find(
+            TABLE, 
+            "email=eq." + email, 
+            User[].class
+        );
+        return result.isEmpty() ? null : result.get(0);
+    }
+
+    public User findByUsernameOrEmail(String usernameOrEmail) {
+        List<User> result = crudService.find(
+            TABLE, 
+            "or=(username.eq." + usernameOrEmail + ",email.eq." + usernameOrEmail + ")", 
+            User[].class
+        );
+        return result.isEmpty() ? null : result.get(0);
+    }
+
+    public User create(User usuario) {
+        return crudService.insert(TABLE, usuario, User[].class);
+    }
+
+    public User update(UUID id, User usuario) {
+        return crudService.update(TABLE, id, usuario, User[].class);
+    }
+
+    public void delete(UUID id) {
+        crudService.delete(TABLE, id);
+    }
+
+    public boolean existsByEmail(String email) {
+        return crudService.exists(TABLE, "email=eq." + email);
+    }
+
+    public boolean existsByPhone(String phone) {
+        return crudService.exists(TABLE, "phone=eq." + phone);
+    }
 }
