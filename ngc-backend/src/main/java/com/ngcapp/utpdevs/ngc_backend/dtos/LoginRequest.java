@@ -2,21 +2,24 @@ package com.ngcapp.utpdevs.ngc_backend.dtos;
 
 public class LoginRequest {
 
-  private String email;
+  private String usernameOrEmail;
+
   private String password;
-  
-  public String getEmail() {
-    return email;
+
+  // Getters y Setters
+  public String getUsernameOrEmail() {
+    return usernameOrEmail;
   }
-  public void setEmail(String email) {
-    this.email = email;
+
+  public void setUsernameOrEmail(String usernameOrEmail) {
+    this.usernameOrEmail = usernameOrEmail;
   }
+
   public String getPassword() {
     return password;
   }
+
   public void setPassword(String password) {
     this.password = password;
   }
-
-  
 }

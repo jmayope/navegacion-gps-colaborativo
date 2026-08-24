@@ -62,6 +62,10 @@ public class UserService {
         crudService.delete(TABLE, id);
     }
 
+    public boolean existsById(UUID id) {
+        return crudService.exists(TABLE, "id=eq." + id);
+    }
+
     public boolean existsByEmail(String email) {
         return crudService.exists(TABLE, "email=eq." + email);
     }
