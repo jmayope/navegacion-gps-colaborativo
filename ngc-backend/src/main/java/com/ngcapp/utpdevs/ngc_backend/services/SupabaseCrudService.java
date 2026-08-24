@@ -1,7 +1,5 @@
 package com.ngcapp.utpdevs.ngc_backend.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,8 +15,11 @@ import java.util.UUID;
 @Service
 public class SupabaseCrudService {
 
-    @Autowired
-    private WebClient webClient;
+    private final WebClient webClient;
+
+    public SupabaseCrudService(WebClient webClient) {
+        this.webClient = webClient;
+    }
 
 
     // ============================================================

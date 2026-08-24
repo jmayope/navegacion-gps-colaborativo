@@ -8,7 +8,6 @@ import com.ngcapp.utpdevs.ngc_backend.models.UserSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +40,6 @@ public class AuthService {
     // REGISTER
     // ============================================================
     
-    @Transactional
     public AuthResponse register(RegisterRequest request) {
         // Validar duplicados
         Map<String, String> errors = new HashMap<>();
@@ -100,10 +98,9 @@ public class AuthService {
     // LOGIN
     // ============================================================
     
-    @Transactional
     public AuthResponse login(LoginRequest request) {
         // Buscar usuario por username o email
-        User user = userService.findByUsernameOrEmail(request.getUsernameOrEmail());
+        User user = userService.findByEmail(request.getEmail());
         
         if (user == null) {
             return new AuthResponse("Credenciales inválidas", false);
@@ -146,7 +143,6 @@ public class AuthService {
     // LOGOUT
     // ============================================================
     
-    @Transactional
     public boolean logout(UUID userId, UUID sessionId) {
         // Finalizar la sesión específica
         if (sessionId != null) {
@@ -166,7 +162,6 @@ public class AuthService {
     // CHANGE PASSWORD
     // ============================================================
     
-    @Transactional
     public boolean changePassword(UUID userId, String currentPassword, String newPassword) {
         User user = userService.findById(userId);
         if (user == null) {
