@@ -30,4 +30,8 @@ export class Login implements OnInit {
   goToRegister() {
     this.Router.navigate(["autenticacion/registro"]);
   }
+
+  goToForgotPassword() {
+    this.Router.navigate(["autenticacion/olvido-clave"]);
+  }
 }

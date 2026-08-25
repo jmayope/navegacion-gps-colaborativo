@@ -20,6 +20,11 @@
                 <small class="text-secondary">Contraseña</small>
                 <input type="password" name="password" [(ngModel)]="credentials.password" class="form-control" required>
               </div>
+              <div class="col-12 text-end">
+                <button class="btn btn-sm btn-link" (click)="goToForgotPassword()">
+                  ¿Olvidaste tu contraseña?
+                </button>
+              </div>
               <div class="col-12 mt-3 text-center">
                 <button class="btn btn-sm btn-primary" [disabled]="loginForm.invalid" (click)="login()">
                   <i class="fa fa-arrow-right me-1"></i>Ingresar

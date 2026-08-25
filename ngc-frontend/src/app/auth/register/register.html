@@ -28,15 +28,19 @@
               <div class="col-12">
                 <small class="text-secondary">Contraseña</small>
                 <div class="input-group">
-                  <input type="password" name="password" [(ngModel)]="newUser.password" class="form-control" required>
-                  <span class="input-group-text" id="basic-addon2"><i class="fa fa-eye"></i></span>
+                  <input type="{{newUser.showPassword ? 'text' : 'password'}}" name="password" [(ngModel)]="newUser.password" class="form-control"  placeholder="{{newUser.showPassword ? 'S3cret0' : '********'}}" required>
+                  <button class="btn btn-light" (click)="togglePassword()">
+                    <i class="fa" [ngClass]="{'fa-eye': !newUser.showPassword, 'fa-eye-slash': newUser.showPassword}"></i>
+                  </button>
                 </div>
               </div>
               <div class="col-12">
                 <small class="text-secondary">Confirma Contraseña</small>
                 <div class="input-group">
-                  <input type="password" name="confirmPassword" [(ngModel)]="newUser.confirmPassword" class="form-control" required>
-                  <span class="input-group-text" id="basic-addon2"><i class="fa fa-eye"></i></span>
+                  <input type="password" name="confirmPassword" [(ngModel)]="newUser.confirmPassword" class="form-control" placeholder="{{newUser.showPassword ? 'S3cret0' : '********'}}" required>
+                  <button class="btn btn-light" (click)="togglePassword()">
+                    <i class="fa-solid" [ngClass]="{'fa-eye': !newUser.showPassword, 'fa-eye-slash': newUser.showPassword}"></i>
+                  </button>
                 </div>
               </div>
               <div class="col-12">
@@ -51,7 +55,10 @@
                 <input type="text" name="document_number" [(ngModel)]="newUser.document_number" class="form-control" required>
               </div>
               <div class="col-12 mt-3 text-center">
-                <button class="btn btn-sm btn-primary" (click)="register()" [disabled]="registerForm.invalid">
+                <button class="btn btn-light text-danger me-5" (click)="goToBack()">
+                  <i class="fa fa-arrow-left me-1"></i>Volver
+                </button>
+                <button class="btn btn-sm btn-primary ms-5" (click)="register()" [disabled]="registerForm.invalid">
                   <i class="fa fa-save me-1"></i>Registrar
                 </button>
               </div>

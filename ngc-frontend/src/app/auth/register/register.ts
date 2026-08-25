@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class Register implements OnInit {
 
-  constructor() {
+  constructor(
+    private Router: Router
+  ) {
 
   }
 
@@ -31,6 +34,14 @@ export class Register implements OnInit {
 
   async register() {
     console.log(this.newUser);
+  }
+
+  togglePassword() {
+    this.newUser.showPassword = !this.newUser.showPassword;
+  }
+
+  goToBack() {
+    this.Router.navigate(["autenticacion/iniciar-sesion"]);
   }
 
 }
