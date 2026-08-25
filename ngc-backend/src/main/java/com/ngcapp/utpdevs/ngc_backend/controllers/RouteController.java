@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/routes")
+@RequestMapping("/routes")
 @CrossOrigin(origins = "*")
 public class RouteController {
     

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/segments")
+@RequestMapping("/segments")
 @CrossOrigin(origins = "*")
 public class SegmentController {
     

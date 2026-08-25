@@ -16,7 +16,7 @@ import java.time.OffsetDateTime;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/route-queries")
+@RequestMapping("/route-queries")
 @CrossOrigin(origins = "*")
 public class RouteQueryController {
     

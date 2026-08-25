@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/moods")
+@RequestMapping("/moods")
 @CrossOrigin(origins = "*")
 public class MoodStateController {
     

@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/incidents")
+@RequestMapping("/incidents")
 @CrossOrigin(origins = "*")
 public class IncidentController {
     

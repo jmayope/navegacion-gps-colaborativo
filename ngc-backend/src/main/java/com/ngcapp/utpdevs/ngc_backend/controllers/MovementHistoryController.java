@@ -20,7 +20,7 @@ import java.time.OffsetDateTime;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/movement")
+@RequestMapping("/movement")
 @CrossOrigin(origins = "*")
 public class MovementHistoryController {
 

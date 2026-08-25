@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-6 offset-3 pt-5">
+      <div class="card">
+        <div class="card-body">
+          <form #registerForm="ngForm">
+            <div class="row">
+              <div class="col-3">
+                <img src="/images/logo.png" alt="Ruta Segura APP" height="100"> <br>
+                <strong class="text-primary">Ruta Segura APP</strong>
+              </div>
+              <div class="col-9 pt-3">
+                <strong class="font-lg">Registro</strong> <br>
+                <span>Rellena los datos para registrarte al aplicativo.</span>
+              </div>
+              <div class="col-12 mt-3">
+                <small class="text-secondary">Nombre Completo</small>
+                <input type="text" name="full_name" [(ngModel)]="newUser.full_name" class="form-control" required>
+              </div>
+              <div class="col-12">
+                <small class="text-secondary">Correo Electrónico</small>
+                <input type="text" name="email" [(ngModel)]="newUser.email" class="form-control" required>
+              </div>
+              <div class="col-12">
+                <small class="text-secondary">Nro de Celular</small>
+                <input type="text" name="phone" [(ngModel)]="newUser.phone" class="form-control" required>
+              </div>
+              <div class="col-12">
+                <small class="text-secondary">Contraseña</small>
+                <div class="input-group">
+                  <input type="password" name="password" [(ngModel)]="newUser.password" class="form-control" required>
+                  <span class="input-group-text" id="basic-addon2"><i class="fa fa-eye"></i></span>
+                </div>
+              </div>
+              <div class="col-12">
+                <small class="text-secondary">Confirma Contraseña</small>
+                <div class="input-group">
+                  <input type="password" name="confirmPassword" [(ngModel)]="newUser.confirmPassword" class="form-control" required>
+                  <span class="input-group-text" id="basic-addon2"><i class="fa fa-eye"></i></span>
+                </div>
+              </div>
+              <div class="col-12">
+                <small class="text-secondary">Tipo de Documento</small>
+                <select name="document_type" [(ngModel)]="newUser.document_type" class="form-control" required>
+                  <option [ngValue]="undefined">--SELECCIONE--</option>
+                  <option *ngFor="let dt of documentTypes" [ngValue]="dt.id">{{dt.name | uppercase}}</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <small class="text-secondary">Número de Documento</small>
+                <input type="text" name="document_number" [(ngModel)]="newUser.document_number" class="form-control" required>
+              </div>
+              <div class="col-12 mt-3 text-center">
+                <button class="btn btn-sm btn-primary" (click)="register()" [disabled]="registerForm.invalid">
+                  <i class="fa fa-save me-1"></i>Registrar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

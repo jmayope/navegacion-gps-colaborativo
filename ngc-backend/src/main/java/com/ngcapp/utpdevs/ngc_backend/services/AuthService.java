@@ -61,6 +61,7 @@ public class AuthService {
         
         // Crear usuario
         User user = new User();
+        user.setId(UUID.randomUUID());
         user.setEmail(request.getEmail());
         user.setPhone(request.getPhone());
         user.setFullName(request.getFullName());
@@ -72,13 +73,17 @@ public class AuthService {
         user.setIsActive(true);
         user.setIsVerified(false);
         user.setLastActivityAt(OffsetDateTime.now());
-        
+
         User saved = userService.create(user);
         
         // Generar token
         String token = generateToken(saved);
         OffsetDateTime expiresAt = OffsetDateTime.now().plusSeconds(jwtExpirationMs);
         
+        System.out.println("================================");
+        System.out.println("GRABADO ID: " + saved.getId());
+        System.out.println("================================");
+
         // Iniciar sesión automáticamente
         startUserSession(saved);
         
@@ -270,6 +275,7 @@ public class AuthService {
     private void startUserSession(User user) {
         // Iniciar sesión automáticamente
         UserSession session = new UserSession();
+        session.setId(UUID.randomUUID());
         session.setUserId(user.getId());
         session.setDeviceId(DEVICE_ID + "-" + user.getId().toString().substring(0, 8));
         session.setDeviceName(DEVICE_NAME);

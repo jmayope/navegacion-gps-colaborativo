@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/chats")
+@RequestMapping("/chats")
 @CrossOrigin(origins = "*")
 public class ChatController {
     

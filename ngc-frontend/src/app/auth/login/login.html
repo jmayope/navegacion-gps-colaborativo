@@ -1,1 +1,40 @@
-<p>login works!</p>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-4 pt-5 offset-4">
+      <div class="card">
+        <div class="card-body p-5">
+          <div class="row">
+            <form #loginForm="ngForm">
+              <div class="col-12 text-center">
+                <img src="/images/logo.png" alt="SafeRoute"> <br>
+                <strong class="text-primary font-lg">Ruta Segura</strong>
+              </div>
+              <div class="col-12">
+                <span>Bienvenido, utiliza tu correo electrónico para iniciar sesión.</span>
+              </div>
+              <div class="col-12 mt-3">
+                <small class="text-secondary">Correo Electrónico</small>
+                <input type="text" name="email" [(ngModel)]="credentials.email" class="form-control" required>
+              </div>
+              <div class="col-12">
+                <small class="text-secondary">Contraseña</small>
+                <input type="password" name="password" [(ngModel)]="credentials.password" class="form-control" required>
+              </div>
+              <div class="col-12 mt-3 text-center">
+                <button class="btn btn-sm btn-primary" [disabled]="loginForm.invalid" (click)="login()">
+                  <i class="fa fa-arrow-right me-1"></i>Ingresar
+                </button>
+              </div>
+              <div class="col-12 mt-3 text-center">
+                Si no tienes cuenta. 
+                <button class="btn btn-link btn-sm" (click)="goToRegister()">
+                  <i class="fa fa-plus me-1"></i>Crea tu Cuenta Aqui
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
