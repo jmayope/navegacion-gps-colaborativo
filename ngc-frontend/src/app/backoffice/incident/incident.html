@@ -1,1 +1,213 @@
-<h1>GHola</h1>
+<main class="container-fluid py-4 incidents-page">
+  <header class="page-hero row align-items-center g-3 mx-0 mb-4">
+    <div class="col-12 col-lg">
+      <p class="eyebrow">CENTRO DE CONTROL</p>
+      <h1>Gestión de incidencias</h1>
+      <p>Monitorea los reportes de la comunidad y mantén seguras las rutas activas.</p>
+    </div>
+    <div class="col-12 col-lg-auto hero-actions"><button type="button" class="btn btn-light" (click)="refresh()"><i
+          class="fa-solid fa-rotate-right me-1"></i> Actualizar</button><button type="button" class="btn btn-danger"
+        (click)="create()"><i class="fa-solid fa-plus me-1"></i> Nueva incidencia</button></div>
+  </header>
+
+  <section class="row g-3 mb-4">
+    <div class="col-12 col-sm-6 col-xl-3">
+      <article class="metric-card h-100"><i class="fa-solid fa-triangle-exclamation danger"></i>
+        <div><span>Activas</span><strong>{{ activeCount }}</strong><small>Requieren seguimiento</small></div>
+      </article>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-3">
+      <article class="metric-card h-100"><i class="fa-solid fa-bell warning"></i>
+        <div><span>Críticas</span><strong>{{ criticalCount }}</strong><small>Prioridad inmediata</small></div>
+      </article>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-3">
+      <article class="metric-card h-100"><i class="fa-solid fa-clock blue"></i>
+        <div><span>Últimas 24 h</span><strong>17</strong><small>Reportes registrados</small></div>
+      </article>
+    </div>
+    <div class="col-12 col-sm-6 col-xl-3">
+      <article class="metric-card h-100"><i class="fa-solid fa-circle-check success"></i>
+        <div><span>Resueltas</span><strong>{{ resolvedCount }}</strong><small>Atendidas hoy</small></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="alert alert-danger d-flex flex-column flex-md-row align-items-md-center gap-3 mb-4 priority-alert"
+    *ngIf="criticalCount"><i class="fa-solid fa-bell fs-4"></i>
+    <div class="flex-grow-1"><strong>Alerta prioritaria: reporte de pánico activo</strong>
+      <p class="mb-0">#INC-0248 · Accidente vehicular en Av. Javier Prado Este 2450.</p>
+    </div><button type="button" class="btn btn-outline-danger" (click)="detail(incidents[0])">Ver reporte</button>
+  </section>
+
+  <section class="row g-3 mb-4">
+    <div class="col-12 col-lg-4">
+      <article class="insight-card h-100">
+        <h2><i class="fa-solid fa-location-dot"></i> Zonas con más reportes</h2>
+        <p>Av. Javier Prado <b>8</b></p>
+        <p>Panamericana Sur <b>6</b></p>
+        <p>Av. Arequipa <b>4</b></p>
+      </article>
+    </div>
+    <div class="col-12 col-lg-4">
+      <article class="insight-card h-100">
+        <h2><i class="fa-solid fa-chart-line"></i> Tipos más reportados</h2>
+        <p>Tráfico <b>10</b></p>
+        <p>Accidentes <b>7</b></p>
+        <p>Peligros en vía <b>5</b></p>
+      </article>
+    </div>
+    <div class="col-12 col-lg-4">
+      <article class="insight-card h-100">
+        <h2><i class="fa-solid fa-stopwatch"></i> Atención de hoy</h2><strong class="minutes">18
+          <small>min</small></strong>
+        <p>Tiempo promedio de resolución</p><span class="trend">↓ 12% menos que ayer</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="incidents-panel card border-0">
+    <header
+      class="card-header bg-white d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+      <div>
+        <p class="eyebrow blue-text">REGISTRO OPERATIVO</p>
+        <h2>Bandeja de incidencias</h2>
+        <p>Consulta, filtra y da seguimiento a cada reporte recibido.</p>
+      </div><span class="counter">{{ filtered.length }} resultados</span>
+    </header>
+    <div class="filters card-body"><label class="input-group"><span class="input-group-text"><i
+            class="fa-solid fa-magnifying-glass"></i></span><input class="form-control" type="search"
+          [(ngModel)]="search" (ngModelChange)="filter()"
+          placeholder="Buscar código, ubicación o usuario"></label><select class="form-select" [(ngModel)]="typeFilter"
+        (change)="filter()">
+        <option value="">Todos los tipos</option>
+        <option>Accidente</option>
+        <option>Robo</option>
+        <option>Tráfico</option>
+        <option>Cierre de vía</option>
+        <option>Peligro</option>
+      </select><select class="form-select" [(ngModel)]="severityFilter" (change)="filter()">
+        <option value="">Toda severidad</option>
+        <option>Crítica</option>
+        <option>Alta</option>
+        <option>Media</option>
+        <option>Baja</option>
+      </select><select class="form-select" [(ngModel)]="statusFilter" (change)="filter()">
+        <option value="">Todos los estados</option>
+        <option>Activa</option>
+        <option>Resuelta</option>
+      </select><button type="button" class="btn btn-light" (click)="clear()">Limpiar</button></div>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Incidencia</th>
+            <th>Ubicación y ruta</th>
+            <th>Reportado por</th>
+            <th>Severidad</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of visible">
+            <td data-label="Incidencia"><b>{{ item.code }}</b><span><i class="fa-solid" [ngClass]="icon(item.type)"></i>
+                {{ item.type }}</span></td>
+            <td data-label="Ubicación"><b>{{ item.address }}</b><span>{{ item.route }} · Segmento {{ item.segment
+                }}</span></td>
+            <td data-label="Reportado por"><b>{{ item.reporter }}</b><span>Usuario reportante</span></td>
+            <td data-label="Severidad"><em [ngClass]="color(item.severity)">{{ item.severity }}</em></td>
+            <td data-label="Estado"><em class="state" [class.resolved]="item.isResolved">{{ item.isResolved ? 'Resuelta'
+                : 'Activa' }}</em><small *ngIf="item.isPanic">🔔 Alerta de pánico</small></td>
+            <td data-label="Fecha"><b>{{ item.date }}</b><span>{{ item.elapsed }}</span></td>
+            <td><button type="button" class="view" (click)="detail(item)"><i class="fa-regular fa-eye"></i></button>
+            </td>
+          </tr>
+          <tr *ngIf="!visible.length">
+            <td colspan="7" class="empty">No encontramos incidencias con esos filtros.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <footer><span>Mostrando {{ visible.length }} de {{ filtered.length }} incidencias</span>
+      <div><button (click)="page(currentPage-1)" [disabled]="currentPage===1">Anterior</button><span>Página {{
+          currentPage }} de {{ totalPages }}</span><button (click)="page(currentPage+1)"
+          [disabled]="currentPage===totalPages">Siguiente</button></div>
+    </footer>
+  </section>
+</main>
+
+<div class="modal d-block" tabindex="-1" *ngIf="showDetail && selectedIncident">
+  <div class="modal-dialog modal-dialog-centered">
+    <section class="modal-content dialog">
+      <header class="modal-header">
+        <div>
+          <p class="eyebrow blue-text">DETALLE DEL REPORTE</p>
+          <h2 class="modal-title">{{ selectedIncident.code }}</h2>
+        </div><button type="button" class="btn-close" (click)="close()"></button>
+      </header>
+      <div class="modal-body dialog-body">
+        <h3><i class="fa-solid" [ngClass]="icon(selectedIncident.type)"></i> {{ selectedIncident.type }} <em
+            [ngClass]="color(selectedIncident.severity)">{{ selectedIncident.severity }}</em></h3>
+        <p>{{ selectedIncident.description }}</p>
+        <dl>
+          <div>
+            <dt>Ubicación</dt>
+            <dd>{{ selectedIncident.address }}</dd>
+          </div>
+          <div>
+            <dt>Ruta y segmento</dt>
+            <dd>{{ selectedIncident.route }} · {{ selectedIncident.segment }}</dd>
+          </div>
+          <div>
+            <dt>Reportado por</dt>
+            <dd>{{ selectedIncident.reporter }}</dd>
+          </div>
+          <div>
+            <dt>Fecha</dt>
+            <dd>{{ selectedIncident.date }}</dd>
+          </div>
+        </dl>
+      </div>
+      <footer class="modal-footer"><button type="button" class="btn btn-light" (click)="close()">Cerrar</button><button
+          type="button" class="btn btn-primary" *ngIf="!selectedIncident.isResolved"
+          (click)="resolve(selectedIncident)">Marcar como resuelta</button></footer>
+    </section>
+  </div>
+</div>
+<div class="modal d-block" tabindex="-1" *ngIf="showForm">
+  <div class="modal-dialog modal-dialog-centered">
+    <section class="modal-content dialog">
+      <header class="modal-header">
+        <div>
+          <p class="eyebrow blue-text">NUEVO REPORTE</p>
+          <h2 class="modal-title">Registrar incidencia</h2>
+        </div><button type="button" class="btn-close" (click)="close()"></button>
+      </header>
+      <form class="modal-body dialog-body form-grid" (ngSubmit)="save()"><label>Tipo<select class="form-select"
+            [(ngModel)]="newIncident.type" name="type">
+            <option>Accidente</option>
+            <option>Robo</option>
+            <option>Tráfico</option>
+            <option>Cierre de vía</option>
+            <option>Peligro</option>
+          </select></label><label>Severidad<select class="form-select" [(ngModel)]="newIncident.severity"
+            name="severity">
+            <option>Crítica</option>
+            <option>Alta</option>
+            <option>Media</option>
+            <option>Baja</option>
+          </select></label><label>Dirección<input class="form-control" [(ngModel)]="newIncident.address" name="address"
+            required></label><label>Ruta<input class="form-control" [(ngModel)]="newIncident.route" name="route"
+            required></label><label>Segmento<input class="form-control" [(ngModel)]="newIncident.segment" name="segment"
+            required></label><label class="wide">Descripción<textarea class="form-control"
+            [(ngModel)]="newIncident.description" name="description" required></textarea></label><label
+          class="wide check"><input class="form-check-input me-2" type="checkbox" [(ngModel)]="newIncident.isPanic"
+            name="panic"> Alerta de pánico</label></form>
+      <footer class="modal-footer"><button type="button" class="btn btn-light"
+          (click)="close()">Cancelar</button><button type="button" class="btn btn-primary" (click)="save()">Guardar
+          incidencia</button></footer>
+    </section>
+  </div>
+</div>
