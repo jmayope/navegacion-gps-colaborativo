@@ -108,17 +108,17 @@ public class AuthService {
         User user = userService.findByEmail(request.getEmail());
         
         if (user == null) {
-            return new AuthResponse("Credenciales inválidas", false);
+            return new AuthResponse("Credenciales inválidas", true);
         }
         
         // Validar contraseña
         if (!matchesPassword(request.getPassword(), user.getPassword())) {
-            return new AuthResponse("Credenciales inválidas", false);
+            return new AuthResponse("Credenciales inválidas", true);
         }
         
         // Verificar si está activo
         if (!user.getIsActive()) {
-            return new AuthResponse("La cuenta está desactivada. Contacte al soporte.", false);
+            return new AuthResponse("La cuenta está desactivada. Contacte al soporte.", true);
         }
         
         // Actualizar última actividad
