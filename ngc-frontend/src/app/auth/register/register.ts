@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Main } from '../../services/main';
+import { loadingAlert, messageAlert } from '../../constants';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +18,8 @@ import { Router } from '@angular/router';
 export class Register implements OnInit {
 
   constructor(
-    private Router: Router
+    private Router: Router,
+    private Main: Main
   ) {
 
   }
@@ -28,12 +32,21 @@ export class Register implements OnInit {
 
   newUser: any = {};
 
+  registering: boolean = false;
+
   ngOnInit(): void {
       
   }
 
   async register() {
+    this.registering = true;
+    loadingAlert("Registrando el Usuario");
     console.log(this.newUser);
+    let newUser = structuredClone(this.newUser);
+    let resultRegister = await this.Main.registerUser(newUser);
+    console.log(resultRegister);
+    Swal.close();
+    messageAlert("Éxito", "Se registró correctamente el usuario", 'success');
   }
 
   togglePassword() {
