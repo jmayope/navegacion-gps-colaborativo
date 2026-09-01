@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row mt-5">
-    <div class="col-4 pt-5 offset-4">
+    <div class="col-4 offset-4">
       <div class="card">
         <div class="card-body p-5">
           <div class="row">
@@ -18,7 +18,12 @@
               </div>
               <div class="col-12">
                 <small class="text-secondary">Contraseña</small>
-                <input type="password" name="password" [(ngModel)]="credentials.password" class="form-control" required>
+                <div class="input-group mb-3">
+                  <input [type]="showPassword ? 'text' : 'password'" name="password" [(ngModel)]="credentials.password" class="form-control" required>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="toggleShowPassword()">
+                    <i class="fa" [ngClass]="{'fa-eye': !showPassword, 'fa-eye-slash': showPassword}"></i>
+                  </button>
+                </div>
               </div>
               <div class="col-12 text-end">
                 <button class="btn btn-sm btn-link" (click)="goToForgotPassword()">

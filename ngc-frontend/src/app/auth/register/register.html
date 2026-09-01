@@ -58,7 +58,7 @@
                 <button class="btn btn-light text-danger me-5" (click)="goToBack()">
                   <i class="fa fa-arrow-left me-1"></i>Volver
                 </button>
-                <button class="btn btn-sm btn-primary ms-5" (click)="register()" [disabled]="registerForm.invalid">
+                <button class="btn btn-sm btn-primary ms-5" (click)="register()" [disabled]="registerForm.invalid || registering">
                   <i class="fa fa-save me-1"></i>Registrar
                 </button>
               </div>

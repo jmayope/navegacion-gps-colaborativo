@@ -14,6 +14,8 @@ public class AuthResponse {
     private Boolean isVerified;
     @JsonProperty("is_active")
     private Boolean isActive;
+    @JsonProperty("is_admin")
+    private Boolean isAdmin;
     private String token;
     @JsonProperty("token_type")
     private String tokenType = "Bearer";
@@ -24,13 +26,14 @@ public class AuthResponse {
     
     // Constructor para éxito
     public AuthResponse(UUID id, String email, String fullName, 
-                        Boolean isVerified, Boolean isActive, String token, 
+                        Boolean isVerified, Boolean isActive, Boolean isAdmin, String token, 
                         OffsetDateTime expiresAt, String message) {
         this.id = id;
         this.email = email;
         this.fullName = fullName;
         this.isVerified = isVerified;
         this.isActive = isActive;
+        this.isAdmin = isAdmin;
         this.token = token;
         this.expiresAt = expiresAt;
         this.message = message;
@@ -82,6 +85,14 @@ public class AuthResponse {
     
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+    
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
     
     public String getToken() {

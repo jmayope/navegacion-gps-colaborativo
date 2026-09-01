@@ -93,6 +93,7 @@ public class AuthService {
             saved.getFullName(),
             saved.getIsVerified(),
             saved.getIsActive(),
+            saved.getIsAdmin(),
             token,
             expiresAt,
             "Usuario registrado exitosamente"
@@ -108,17 +109,17 @@ public class AuthService {
         User user = userService.findByEmail(request.getEmail());
         
         if (user == null) {
-            return new AuthResponse("Credenciales inválidas", false);
+            return new AuthResponse("Credenciales inválidas", true);
         }
         
         // Validar contraseña
         if (!matchesPassword(request.getPassword(), user.getPassword())) {
-            return new AuthResponse("Credenciales inválidas", false);
+            return new AuthResponse("Credenciales inválidas", true);
         }
         
         // Verificar si está activo
         if (!user.getIsActive()) {
-            return new AuthResponse("La cuenta está desactivada. Contacte al soporte.", false);
+            return new AuthResponse("La cuenta está desactivada. Contacte al soporte.", true);
         }
         
         // Actualizar última actividad
@@ -138,6 +139,7 @@ public class AuthService {
             user.getFullName(),
             user.getIsVerified(),
             user.getIsActive(),
+            user.getIsAdmin(),
             token,
             expiresAt,
             "Login exitoso"
@@ -244,6 +246,7 @@ public class AuthService {
             user.getFullName(),
             user.getIsVerified(),
             user.getIsActive(),
+            user.getIsAdmin(),
             newToken,
             expiresAt,
             "Token refrescado exitosamente"

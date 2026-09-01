@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Incident } from './incident';
+import { MovementsHistory } from './movements-history';
 
-describe('Incident', () => {
-  let component: Incident;
-  let fixture: ComponentFixture<Incident>;
+describe('MovementsHistory', () => {
+  let component: MovementsHistory;
+  let fixture: ComponentFixture<MovementsHistory>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Incident]
-    })
-      .compileComponents();
+      imports: [MovementsHistory],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(Incident);
+    fixture = TestBed.createComponent(MovementsHistory);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
