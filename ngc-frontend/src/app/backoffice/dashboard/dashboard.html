@@ -1,1 +1,415 @@
-<p>dashboard works!</p>
+<!-- KPIs -->
+<div class="row g-3 mb-3">
+  <div class="col-6 col-lg-3">
+    <div class="rs-kpi-card">
+      <div class="rs-kpi-icon" style="background:var(--rs-azul-claro); color:var(--rs-azul-ruta);"><i
+          class="fa-solid fa-users"></i></div>
+      <div class="rs-kpi-label">Usuarios activos</div>
+      <div class="rs-kpi-value">24</div>
+      <div class="d-flex align-items-center justify-content-between mt-1">
+        <span class="rs-kpi-sub">de 32 registrados</span>
+        <span class="rs-kpi-delta text-success"><i class="fa-solid fa-arrow-up"></i> 12%</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="rs-kpi-card">
+      <div class="rs-kpi-icon" style="background:var(--rs-verde-claro); color:var(--rs-verde-seguro);"><i
+          class="fa-solid fa-route"></i></div>
+      <div class="rs-kpi-label">Rutas en curso</div>
+      <div class="rs-kpi-value">8</div>
+      <div class="d-flex align-items-center justify-content-between mt-1">
+        <span class="rs-kpi-sub">de 12 planificadas</span>
+        <span class="rs-kpi-delta text-success"><i class="fa-solid fa-arrow-up"></i> 33%</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="rs-kpi-card">
+      <div class="rs-kpi-icon" style="background:var(--rs-rojo-claro); color:var(--rs-rojo-alerta);"><i
+          class="fa-solid fa-triangle-exclamation"></i></div>
+      <div class="rs-kpi-label">Incidencias hoy</div>
+      <div class="rs-kpi-value">3</div>
+      <div class="d-flex align-items-center justify-content-between mt-1">
+        <span class="rs-kpi-sub">2 resueltas</span>
+        <span class="rs-kpi-delta text-danger"><i class="fa-solid fa-arrow-up"></i> 50%</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="rs-kpi-card">
+      <div class="rs-kpi-icon" style="background:var(--rs-morado-claro); color:var(--rs-morado-chat);"><i
+          class="fa-solid fa-flag-checkered"></i></div>
+      <div class="rs-kpi-label">Viajes completados</div>
+      <div class="rs-kpi-value">18</div>
+      <div class="d-flex align-items-center justify-content-between mt-1">
+        <span class="rs-kpi-sub">hoy</span>
+        <span class="rs-kpi-delta text-success"><i class="fa-solid fa-arrow-up"></i> 22%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mapa + Rutas en curso -->
+<div class="row g-3 mb-3">
+  <div class="col-lg-8">
+    <div class="rs-panel">
+      <div class="rs-panel-header">
+        <h5>Ubicación en tiempo real</h5>
+      </div>
+
+      <div class="rs-map-wrap">
+        <svg viewBox="0 0 900 380" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="900" height="380" fill="#EAF2E6" />
+          <path d="M0 260 Q120 230 260 250 T520 230 T900 260 L900 380 L0 380 Z" fill="#D9E8CE" />
+          <path d="M0 0 L260 0 Q120 60 0 120 Z" fill="#BFE0F0" />
+          <circle cx="120" cy="60" r="55" fill="#BFE0F0" />
+          <g stroke="#CBD9BE" stroke-width="6" fill="none" opacity=".6">
+            <path d="M40 90 L860 130" />
+            <path d="M60 200 L840 240" />
+            <path d="M300 20 L340 360" />
+            <path d="M600 10 L640 370" />
+          </g>
+          <path d="M150 250 C 250 230, 300 190, 400 190 S 560 150, 650 130 S 780 100, 800 90" stroke="#2563EB"
+            stroke-width="5" fill="none" stroke-linecap="round" />
+          <circle cx="770" cy="150" r="9" fill="#EF4444" />
+          <path d="M767 143 l6 0 l3 8 l-12 0 z" fill="#fff" />
+          <circle cx="150" cy="250" r="10" fill="#10B981" stroke="#fff" stroke-width="3" />
+          <text x="130" y="285" font-size="20" font-weight="700" fill="#0F172A"
+            font-family="Inter, sans-serif">Lima</text>
+          <circle cx="800" cy="90" r="11" fill="#EF4444" stroke="#fff" stroke-width="3" />
+          <text x="760" y="70" font-size="14" fill="#0F172A" font-family="Inter, sans-serif">Matucana</text>
+          <circle cx="650" cy="130" r="7" fill="#2563EB" stroke="#fff" stroke-width="2" />
+          <text x="600" y="155" font-size="13" fill="#334155" font-family="Inter, sans-serif">Chosica</text>
+          <circle cx="400" cy="190" r="6" fill="#2563EB" stroke="#fff" stroke-width="2" />
+          <circle cx="850" cy="120" r="6" fill="#334155" />
+          <text x="830" y="145" font-size="13" fill="#334155" font-family="Inter, sans-serif">San Mateo</text>
+          <circle cx="440" cy="320" r="6" fill="#334155" />
+          <text x="420" y="340" font-size="13" fill="#334155" font-family="Inter, sans-serif">Lurín</text>
+        </svg>
+
+        <div class="rs-map-controls">
+          <button><i class="fa-solid fa-plus"></i></button>
+          <button><i class="fa-solid fa-minus"></i></button>
+          <button><i class="fa-solid fa-location-crosshairs"></i></button>
+        </div>
+
+        <div class="btn-group rs-map-toggle btn-group-map" role="group">
+          <button type="button" class="btn btn-primary">Mapa</button>
+          <button type="button" class="btn btn-light bg-white border">Satélite</button>
+        </div>
+
+        <div class="rs-map-user-card">
+          <div class="u-header">
+            <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
+            <div>
+              <div class="u-name">Carlos Mendoza</div>
+              <div class="u-status"><i class="fa-solid fa-circle" style="font-size:6px;"></i> En ruta</div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <div class="stat-label">Velocidad</div>
+              <div class="stat-value">62 km/h</div>
+            </div>
+            <div>
+              <div class="stat-label">Última ubicación</div>
+              <div class="stat-value">-11.8432, -76.6498</div>
+            </div>
+          </div>
+          <div class="text-secondary mt-2" style="font-size:.7rem;">Hace 2 min</div>
+        </div>
+
+        <div class="rs-map-legend">
+          <span><i class="rs-legend-dot" style="background:#2563EB;"></i> En ruta</span>
+          <span><i class="rs-legend-dot" style="background:#EF4444;"></i> Incidencia</span>
+          <span><i class="rs-legend-dot" style="background:#2563EB;"></i> Usuario</span>
+          <span><i class="rs-legend-dot" style="background:#EF4444;"></i> Destino</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="rs-panel">
+      <div class="rs-panel-header">
+        <h5>Rutas en curso</h5>
+        <a href="#" class="rs-panel-link">Ver todas <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <table class="rs-table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
+                <div>
+                  <div class="fw-semibold text-dark">Carlos Mendoza</div>
+                  <div class="text-secondary" style="font-size:.74rem;">Lima → Matucana</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="rs-pill rs-pill-success">En progreso</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
+                <div>
+                  <div class="fw-semibold text-dark">Ana Torres</div>
+                  <div class="text-secondary" style="font-size:.74rem;">Chosica → San Mateo</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="rs-pill rs-pill-success">En progreso</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
+                <div>
+                  <div class="fw-semibold text-dark">Luis Ramírez</div>
+                  <div class="text-secondary" style="font-size:.74rem;">Lima → Huaral</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="rs-pill rs-pill-primary">Planificando</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
+                <div>
+                  <div class="fw-semibold text-dark">María López</div>
+                  <div class="text-secondary" style="font-size:.74rem;">Lurín → Pachacamac</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="rs-pill rs-pill-success">En progreso</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Incidencias / Ánimo / Chats -->
+<div class="row g-3">
+  <div class="col-lg-5">
+    <div class="rs-panel">
+      <div class="rs-panel-header">
+        <h5>Incidencias recientes</h5>
+        <a href="#" class="rs-panel-link">Ver todas <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <table class="rs-table">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Severidad</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-type-icon" style="background:var(--rs-rojo-claro); color:var(--rs-rojo-alerta);"><i
+                    class="fa-solid fa-car-burst"></i></div>
+                <div>
+                  <div class="fw-semibold text-dark">Accidente</div>
+                  <div class="text-secondary" style="font-size:.74rem;">Carlos Mendoza · 16:32</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="rs-pill rs-pill-danger">Alta</span></td>
+            <td><span class="rs-pill rs-pill-warning">Pendiente</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-type-icon" style="background:var(--rs-ambar-claro); color:var(--rs-ambar-aviso);"><i
+                    class="fa-solid fa-triangle-exclamation"></i></div>
+                <div>
+                  <div class="fw-semibold text-dark">Tráfico</div>
+                  <div class="text-secondary" style="font-size:.74rem;">Ana Torres · 15:47</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="rs-pill rs-pill-warning">Media</span></td>
+            <td><span class="rs-pill rs-pill-success">Resuelta</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-type-icon" style="background:var(--rs-morado-claro); color:var(--rs-morado-chat);"><i
+                    class="fa-solid fa-user-ninja"></i></div>
+                <div>
+                  <div class="fw-semibold text-dark">Robo</div>
+                  <div class="text-secondary" style="font-size:.74rem;">Luis Ramírez · 14:20</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="rs-pill rs-pill-danger">Crítica</span></td>
+            <td><span class="rs-pill rs-pill-warning">Pendiente</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-type-icon" style="background:var(--rs-azul-claro); color:var(--rs-azul-ruta);"><i
+                    class="fa-solid fa-road-barrier"></i></div>
+                <div>
+                  <div class="fw-semibold text-dark">Obstáculo</div>
+                  <div class="text-secondary" style="font-size:.74rem;">María López · 12:15</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="rs-pill rs-pill-warning">Media</span></td>
+            <td><span class="rs-pill rs-pill-success">Resuelta</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="rs-panel">
+      <div class="rs-panel-header">
+        <h5>Estado de ánimo</h5>
+        <a href="#" class="rs-panel-link">Ver todos <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="rs-donut">
+        <div class="rs-donut-center">
+          <span class="value">4.2</span>
+          <span class="label">Promedio</span>
+        </div>
+      </div>
+
+      <div class="rs-mood-legend">
+        <div class="row-item">
+          <span class="left"><i class="rs-legend-dot" style="background:var(--rs-verde-seguro);"></i> Bien</span>
+          <span>68%</span>
+        </div>
+        <div class="row-item">
+          <span class="left"><i class="rs-legend-dot" style="background:var(--rs-ambar-aviso);"></i> Regular</span>
+          <span>22%</span>
+        </div>
+        <div class="row-item">
+          <span class="left"><i class="rs-legend-dot" style="background:var(--rs-rojo-alerta);"></i> Mal</span>
+          <span>10%</span>
+        </div>
+      </div>
+
+      <div class="text-secondary fw-semibold mb-2" style="font-size:.78rem;">Últimos registros</div>
+      <div class="rs-mood-log">
+        <div class="log-row">
+          <span class="log-time">16:28</span>
+          <i class="fa-regular fa-face-smile text-success"></i>
+          <span>Bien</span>
+          <span class="log-place">En ruta - Lima</span>
+        </div>
+        <div class="log-row">
+          <span class="log-time">14:12</span>
+          <i class="fa-regular fa-face-meh text-warning"></i>
+          <span>Regular</span>
+          <span class="log-place">En ruta - Chosica</span>
+        </div>
+        <div class="log-row">
+          <span class="log-time">11:03</span>
+          <i class="fa-regular fa-face-smile text-success"></i>
+          <span>Bien</span>
+          <span class="log-place">En ruta - Lurín</span>
+        </div>
+        <div class="log-row">
+          <span class="log-time">09:45</span>
+          <i class="fa-regular fa-face-frown text-danger"></i>
+          <span>Mal</span>
+          <span class="log-place">En ruta - Lima</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="rs-panel">
+      <div class="rs-panel-header">
+        <h5>Chats y comparticiones</h5>
+        <a href="#" class="rs-panel-link">Ver todos <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="rs-chat-item">
+        <div class="rs-chat-icon" style="background:var(--rs-azul-claro); color:var(--rs-azul-ruta);"><i
+            class="fa-solid fa-people-group"></i></div>
+        <div class="flex-grow-1">
+          <div class="d-flex justify-content-between">
+            <span class="rs-chat-name">Grupo Familia</span>
+            <span class="rs-chat-time">16:20</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="rs-chat-msg">Todo bien, ya llegué a destino.</span>
+            <span class="rs-chat-unread">2</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rs-chat-item">
+        <div class="rs-chat-icon" style="background:var(--rs-gris-fondo); color:var(--rs-gris-texto);"><i
+            class="fa-solid fa-user"></i></div>
+        <div class="flex-grow-1">
+          <div class="d-flex justify-content-between">
+            <span class="rs-chat-name">Ana Torres</span>
+            <span class="rs-chat-time">15:47</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="rs-chat-msg">Compartió su ubicación</span>
+            <span class="rs-chat-unread">1</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rs-chat-item">
+        <div class="rs-chat-icon" style="background:var(--rs-rojo-claro); color:var(--rs-rojo-alerta);"><i
+            class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="flex-grow-1">
+          <div class="d-flex justify-content-between">
+            <span class="rs-chat-name">Alerta de incidente</span>
+            <span class="rs-chat-time">14:20</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="rs-chat-msg">Se reportó un accidente en el km 32...</span>
+            <span class="rs-chat-unread">3</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rs-chat-item">
+        <div class="rs-chat-icon" style="background:var(--rs-gris-fondo); color:var(--rs-gris-texto);"><i
+            class="fa-solid fa-user"></i></div>
+        <div class="flex-grow-1">
+          <div class="d-flex justify-content-between">
+            <span class="rs-chat-name">Luis Ramírez</span>
+            <span class="rs-chat-time">12:11</span>
+          </div>
+          <span class="rs-chat-msg">Aquí está la ruta alternativa.</span>
+        </div>
+      </div>
+
+      <div class="rs-chat-item">
+        <div class="rs-chat-icon" style="background:var(--rs-azul-claro); color:var(--rs-azul-ruta);"><i
+            class="fa-solid fa-link"></i></div>
+        <div class="flex-grow-1">
+          <div class="d-flex justify-content-between">
+            <span class="rs-chat-name">Compartición de ruta</span>
+            <span class="rs-chat-time">10:33</span>
+          </div>
+          <span class="rs-chat-msg">Enlace de seguimiento activo.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

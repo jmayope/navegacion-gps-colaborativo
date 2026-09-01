@@ -58,162 +58,21 @@
 
     <nav class="rs-sidebar-nav">
 
-
-      <!-- Inicio -->
-      <a
-        href="#"
-        class="nav-link"
-        [class.active]="activeModule === 'Inicio'"
-        title="Inicio"
-        (click)="$event.preventDefault(); selectModule('Inicio')">
-
-        <i class="fa-solid fa-house"></i>
-
-        <span class="link-label">
-          Inicio
-        </span>
-
-      </a>
-
-
-      <!-- Usuarios -->
-      <a
-        href="#"
-        class="nav-link"
-        [class.active]="activeModule === 'Usuarios'"
-        title="Usuarios"
-        (click)="$event.preventDefault(); selectModule('Usuarios')">
-
-        <i class="fa-solid fa-users"></i>
-
-        <span class="link-label">
-          Usuarios
-        </span>
-
-      </a>
-
-
-      <!-- Rutas -->
-      <a
-        href="#"
-        class="nav-link"
-        [class.active]="activeModule === 'Rutas'"
-        title="Rutas"
-        (click)="$event.preventDefault(); selectModule('Rutas')">
-
-        <i class="fa-solid fa-route"></i>
-
-        <span class="link-label">
-          Rutas
-        </span>
-
-      </a>
-
-
-      <!-- Incidencias -->
-      <a
-        href="#"
-        class="nav-link"
-        [class.active]="activeModule === 'Incidencias'"
-        title="Incidencias"
-        (click)="$event.preventDefault(); selectModule('Incidencias')">
-
-        <i class="fa-solid fa-triangle-exclamation"></i>
-
-        <span class="link-label">
-          Incidencias
-        </span>
-
-        <span class="nav-badge">
-          3
-        </span>
-
-      </a>
-
-
-      <!-- Acompañamiento -->
-      <a
-        href="#"
-        class="nav-link"
-        [class.active]="activeModule === 'Acompañamiento'"
-        title="Acompañamiento"
-        (click)="$event.preventDefault(); selectModule('Acompañamiento')">
-
-        <i class="fa-solid fa-user-shield"></i>
-
-        <span class="link-label">
-          Acompañamiento
-        </span>
-
-      </a>
-
-
-      <!-- Historial -->
-      <a
-        href="#"
-        class="nav-link"
-        [class.active]="activeModule === 'Historial de Movimientos'"
-        title="Historial de Movimientos"
-        (click)="$event.preventDefault(); selectModule('Historial de Movimientos')">
-
-        <i class="fa-solid fa-clock-rotate-left"></i>
-
-        <span class="link-label">
-          Historial de Movimientos
-        </span>
-
-      </a>
-
-
-      <!-- Chats -->
-      <a
-        href="#"
-        class="nav-link"
-        [class.active]="activeModule === 'Chats / Comparticiones'"
-        title="Chats / Comparticiones"
-        (click)="$event.preventDefault(); selectModule('Chats / Comparticiones')">
-
-        <i class="fa-solid fa-comment-dots"></i>
-
-        <span class="link-label">
-          Chats / Comparticiones
-        </span>
-
-      </a>
-
-
-      <!-- Reportes -->
-      <a
-        href="#"
-        class="nav-link"
-        [class.active]="activeModule === 'Reportes'"
-        title="Reportes"
-        (click)="$event.preventDefault(); selectModule('Reportes')">
-
-        <i class="fa-solid fa-file-lines"></i>
-
-        <span class="link-label">
-          Reportes
-        </span>
-
-      </a>
-
-
-      <!-- Configuración -->
-      <a
-        href="#"
-        class="nav-link"
-        [class.active]="activeModule === 'Configuración'"
-        title="Configuración"
-        (click)="$event.preventDefault(); selectModule('Configuración')">
-
-        <i class="fa-solid fa-gear"></i>
-
-        <span class="link-label">
-          Configuración
-        </span>
-
-      </a>
+      <ng-container *ngFor="let m of modules">
+        <a
+          class="nav-link hand"
+          [class.active]="activeModule === m.code"
+          title="{{m.name}}"
+          (click)="selectModule(m.code)">
+          <i class="{{m.icon}}"></i>
+          <span class="link-label">
+            {{m.name}}
+          </span>
+          <span *ngIf="m.badge" class="nav-badge">
+            {{m.badge}}
+          </span>
+        </a>
+      </ng-container>
 
     </nav>
 
@@ -357,7 +216,7 @@
             <div class="rs-user-meta d-none d-sm-block">
 
               <span class="u-name">
-                Jorge Mayo
+                {{user_loged.short_name}}
               </span>
 
               <span class="u-role">
@@ -381,9 +240,8 @@
             [class.show]="userDropdownOpen">
 
 
-            <a
-              href="#"
-              (click)="$event.preventDefault()">
+            <a class="hand"
+              (click)="$event.preventDefault(); goToProfile()">
 
               <i class="fa-regular fa-user"></i>
 
@@ -392,9 +250,8 @@
             </a>
 
 
-            <a
-              href="#"
-              (click)="$event.preventDefault()">
+            <a class="hand"
+              (click)="goToSetting()">
 
               <i class="fa-solid fa-gear"></i>
 
@@ -403,7 +260,7 @@
             </a>
 
 
-            <a
+            <!-- <a
               href="#"
               (click)="$event.preventDefault()">
 
@@ -411,15 +268,14 @@
 
               Ayuda
 
-            </a>
+            </a> -->
 
 
             <hr>
 
 
             <a
-              href="#"
-              class="logout"
+              class="logout hand"
               (click)="logout()">
 
               <i class="fa-solid fa-right-from-bracket"></i>

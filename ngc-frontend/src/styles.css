@@ -12,6 +12,10 @@
   font-size: 38px !important;
 }
 
+.hand {
+  cursor: pointer;
+}
+
 /* =========================================================
    RUTASEGURA — Custom stylesheet
    Overrides Bootstrap 5 CSS variables with the RutaSegura
@@ -658,3 +662,4 @@ h1,h2,h3,h4,h5,h6{ color: var(--rs-azul-nocturno); font-weight: 800; }
   .rs-sidebar-backdrop{ display: none !important; }
   .rs-mobile-toggle{ display: none !important; }
 }
+

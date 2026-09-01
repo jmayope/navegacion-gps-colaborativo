@@ -93,6 +93,7 @@ public class AuthService {
             saved.getFullName(),
             saved.getIsVerified(),
             saved.getIsActive(),
+            saved.getIsAdmin(),
             token,
             expiresAt,
             "Usuario registrado exitosamente"
@@ -138,6 +139,7 @@ public class AuthService {
             user.getFullName(),
             user.getIsVerified(),
             user.getIsActive(),
+            user.getIsAdmin(),
             token,
             expiresAt,
             "Login exitoso"
@@ -244,6 +246,7 @@ public class AuthService {
             user.getFullName(),
             user.getIsVerified(),
             user.getIsActive(),
+            user.getIsAdmin(),
             newToken,
             expiresAt,
             "Token refrescado exitosamente"

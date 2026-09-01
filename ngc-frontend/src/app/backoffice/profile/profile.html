@@ -1,232 +1,222 @@
+<div class="page-header"> 
+    <div>
+        <h1>Mi perfil</h1>
+        <p>Información de tu cuenta y actividad</p>
+    </div>
+    
+    <button class="btn-edit">
+        <i class="fas fa-pen"></i>
+        Editar perfil
+    </button>
+</div>
 
-    <link rel="stylesheet" href="profile.css">
-<div class="profile-container">
-    <div class="page-header"> 
-        <div>
-            <div class="breadcrumb">
-                <span>Inicio</span> <i class="fas fa-chevron-right"></i>
-                <span class="active">Mi Perfil</span>
-            </div>
+<div class="profile-card">
 
-            <h1>Mi perfil</h1>
-            <p>Información de tu cuenta y actividad</p>
+    <div class="profile-user">
+        <div class="avatar-container">
+            <img src="https://img.magnific.com/vector-premium/avatar-mujer-sonriente_937492-6135.jpg?semt=ais_hybrid&w=740&q=80" alt="Foto de perfil" class="avatar">
+            <button class="camera-btn"><i class="fas fa-camera"></i> </button>
         </div>
-        
-        <button class="btn-edit">
-            <i class="fas fa-pen"></i>
-            Editar perfil
+
+        <div class="user-name">
+            <h2>Anghely </h2>
+            <span class="role">Administrador</span>
+            <p>Encargada de la administración de rutas y coordinación del sistema. </p>
+        </div>
+
+    </div>
+    <!-- Información del usuario -->
+    <div class="user-information">
+        <div class="info-item"> <i class="fas fa-envelope"></i>
+            <div>
+                <span>Correo electrónico</span>
+                <strong>anghely@rutasapp.com</strong>
+            </div>
+        </div>
+
+        <div class="info-item"> <i class="fas fa-phone"></i>
+            <div>
+                <span>Teléfono</span>
+                <strong>+51 90290393939</strong>
+            </div>
+        </div>
+
+        <div class="info-item"><i class="fas fa-user"></i>
+            <div>
+                <span>Nombre de usuario</span>
+                <strong>anghely</strong>
+            </div>
+        </div>
+
+        <div class="info-item"> <i class="fas fa-shield-alt"></i>
+            <div>
+                <span>Tipo de usuario</span>
+                <strong>Administrador</strong>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <i class="fas fa-calendar"></i>
+            <div>
+                <span>Miembro desde</span>
+                <strong>26 de Agosto, 2026</strong>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <i class="fas fa-check-circle status-icon"></i>
+            <div>
+                <span>Estado de la cuenta</span>
+                <strong class="status">Activa</strong>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="profile-actions">
+        <button class="action-btn"> <i class="fas fa-lock"></i>Cambiar contraseña </button>
+        <button class="action-btn"><i class="fas fa-shield-alt"></i> Configuración de seguridad</button>
+        <button class="action-btn logout"><i class="fas fa-sign-out-alt"></i>Cerrar sesión</button>
+    </div>
+</div>
+
+
+<div class="bottom-grid">
+
+
+    <div class="activity-card">
+        <div class="card-title"> <i class="fas fa-chart-line"></i>
+            <h3>Resumen de actividad</h3>
+        </div>
+        <div class="activity-item">
+            <div class="activity-icon purple"> <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+                <strong>Rutas creadas</strong>
+                <p>Total de rutas que has creado</p>
+            </div>
+            <strong class="number purple-text">12</strong>
+        </div>
+
+        <div class="activity-item">
+            <div class="activity-icon green"> <i class="fas fa-check"></i></div>
+            <div>
+                <strong>Rutas asignadas</strong>
+                <p>Rutas que tienes asignadas</p>
+            </div>
+            <strong class="number green-text">8</strong>
+        </div>
+
+
+        <div class="activity-item">
+            <div class="activity-icon red"><i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div>
+                <strong>Incidentes reportados</strong>
+                <p>Incidentes que has reportado</p>
+            </div>
+            <strong class="number red-text">5</strong>
+        </div>
+
+        <div class="activity-item">
+            <div class="activity-icon yellow"> <i class="fas fa-star"></i>
+            </div>
+            <div>
+                <strong>Calificación promedio</strong>
+                <p>De los pasajeros en tus rutas</p>
+            </div>
+            <strong class="number yellow-text">4.8 ★</strong>
+        </div>
+
+    </div>
+ 
+    <div class="route-card">
+        <div class="card-title">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Última ruta utilizada</h3>
+        </div>
+
+        <div class="map-placeholder">
+            <div class="route-line"></div>
+            <span class="map-start">●</span>
+            <span class="map-end">●</span>
+        </div>
+
+        <h4>Ruta: Centro - Terminal Terrestre</h4>
+
+        <div class="route-info">
+            <p><i class="fas fa-calendar"></i> Fecha: 25 de agosto, 2025 </p>
+            <p><i class="fas fa-clock"></i> Hora: 08:30 a. m. </p>
+            <p> <i class="fas fa-route"></i> Distancia: 12.4 km </p>
+            <p> <i class="fas fa-users"></i> Pasajeros: 18</p>
+        </div>
+        <button class="details-btn">
+            Ver detalles de la ruta
+            <i class="fas fa-arrow-right"></i>
         </button>
     </div>
 
-    <div class="profile-card">
 
-        <div class="profile-user">
-            <div class="avatar-container">
-                <img src="https://img.magnific.com/vector-premium/avatar-mujer-sonriente_937492-6135.jpg?semt=ais_hybrid&w=740&q=80" alt="Foto de perfil" class="avatar">
-                <button class="camera-btn"><i class="fas fa-camera"></i> </button>
-            </div>
 
-            <div class="user-name">
-                <h2>Anghely </h2>
-                <span class="role">Administrador</span>
-                <p>Encargada de la administración de rutas y coordinación del sistema. </p>
-            </div>
+    <div class="recent-card">
 
-        </div>
-        <!-- Información del usuario -->
-        <div class="user-information">
-            <div class="info-item"> <i class="fas fa-envelope"></i>
-                <div>
-                    <span>Correo electrónico</span>
-                    <strong>anghely@rutasapp.com</strong>
-                </div>
-            </div>
-
-            <div class="info-item"> <i class="fas fa-phone"></i>
-                <div>
-                    <span>Teléfono</span>
-                    <strong>+51 90290393939</strong>
-                </div>
-            </div>
-
-            <div class="info-item"><i class="fas fa-user"></i>
-                <div>
-                    <span>Nombre de usuario</span>
-                    <strong>anghely</strong>
-                </div>
-            </div>
-
-            <div class="info-item"> <i class="fas fa-shield-alt"></i>
-                <div>
-                    <span>Tipo de usuario</span>
-                    <strong>Administrador</strong>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <i class="fas fa-calendar"></i>
-                <div>
-                    <span>Miembro desde</span>
-                    <strong>26 de Agosto, 2026</strong>
-                </div>
-            </div>
-
-            <div class="info-item">
-                <i class="fas fa-check-circle status-icon"></i>
-                <div>
-                    <span>Estado de la cuenta</span>
-                    <strong class="status">Activa</strong>
-                </div>
-            </div>
+        <div class="card-title"> <i class="fas fa-clock"></i> <h3>Actividad reciente</h3>
         </div>
 
 
-        <div class="profile-actions">
-            <button class="action-btn"> <i class="fas fa-lock"></i>Cambiar contraseña </button>
-            <button class="action-btn"><i class="fas fa-shield-alt"></i> Configuración de seguridad</button>
-            <button class="action-btn logout"><i class="fas fa-sign-out-alt"></i>Cerrar sesión</button>
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="timeline-dot green-dot"></span>
+                <div>
+                    <strong>Inicio de sesión</strong>
+                    <p>Hoy a las 09:15 a. m.</p>
+                </div>
+            </div>
+
+
+            <div class="timeline-item">
+                <span class="timeline-dot blue-dot"></span>
+
+                <div>
+                    <strong>Creaste la ruta</strong>
+                    <p>Centro - Universidad</p>
+                    <small>Ayer a las 04:30 p. m.</small>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-dot red-dot"></span>
+
+                <div>
+                    <strong>Reportaste un incidente</strong>
+                    <p>Av. Los Próceres - Accidente leve</p>
+                    <small>22 de agosto, 2026</small>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-dot purple-dot"></span>
+
+                <div>
+                    <strong>Actualizaste la ruta</strong>
+                    <p>Centro - Terminal Terrestre</p>
+                    <small>20 de agosto, 2026</small>
+                </div>
+            </div>
         </div>
+        <button class="details-btn"> Ver toda la actividad <i class="fas fa-arrow-right"></i> </button>
     </div>
 
+</div>
 
-    <div class="bottom-grid">
-
-  
-        <div class="activity-card">
-            <div class="card-title"> <i class="fas fa-chart-line"></i>
-                <h3>Resumen de actividad</h3>
-            </div>
-            <div class="activity-item">
-                <div class="activity-icon purple"> <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <div>
-                    <strong>Rutas creadas</strong>
-                    <p>Total de rutas que has creado</p>
-                </div>
-                <strong class="number purple-text">12</strong>
-            </div>
-
-            <div class="activity-item">
-                <div class="activity-icon green"> <i class="fas fa-check"></i></div>
-                <div>
-                    <strong>Rutas asignadas</strong>
-                    <p>Rutas que tienes asignadas</p>
-                </div>
-                <strong class="number green-text">8</strong>
-            </div>
-
-
-            <div class="activity-item">
-                <div class="activity-icon red"><i class="fas fa-exclamation-triangle"></i>
-                </div>
-                <div>
-                    <strong>Incidentes reportados</strong>
-                    <p>Incidentes que has reportado</p>
-                </div>
-                <strong class="number red-text">5</strong>
-            </div>
-
-            <div class="activity-item">
-                <div class="activity-icon yellow"> <i class="fas fa-star"></i>
-                </div>
-                <div>
-                    <strong>Calificación promedio</strong>
-                    <p>De los pasajeros en tus rutas</p>
-                </div>
-                <strong class="number yellow-text">4.8 ★</strong>
-            </div>
-
-        </div>
-     
-        <div class="route-card">
-            <div class="card-title">
-                <i class="fas fa-map-marker-alt"></i>
-                <h3>Última ruta utilizada</h3>
-            </div>
-
-            <div class="map-placeholder">
-                <div class="route-line"></div>
-                <span class="map-start">●</span>
-                <span class="map-end">●</span>
-            </div>
-
-            <h4>Ruta: Centro - Terminal Terrestre</h4>
-
-            <div class="route-info">
-                <p><i class="fas fa-calendar"></i> Fecha: 25 de agosto, 2025 </p>
-                <p><i class="fas fa-clock"></i> Hora: 08:30 a. m. </p>
-                <p> <i class="fas fa-route"></i> Distancia: 12.4 km </p>
-                <p> <i class="fas fa-users"></i> Pasajeros: 18</p>
-            </div>
-            <button class="details-btn">
-                Ver detalles de la ruta
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-
-
-  
-        <div class="recent-card">
-
-            <div class="card-title"> <i class="fas fa-clock"></i> <h3>Actividad reciente</h3>
-            </div>
-
-
-            <div class="timeline">
-                <div class="timeline-item">
-                    <span class="timeline-dot green-dot"></span>
-                    <div>
-                        <strong>Inicio de sesión</strong>
-                        <p>Hoy a las 09:15 a. m.</p>
-                    </div>
-                </div>
-
-
-                <div class="timeline-item">
-                    <span class="timeline-dot blue-dot"></span>
-
-                    <div>
-                        <strong>Creaste la ruta</strong>
-                        <p>Centro - Universidad</p>
-                        <small>Ayer a las 04:30 p. m.</small>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <span class="timeline-dot red-dot"></span>
-
-                    <div>
-                        <strong>Reportaste un incidente</strong>
-                        <p>Av. Los Próceres - Accidente leve</p>
-                        <small>22 de agosto, 2026</small>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <span class="timeline-dot purple-dot"></span>
-
-                    <div>
-                        <strong>Actualizaste la ruta</strong>
-                        <p>Centro - Terminal Terrestre</p>
-                        <small>20 de agosto, 2026</small>
-                    </div>
-                </div>
-            </div>
-            <button class="details-btn"> Ver toda la actividad <i class="fas fa-arrow-right"></i> </button>
-        </div>
-
+<div class="privacy-card">
+    <div class="privacy-icon">
+        <i class="fas fa-shield-alt"></i>
     </div>
 
-    <div class="privacy-card">
-        <div class="privacy-icon">
-            <i class="fas fa-shield-alt"></i>
-        </div>
-
-        <div>
-            <h3>Privacidad y seguridad</h3>
-            <p>Tu información personal está segura con nosotros. No compartimos tus datos con terceros.  </p>
-        </div>
-        <button> Más información <i class="fas fa-arrow-right"></i> </button>
+    <div>
+        <h3>Privacidad y seguridad</h3>
+        <p>Tu información personal está segura con nosotros. No compartimos tus datos con terceros.  </p>
     </div>
-
+    <button> Más información <i class="fas fa-arrow-right"></i> </button>
 </div>

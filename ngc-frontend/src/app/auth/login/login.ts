@@ -24,6 +24,7 @@ export class Login implements OnInit {
 
   credentials: any = {};
   logging: boolean = false;
+  showPassword: boolean = false;
   ngOnInit(): void {
       
   }
@@ -41,13 +42,18 @@ export class Login implements OnInit {
       messageAlert("Error", resultLogin.message, 'error');
       return;
     }
-    let userLoged = structuredClone(resultLogin);
-    delete userLoged.message;
-    delete userLoged.success;
-
-    let userSaved: boolean = this.Main.setSession(userLoged);
-    Swal.close();
-    this.Router.navigate(["backoffice/tablero"]);
+    if (resultLogin.is_admin) {
+      let userLoged = structuredClone(resultLogin);
+      delete userLoged.message;
+      delete userLoged.success;
+  
+      let userSaved: boolean = this.Main.setSession(userLoged);
+      Swal.close();
+      this.Router.navigate(["backoffice/tablero"]);
+    } else {
+      messageAlert("Advertencia", "No tienes acceso a este servicio.", 'warning');
+      return;
+    }
   }
 
   goToRegister() {
@@ -56,5 +62,9 @@ export class Login implements OnInit {
 
   goToForgotPassword() {
     this.Router.navigate(["autenticacion/olvido-clave"]);
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 }
