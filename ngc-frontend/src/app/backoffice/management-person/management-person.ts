@@ -1,24 +1,29 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { Subject, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subject, takeUntil, debounceTime, distinctUntilChanged, firstValueFrom } from 'rxjs';
+import { Main } from '../../services/main';
 
 @Component({
   selector: 'app-management-person',
-  imports: [],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule
+  ],
   templateUrl: './management-person.html',
   styleUrl: './management-person.css',
 })
 export class ManagementPerson {
 
 // Datos
-  users: User[] = [];
-  stats: UserStats | null = null;
+  users: any[] = [];
+  stats: any | null = null;
   loading: boolean = false;
   
   // Filtros
-  filters: UserFilters = {
+  filters: any = {
     search: '',
     status: 'all',
     verified: 'all',
@@ -37,7 +42,7 @@ export class ManagementPerson {
   };
 
   // Usuario seleccionado
-  selectedUser: User | null = null;
+  selectedUser: any | null = null;
   showUserModal: boolean = false;
   showConfirmDialog: boolean = false;
   userToDelete: string | null = null;
@@ -49,18 +54,17 @@ export class ManagementPerson {
   // Subject para búsqueda con debounce
   private searchSubject = new Subject<string>();
 
-  @ViewChild(UserStatsComponent) statsComponent!: UserStatsComponent;
-  @ViewChild(UserModalComponent) userModal!: UserModalComponent;
-  @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
+  // @ViewChild(UserStatsComponent) statsComponent!: UserStatsComponent;
+  // @ViewChild(UserModalComponent) userModal!: UserModalComponent;
+  // @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
 
   constructor(
-    private userService: UserService,
-    private toastService: ToastService
+    private Main: Main,
+    private ChangeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.loadUsers();
-    this.loadStats();
     
     // Configurar búsqueda con debounce
     this.searchSubject.pipe(
@@ -82,291 +86,271 @@ export class ManagementPerson {
   /**
    * Cargar lista de usuarios
    */
-  loadUsers(): void {
+  async loadUsers() {
     this.loading = true;
-    this.userService.getUsers(this.filters)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response: PaginatedResponse<User>) => {
-          this.users = response.data;
-          this.pagination = response.pagination;
-          this.loading = false;
-        },
-        error: (error) => {
-          console.error('Error al cargar usuarios:', error);
-          this.toastService.error('Error al cargar la lista de usuarios');
-          this.loading = false;
-        }
-      });
+    let result: any = await this.Main.getUsers();
+    this.users = result;
+    this.loading = false;
+    this.pagination.total = this.users.length;
+    this.ChangeDetector.detectChanges();
   }
 
-  /**
-   * Cargar estadísticas del dashboard
-   */
-  loadStats(): void {
-    this.userService.getDashboardStats()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          this.stats = response.stats;
-        },
-        error: (error) => {
-          console.error('Error al cargar estadísticas:', error);
-        }
-      });
-  }
+  toggleUser() {}
 
-  /**
-   * Buscar usuarios
-   */
-  onSearch(searchTerm: string): void {
-    this.searchSubject.next(searchTerm);
-  }
+  exportUsers() {}
 
-  /**
-   * Cambiar filtro de estado
-   */
-  onStatusChange(status: 'all' | 'active' | 'inactive'): void {
-    this.filters.status = status;
-    this.filters.page = 1;
-    this.loadUsers();
-  }
 
-  /**
-   * Cambiar filtro de verificación
-   */
-  onVerifiedChange(verified: 'all' | 'verified' | 'unverified'): void {
-    this.filters.verified = verified;
-    this.filters.page = 1;
-    this.loadUsers();
-  }
+  // /**
+  //  * Buscar usuarios
+  //  */
+  // onSearch(searchTerm: string): void {
+  //   this.searchSubject.next(searchTerm);
+  // }
 
-  /**
-   * Cambiar ordenamiento
-   */
-  onSortChange(sortBy: 'created_at' | 'full_name' | 'last_activity_at'): void {
-    this.filters.sortBy = sortBy;
-    this.loadUsers();
-  }
+  // /**
+  //  * Cambiar filtro de estado
+  //  */
+  // onStatusChange(status: 'all' | 'active' | 'inactive'): void {
+  //   this.filters.status = status;
+  //   this.filters.page = 1;
+  //   this.loadUsers();
+  // }
 
-  /**
-   * Cambiar página
-   */
-  onPageChange(page: number): void {
-    if (page < 1 || page > this.pagination.totalPages) return;
-    this.filters.page = page;
-    this.loadUsers();
-  }
+  // /**
+  //  * Cambiar filtro de verificación
+  //  */
+  // onVerifiedChange(verified: 'all' | 'verified' | 'unverified'): void {
+  //   this.filters.verified = verified;
+  //   this.filters.page = 1;
+  //   this.loadUsers();
+  // }
 
-  /**
-   * Abrir modal para crear usuario
-   */
-  openCreateUserModal(): void {
-    this.isEditMode = false;
-    this.selectedUser = null;
-    this.showUserModal = true;
-  }
+  // /**
+  //  * Cambiar ordenamiento
+  //  */
+  // onSortChange(sortBy: 'created_at' | 'full_name' | 'last_activity_at'): void {
+  //   this.filters.sortBy = sortBy;
+  //   this.loadUsers();
+  // }
 
-  /**
-   * Abrir modal para editar usuario
-   */
-  openEditUserModal(user: User): void {
-    this.isEditMode = true;
-    this.selectedUser = user;
-    this.showUserModal = true;
-  }
+  // /**
+  //  * Cambiar página
+  //  */
+  // onPageChange(page: number): void {
+  //   if (page < 1 || page > this.pagination.totalPages) return;
+  //   this.filters.page = page;
+  //   this.loadUsers();
+  // }
 
-  /**
-   * Ver detalles del usuario
-   */
-  viewUserDetails(user: User): void {
-    this.selectedUser = user;
-    // Navegar a página de detalles o abrir modal con detalles
-    // this.router.navigate(['/backoffice/users', user.id]);
-  }
+  // /**
+  //  * Abrir modal para crear usuario
+  //  */
+  // openCreateUserModal(): void {
+  //   this.isEditMode = false;
+  //   this.selectedUser = null;
+  //   this.showUserModal = true;
+  // }
 
-  /**
-   * Cambiar estado del usuario (activar/desactivar)
-   */
-  toggleUserStatus(user: User): void {
-    const newStatus = !user.is_active;
-    const action = newStatus ? 'activar' : 'desactivar';
+  // /**
+  //  * Abrir modal para editar usuario
+  //  */
+  // openEditUserModal(user: any): void {
+  //   this.isEditMode = true;
+  //   this.selectedUser = user;
+  //   this.showUserModal = true;
+  // }
+
+  // /**
+  //  * Ver detalles del usuario
+  //  */
+  // viewUserDetails(user: any): void {
+  //   this.selectedUser = user;
+  //   // Navegar a página de detalles o abrir modal con detalles
+  //   // this.router.navigate(['/backoffice/users', user.id]);
+  // }
+
+  // /**
+  //  * Cambiar estado del usuario (activar/desactivar)
+  //  */
+  // toggleUserStatus(user: any): void {
+  //   const newStatus = !user.is_active;
+  //   const action = newStatus ? 'activar' : 'desactivar';
     
-    this.toastService.showConfirm(
-      `¿${action} usuario?`,
-      `¿Estás seguro de que quieres ${action} a ${user.full_name}?`,
-      () => {
-        this.userService.toggleUserStatus(user.id, newStatus)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe({
-            next: () => {
-              this.toastService.success(`Usuario ${action} correctamente`);
-              this.loadUsers();
-              this.loadStats();
-            },
-            error: (error) => {
-              console.error('Error al cambiar estado:', error);
-              this.toastService.error('Error al cambiar estado del usuario');
-            }
-          });
-      }
-    );
-  }
+  //   this.toastService.showConfirm(
+  //     `¿${action} usuario?`,
+  //     `¿Estás seguro de que quieres ${action} a ${user.full_name}?`,
+  //     () => {
+  //       this.userService.toggleUserStatus(user.id, newStatus)
+  //         .pipe(takeUntil(this.destroy$))
+  //         .subscribe({
+  //           next: () => {
+  //             this.toastService.success(`Usuario ${action} correctamente`);
+  //             this.loadUsers();
+  //             this.loadStats();
+  //           },
+  //           error: (error: any) => {
+  //             console.error('Error al cambiar estado:', error);
+  //             this.toastService.error('Error al cambiar estado del usuario');
+  //           }
+  //         });
+  //     }
+  //   );
+  // }
 
-  /**
-   * Verificar usuario
-   */
-  verifyUser(user: User): void {
-    this.userService.verifyUser(user.id)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: () => {
-          this.toastService.success('Usuario verificado correctamente');
-          this.loadUsers();
-          this.loadStats();
-        },
-        error: (error) => {
-          console.error('Error al verificar usuario:', error);
-          this.toastService.error('Error al verificar el usuario');
-        }
-      });
-  }
+  // /**
+  //  * Verificar usuario
+  //  */
+  // verifyUser(user: any): void {
+  //   this.userService.verifyUser(user.id)
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe({
+  //       next: () => {
+  //         this.toastService.success('Usuario verificado correctamente');
+  //         this.loadUsers();
+  //         this.loadStats();
+  //       },
+  //       error: (error: any) => {
+  //         console.error('Error al verificar usuario:', error);
+  //         this.toastService.error('Error al verificar el usuario');
+  //       }
+  //     });
+  // }
 
-  /**
-   * Abrir diálogo de confirmación para eliminar
-   */
-  openDeleteConfirm(user: User): void {
-    this.userToDelete = user.id;
-    this.showConfirmDialog = true;
-  }
+  // /**
+  //  * Abrir diálogo de confirmación para eliminar
+  //  */
+  // openDeleteConfirm(user: any): void {
+  //   this.userToDelete = user.id;
+  //   this.showConfirmDialog = true;
+  // }
 
-  /**
-   * Eliminar usuario
-   */
-  deleteUser(): void {
-    if (!this.userToDelete) return;
+  // /**
+  //  * Eliminar usuario
+  //  */
+  // deleteUser(): void {
+  //   if (!this.userToDelete) return;
 
-    this.userService.deleteUser(this.userToDelete)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: () => {
-          this.toastService.success('Usuario eliminado correctamente');
-          this.showConfirmDialog = false;
-          this.userToDelete = null;
-          this.loadUsers();
-          this.loadStats();
-        },
-        error: (error) => {
-          console.error('Error al eliminar usuario:', error);
-          this.toastService.error('Error al eliminar el usuario');
-          this.showConfirmDialog = false;
-        }
-      });
-  }
+  //   this.userService.deleteUser(this.userToDelete)
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe({
+  //       next: () => {
+  //         this.toastService.success('Usuario eliminado correctamente');
+  //         this.showConfirmDialog = false;
+  //         this.userToDelete = null;
+  //         this.loadUsers();
+  //         this.loadStats();
+  //       },
+  //       error: (error: any) => {
+  //         console.error('Error al eliminar usuario:', error);
+  //         this.toastService.error('Error al eliminar el usuario');
+  //         this.showConfirmDialog = false;
+  //       }
+  //     });
+  // }
 
-  /**
-   * Cancelar eliminación
-   */
-  cancelDelete(): void {
-    this.showConfirmDialog = false;
-    this.userToDelete = null;
-  }
+  // /**
+  //  * Cancelar eliminación
+  //  */
+  // cancelDelete(): void {
+  //   this.showConfirmDialog = false;
+  //   this.userToDelete = null;
+  // }
 
-  /**
-   * Manejar guardado de usuario (crear/editar)
-   */
-  onUserSaved(): void {
-    this.showUserModal = false;
-    this.loadUsers();
-    this.loadStats();
-    this.toastService.success(
-      this.isEditMode ? 'Usuario actualizado correctamente' : 'Usuario creado correctamente'
-    );
-  }
+  // /**
+  //  * Manejar guardado de usuario (crear/editar)
+  //  */
+  // onUserSaved(): void {
+  //   this.showUserModal = false;
+  //   this.loadUsers();
+  //   this.loadStats();
+  //   this.toastService.success(
+  //     this.isEditMode ? 'Usuario actualizado correctamente' : 'Usuario creado correctamente'
+  //   );
+  // }
 
-  /**
-   * Cerrar modal de usuario
-   */
-  closeUserModal(): void {
-    this.showUserModal = false;
-    this.selectedUser = null;
-  }
+  // /**
+  //  * Cerrar modal de usuario
+  //  */
+  // closeUserModal(): void {
+  //   this.showUserModal = false;
+  //   this.selectedUser = null;
+  // }
 
-  /**
-   * Exportar usuarios
-   */
-  exportUsers(): void {
-    const exportFilters = {
-      search: this.filters.search,
-      status: this.filters.status,
-      verified: this.filters.verified
-    };
+  // /**
+  //  * Exportar usuarios
+  //  */
+  // exportUsers(): void {
+  //   const exportFilters = {
+  //     search: this.filters.search,
+  //     status: this.filters.status,
+  //     verified: this.filters.verified
+  //   };
 
-    this.userService.exportUsers(exportFilters)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `usuarios_${new Date().toISOString().split('T')[0]}.csv`;
-          a.click();
-          window.URL.revokeObjectURL(url);
-          this.toastService.success('Exportación completada');
-        },
-        error: (error) => {
-          console.error('Error al exportar:', error);
-          this.toastService.error('Error al exportar usuarios');
-        }
-      });
-  }
+  //   this.userService.exportUsers(exportFilters)
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe({
+  //       next: (blob) => {
+  //         const url = window.URL.createObjectURL(blob);
+  //         const a = document.createElement('a');
+  //         a.href = url;
+  //         a.download = `usuarios_${new Date().toISOString().split('T')[0]}.csv`;
+  //         a.click();
+  //         window.URL.revokeObjectURL(url);
+  //         this.toastService.success('Exportación completada');
+  //       },
+  //       error: (error: any) => {
+  //         console.error('Error al exportar:', error);
+  //         this.toastService.error('Error al exportar usuarios');
+  //       }
+  //     });
+  // }
 
-  /**
-   * Obtener clase de badge para estado
-   */
-  getStatusBadgeClass(isActive: boolean): string {
-    return isActive ? 'badge-active' : 'badge-inactive';
-  }
+  // /**
+  //  * Obtener clase de badge para estado
+  //  */
+  // getStatusBadgeClass(isActive: boolean): string {
+  //   return isActive ? 'badge-active' : 'badge-inactive';
+  // }
 
-  /**
-   * Obtener clase de badge para verificación
-   */
-  getVerificationBadgeClass(isVerified: boolean): string {
-    return isVerified ? 'badge-verified' : 'badge-unverified';
-  }
+  // /**
+  //  * Obtener clase de badge para verificación
+  //  */
+  // getVerificationBadgeClass(isVerified: boolean): string {
+  //   return isVerified ? 'badge-verified' : 'badge-unverified';
+  // }
 
-  /**
-   * Obtener texto de estado
-   */
-  getStatusText(isActive: boolean): string {
-    return isActive ? 'Activo' : 'Inactivo';
-  }
+  // /**
+  //  * Obtener texto de estado
+  //  */
+  // getStatusText(isActive: boolean): string {
+  //   return isActive ? 'Activo' : 'Inactivo';
+  // }
 
-  /**
-   * Obtener texto de verificación
-   */
-  getVerificationText(isVerified: boolean): string {
-    return isVerified ? 'Verificado' : 'Pendiente';
-  }
+  // /**
+  //  * Obtener texto de verificación
+  //  */
+  // getVerificationText(isVerified: boolean): string {
+  //   return isVerified ? 'Verificado' : 'Pendiente';
+  // }
 
-  /**
-   * Formatear fecha de última actividad
-   */
-  formatLastActivity(date: string | null): string {
-    if (!date) return 'Nunca';
-    const now = new Date();
-    const lastActivity = new Date(date);
-    const diffMs = now.getTime() - lastActivity.getTime();
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMs / 3600000);
-    const diffDays = Math.floor(diffMs / 86400000);
+  // /**
+  //  * Formatear fecha de última actividad
+  //  */
+  // formatLastActivity(date: string | null): string {
+  //   if (!date) return 'Nunca';
+  //   const now = new Date();
+  //   const lastActivity = new Date(date);
+  //   const diffMs = now.getTime() - lastActivity.getTime();
+  //   const diffMins = Math.floor(diffMs / 60000);
+  //   const diffHours = Math.floor(diffMs / 3600000);
+  //   const diffDays = Math.floor(diffMs / 86400000);
 
-    if (diffMins < 1) return 'Hace un momento';
-    if (diffMins < 60) return `Hace ${diffMins} min`;
-    if (diffHours < 24) return `Hace ${diffHours} h`;
-    if (diffDays < 7) return `Hace ${diffDays} días`;
-    return lastActivity.toLocaleDateString();
-  }
+  //   if (diffMins < 1) return 'Hace un momento';
+  //   if (diffMins < 60) return `Hace ${diffMins} min`;
+  //   if (diffHours < 24) return `Hace ${diffHours} h`;
+  //   if (diffDays < 7) return `Hace ${diffDays} días`;
+  //   return lastActivity.toLocaleDateString();
+  // }
 
 
 }

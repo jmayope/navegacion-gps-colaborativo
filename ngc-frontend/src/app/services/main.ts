@@ -52,4 +52,15 @@ export class Main {
     }
   }
 
+  async getUsers() {
+    try {
+      let result: any = await firstValueFrom(this.Http.get(`${this.uri}/users`));
+      return result || [];
+    } catch (error: any) {
+      messageAlert(null, `Error al listar usuarios + ${error.message}`, 'error');
+    }
+  }
+
+
+
 }
