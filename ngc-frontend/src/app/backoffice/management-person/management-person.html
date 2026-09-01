@@ -1,1 +1,294 @@
-<h1>Cesar hace aqui</h1>
+<!-- src/app/management-person/management-person.html -->
+<div class="management-person-container">
+  <!-- Header -->
+  <header class="page-header">
+    <div class="header-content">
+      <div>
+        <h1 class="page-title">Gestión de Personas</h1>
+        <p class="page-subtitle">{{ pagination.total }} usuarios registrados</p>
+      </div>
+      <div class="header-actions">
+        <button
+          class="btn btn-outline"
+          (click)="exportUsers()"
+          title="Exportar usuarios"
+        >
+          <i class="icon-download"></i>
+          Exportar
+        </button>
+        <button class="btn btn-primary" (click)="openCreateUserModal()">
+          <i class="icon-plus"></i>
+          Nuevo Usuario
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Estadísticas -->
+  <app-user-stats *ngIf="stats" [stats]="stats"> </app-user-stats>
+
+  <!-- Filtros -->
+  <section class="filters-section">
+    <div class="filters-grid">
+      <!-- Búsqueda -->
+      <div class="filter-group search-group">
+        <div class="search-wrapper">
+          <i class="icon-search"></i>
+          <input
+            type="text"
+            placeholder="Buscar por nombre, email o teléfono..."
+            class="search-input"
+            (input)="onSearch($any($event.target).value)"
+          />
+        </div>
+      </div>
+
+      <!-- Filtro por estado -->
+      <div class="filter-group">
+        <select
+          class="filter-select"
+          [value]="filters.status"
+          (change)="onStatusChange($any($event.target).value)"
+        >
+          <option value="all">Todos los estados</option>
+          <option value="active">Activos</option>
+          <option value="inactive">Inactivos</option>
+        </select>
+      </div>
+
+      <!-- Filtro por verificación -->
+      <div class="filter-group">
+        <select
+          class="filter-select"
+          [value]="filters.verified"
+          (change)="onVerifiedChange($any($event.target).value)"
+        >
+          <option value="all">Todos (verificación)</option>
+          <option value="verified">Verificados</option>
+          <option value="unverified">No verificados</option>
+        </select>
+      </div>
+
+      <!-- Ordenamiento -->
+      <div class="filter-group">
+        <select
+          class="filter-select"
+          [value]="filters.sortBy"
+          (change)="onSortChange($any($event.target).value)"
+        >
+          <option value="created_at">Más recientes</option>
+          <option value="full_name">Nombre A-Z</option>
+          <option value="last_activity_at">Última actividad</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabla de usuarios -->
+  <section class="table-section">
+    <div class="table-wrapper">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Contacto</th>
+            <th>Documento</th>
+            <th>Estado</th>
+            <th>Actividad</th>
+            <th class="actions-column">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loading -->
+          <tr *ngIf="loading">
+            <td colspan="6" class="loading-cell">
+              <div class="spinner"></div>
+              <span>Cargando usuarios...</span>
+            </td>
+          </tr>
+
+          <!-- Sin datos -->
+          <tr *ngIf="!loading && users.length === 0">
+            <td colspan="6" class="empty-cell">
+              <div class="empty-state">
+                <i class="icon-users-empty"></i>
+                <p>No se encontraron usuarios</p>
+                <button
+                  class="btn btn-sm btn-primary"
+                  (click)="openCreateUserModal()"
+                >
+                  Crear primer usuario
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Filas de usuarios -->
+          <tr *ngFor="let user of users">
+            <td>
+              <div class="user-info">
+                <div class="user-avatar">
+                  {{ user.full_name.charAt(0).toUpperCase() }}
+                </div>
+                <div>
+                  <div class="user-name">{{ user.full_name }}</div>
+                  <div class="user-id">ID: {{ user.id.slice(0, 8) }}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="contact-info">
+                <div class="contact-item">
+                  <i class="icon-mail"></i>
+                  <span>{{ user.email }}</span>
+                </div>
+                <div class="contact-item">
+                  <i class="icon-phone"></i>
+                  <span>{{ user.phone }}</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="document-info">
+                <span class="document-type"
+                  >{{ user.document_type || 'No especificado' }}</span
+                >
+                <span class="document-number"
+                  >{{ user.document_number || 'Sin documento' }}</span
+                >
+              </div>
+            </td>
+            <td>
+              <div class="status-badges">
+                <span
+                  class="badge"
+                  [class.badge-active]="user.is_active"
+                  [class.badge-inactive]="!user.is_active"
+                >
+                  {{ getStatusText(user.is_active) }}
+                </span>
+                <span
+                  class="badge"
+                  [class.badge-verified]="user.is_verified"
+                  [class.badge-unverified]="!user.is_verified"
+                >
+                  {{ getVerificationText(user.is_verified) }}
+                </span>
+              </div>
+            </td>
+            <td>
+              <div class="activity-info">
+                <div class="last-activity">
+                  {{ formatLastActivity(user.last_activity_at) }}
+                </div>
+                <div class="activity-stats">
+                  <span *ngIf="user.total_routes > 0">
+                    {{ user.total_routes }} rutas
+                  </span>
+                  <span
+                    *ngIf="user.total_incidents > 0"
+                    class="incidents-count"
+                  >
+                    • {{ user.total_incidents }} incidentes
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="action-buttons">
+                <button
+                  class="btn-action btn-view"
+                  (click)="viewUserDetails(user)"
+                  title="Ver detalles"
+                >
+                  <i class="icon-eye"></i>
+                </button>
+                <button
+                  class="btn-action btn-edit"
+                  (click)="openEditUserModal(user)"
+                  title="Editar"
+                >
+                  <i class="icon-edit"></i>
+                </button>
+                <button
+                  class="btn-action btn-verify"
+                  *ngIf="!user.is_verified && user.is_active"
+                  (click)="verifyUser(user)"
+                  title="Verificar usuario"
+                >
+                  <i class="icon-shield"></i>
+                </button>
+                <button
+                  class="btn-action"
+                  [class.btn-active]="user.is_active"
+                  [class.btn-inactive]="!user.is_active"
+                  (click)="toggleUserStatus(user)"
+                  [title]="user.is_active ? 'Desactivar' : 'Activar'"
+                >
+                  <i
+                    [class.icon-check]="user.is_active"
+                    [class.icon-x]="!user.is_active"
+                  ></i>
+                </button>
+                <button
+                  class="btn-action btn-delete"
+                  (click)="openDeleteConfirm(user)"
+                  title="Eliminar"
+                >
+                  <i class="icon-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <div class="pagination-section" *ngIf="users.length > 0">
+      <div class="pagination-info">
+        Mostrando {{ ((pagination.page - 1) * pagination.limit) + 1 }} - {{
+        Math.min(pagination.page * pagination.limit, pagination.total) }} de {{
+        pagination.total }} usuarios
+      </div>
+      <div class="pagination-controls">
+        <button
+          class="btn-page"
+          [disabled]="pagination.page === 1"
+          (click)="onPageChange(pagination.page - 1)"
+        >
+          Anterior
+        </button>
+        <span class="page-indicator">
+          {{ pagination.page }} / {{ pagination.totalPages }}
+        </span>
+        <button
+          class="btn-page"
+          [disabled]="pagination.page >= pagination.totalPages"
+          (click)="onPageChange(pagination.page + 1)"
+        >
+          Siguiente
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modales -->
+  <app-user-modal
+    *ngIf="showUserModal"
+    [user]="selectedUser"
+    [isEditMode]="isEditMode"
+    (close)="closeUserModal()"
+    (save)="onUserSaved()"
+  >
+  </app-user-modal>
+
+  <app-confirm-dialog
+    *ngIf="showConfirmDialog"
+    title="Confirmar eliminación"
+    message="¿Estás seguro de que quieres eliminar este usuario? Esta acción no se puede deshacer."
+    (confirm)="deleteUser()"
+    (cancel)="cancelDelete()"
+  >
+  </app-confirm-dialog>
+</div>
