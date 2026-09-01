@@ -60,7 +60,7 @@ export class Backoffice implements OnInit {
     { id: 6, code: 'Movimientos', name: 'Historial de Movimientos', icon: 'fa-solid fa-clock-rotate-left', route: 'backoffice/historial-de-movimientos' },
     { id: 7, code: 'Chat', name: 'Chats y Comparticiones', icon: 'fa-solid fa-comment-dots', route: 'backoffice/chat-y-comparticiones' },
     { id: 8, code: 'Reportes', name: 'Reportes', icon: 'fa-solid fa-file-lines', route: 'backoffice/reporteria' },
-    { id: 7, code: 'Configuración', name: 'Configuración', icon: 'fa-solid fa-gear', route: 'backoffice/chat-y-comparticiones' },
+    { id: 7, code: 'Configuración', name: 'Configuración', icon: 'fa-solid fa-gear', route: 'backoffice/configuracion' },
   ];
 
 

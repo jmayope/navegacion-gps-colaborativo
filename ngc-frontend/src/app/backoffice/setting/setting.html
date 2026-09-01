@@ -1,1 +1,308 @@
-<p>setting works!</p>
+<div class="rs-panel">
+  <ul class="nav nav-tabs mb-4" id="settingsTabs" role="tablist" style="border-bottom:1px solid var(--rs-gris-borde);">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-general" type="button">
+        <i class="fa-solid fa-sliders me-1"></i> General
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-notificaciones" type="button">
+        <i class="fa-solid fa-bell me-1"></i> Notificaciones
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-seguridad" type="button">
+        <i class="fa-solid fa-shield-halved me-1"></i> Seguridad
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-apariencia" type="button">
+        <i class="fa-solid fa-palette me-1"></i> Apariencia
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-integraciones" type="button">
+        <i class="fa-solid fa-plug me-1"></i> Integraciones
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+
+    <!-- ============ GENERAL ============ -->
+    <div class="tab-pane fade show active" id="tab-general">
+      <div class="row">
+        <div class="col-lg-7">
+          <h5 class="mb-3">Información general</h5>
+          <form>
+            <div class="mb-3">
+              <label class="form-label small fw-semibold text-dark">Nombre de la organización</label>
+              <input type="text" class="form-control" value="RutaSegura Perú">
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-dark">Zona horaria</label>
+                <select class="form-select">
+                  <option selected>América/Lima (GMT-5)</option>
+                  <option>América/Bogotá (GMT-5)</option>
+                  <option>América/Santiago (GMT-4)</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-dark">Idioma</label>
+                <select class="form-select">
+                  <option selected>Español</option>
+                  <option>English</option>
+                  <option>Português</option>
+                </select>
+              </div>
+            </div>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-dark">Moneda</label>
+                <select class="form-select">
+                  <option selected>PEN — Sol peruano</option>
+                  <option>USD — Dólar estadounidense</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold text-dark">Formato de fecha</label>
+                <select class="form-select">
+                  <option selected>DD/MM/AAAA</option>
+                  <option>MM/DD/AAAA</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+          </form>
+        </div>
+
+        <div class="col-lg-5">
+          <h5 class="mb-3">Logo de la organización</h5>
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="rounded-circle d-flex align-items-center justify-content-center"
+              style="width:64px;height:64px;background:var(--rs-azul-nocturno);">
+              <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 2 4 8v10c0 10 6.8 17.4 16 20 9.2-2.6 16-10 16-20V8L20 2Z" fill="#2563EB" />
+                <path d="M20 11c-3.3 0-6 2.7-6 6 0 4.5 6 11 6 11s6-6.5 6-11c0-3.3-2.7-6-6-6Z" fill="#fff" />
+                <circle cx="20" cy="17" r="2.4" fill="#2563EB" />
+              </svg>
+            </div>
+            <div>
+              <button class="btn btn-outline-secondary btn-sm mb-1">Cambiar logo</button>
+              <div class="text-secondary" style="font-size:.74rem;">PNG o SVG, máx. 2MB</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ NOTIFICACIONES ============ -->
+    <div class="tab-pane fade" id="tab-notificaciones">
+      <h5 class="mb-3">Preferencias de notificación</h5>
+
+      <div class="d-flex justify-content-between align-items-center py-3"
+        style="border-bottom:1px solid var(--rs-gris-borde);">
+        <div>
+          <div class="fw-semibold text-dark" style="font-size:.9rem;">Alertas de incidencias</div>
+          <div class="text-secondary" style="font-size:.8rem;">Recibe una notificación push cuando se reporte una
+            incidencia.</div>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" checked style="width:2.5em;height:1.4em;">
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center py-3"
+        style="border-bottom:1px solid var(--rs-gris-borde);">
+        <div>
+          <div class="fw-semibold text-dark" style="font-size:.9rem;">Resumen diario por correo</div>
+          <div class="text-secondary" style="font-size:.8rem;">Un correo cada mañana con el resumen de rutas e
+            incidencias.</div>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" checked style="width:2.5em;height:1.4em;">
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center py-3"
+        style="border-bottom:1px solid var(--rs-gris-borde);">
+        <div>
+          <div class="fw-semibold text-dark" style="font-size:.9rem;">Alertas por SMS</div>
+          <div class="text-secondary" style="font-size:.8rem;">Notificación por mensaje de texto en incidencias
+            críticas.</div>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" style="width:2.5em;height:1.4em;">
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center py-3">
+        <div>
+          <div class="fw-semibold text-dark" style="font-size:.9rem;">Nuevas solicitudes de acompañamiento</div>
+          <div class="text-secondary" style="font-size:.8rem;">Sonido y notificación cuando un usuario solicite
+            acompañamiento.</div>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" checked style="width:2.5em;height:1.4em;">
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary mt-3">Guardar cambios</button>
+    </div>
+
+    <!-- ============ SEGURIDAD ============ -->
+    <div class="tab-pane fade" id="tab-seguridad">
+      <div class="row">
+        <div class="col-lg-6">
+          <h5 class="mb-3">Cambiar contraseña</h5>
+          <form class="mb-4">
+            <div class="mb-3">
+              <label class="form-label small fw-semibold text-dark">Contraseña actual</label>
+              <input type="password" class="form-control" placeholder="••••••••">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-semibold text-dark">Nueva contraseña</label>
+              <input type="password" class="form-control" placeholder="••••••••">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-semibold text-dark">Confirmar nueva contraseña</label>
+              <input type="password" class="form-control" placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar contraseña</button>
+          </form>
+
+          <div class="d-flex justify-content-between align-items-center py-3"
+            style="border-top:1px solid var(--rs-gris-borde);">
+            <div>
+              <div class="fw-semibold text-dark" style="font-size:.9rem;">Autenticación de dos factores</div>
+              <div class="text-secondary" style="font-size:.8rem;">Añade una capa extra de seguridad a tu cuenta.</div>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" checked style="width:2.5em;height:1.4em;">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <h5 class="mb-3">Sesiones activas</h5>
+
+          <div class="d-flex align-items-center justify-content-between py-3"
+            style="border-bottom:1px solid var(--rs-gris-borde);">
+            <div class="d-flex align-items-center gap-3">
+              <i class="fa-solid fa-desktop text-secondary fs-5"></i>
+              <div>
+                <div class="fw-semibold text-dark" style="font-size:.86rem;">Chrome · Windows</div>
+                <div class="text-secondary" style="font-size:.78rem;">Lima, Perú · Sesión actual</div>
+              </div>
+            </div>
+            <span class="rs-pill rs-pill-success">Activa</span>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between py-3"
+            style="border-bottom:1px solid var(--rs-gris-borde);">
+            <div class="d-flex align-items-center gap-3">
+              <i class="fa-solid fa-mobile-screen text-secondary fs-5"></i>
+              <div>
+                <div class="fw-semibold text-dark" style="font-size:.86rem;">App móvil · iPhone</div>
+                <div class="text-secondary" style="font-size:.78rem;">Lima, Perú · Hace 2 horas</div>
+              </div>
+            </div>
+            <button class="btn btn-sm btn-outline-danger">Cerrar sesión</button>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between py-3">
+            <div class="d-flex align-items-center gap-3">
+              <i class="fa-solid fa-desktop text-secondary fs-5"></i>
+              <div>
+                <div class="fw-semibold text-dark" style="font-size:.86rem;">Firefox · macOS</div>
+                <div class="text-secondary" style="font-size:.78rem;">Arequipa, Perú · Hace 3 días</div>
+              </div>
+            </div>
+            <button class="btn btn-sm btn-outline-danger">Cerrar sesión</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ APARIENCIA ============ -->
+    <div class="tab-pane fade" id="tab-apariencia">
+      <h5 class="mb-3">Tema de la interfaz</h5>
+      <div class="row g-3" style="max-width:520px;">
+        <div class="col-4">
+          <div class="rs-panel text-center" style="cursor:pointer; border-color:var(--rs-azul-ruta); border-width:2px;">
+            <div class="rounded mb-2" style="height:60px; background:#fff; border:1px solid var(--rs-gris-borde);">
+            </div>
+            <span class="fw-semibold small text-dark">Claro</span>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="rs-panel text-center" style="cursor:pointer;">
+            <div class="rounded mb-2" style="height:60px; background:var(--rs-azul-nocturno);"></div>
+            <span class="fw-semibold small text-dark">Oscuro</span>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="rs-panel text-center" style="cursor:pointer;">
+            <div class="rounded mb-2"
+              style="height:60px; background:linear-gradient(90deg, #fff 50%, var(--rs-azul-nocturno) 50%);"></div>
+            <span class="fw-semibold small text-dark">Automático</span>
+          </div>
+        </div>
+      </div>
+      <p class="text-secondary small mt-3 mb-0">El modo oscuro estará disponible próximamente.</p>
+    </div>
+
+    <!-- ============ INTEGRACIONES ============ -->
+    <div class="tab-pane fade" id="tab-integraciones">
+      <h5 class="mb-3">Integraciones disponibles</h5>
+
+      <div class="d-flex align-items-center justify-content-between py-3"
+        style="border-bottom:1px solid var(--rs-gris-borde);">
+        <div class="d-flex align-items-center gap-3">
+          <div class="rounded d-flex align-items-center justify-content-center"
+            style="width:42px;height:42px;background:var(--rs-azul-claro);">
+            <i class="fa-brands fa-google text-primary"></i>
+          </div>
+          <div>
+            <div class="fw-semibold text-dark" style="font-size:.9rem;">Google Maps</div>
+            <div class="text-secondary" style="font-size:.8rem;">Proveedor de mapas y geolocalización.</div>
+          </div>
+        </div>
+        <span class="rs-pill rs-pill-success">Conectado</span>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-between py-3"
+        style="border-bottom:1px solid var(--rs-gris-borde);">
+        <div class="d-flex align-items-center gap-3">
+          <div class="rounded d-flex align-items-center justify-content-center"
+            style="width:42px;height:42px;background:var(--rs-verde-claro);">
+            <i class="fa-brands fa-whatsapp text-success"></i>
+          </div>
+          <div>
+            <div class="fw-semibold text-dark" style="font-size:.9rem;">WhatsApp Business API</div>
+            <div class="text-secondary" style="font-size:.8rem;">Envío de alertas por WhatsApp a contactos de
+              emergencia.</div>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-outline-primary">Conectar</button>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-between py-3">
+        <div class="d-flex align-items-center gap-3">
+          <div class="rounded d-flex align-items-center justify-content-center"
+            style="width:42px;height:42px;background:var(--rs-morado-claro);">
+            <i class="fa-solid fa-code text-info"></i>
+          </div>
+          <div>
+            <div class="fw-semibold text-dark" style="font-size:.9rem;">API de RutaSegura</div>
+            <div class="text-secondary" style="font-size:.8rem;">Integra el seguimiento de rutas en tus propios
+              sistemas.</div>
+          </div>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary">Ver claves API</button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,1 +1,207 @@
-<p>accompaniment works!</p>
+<!-- KPIs -->
+<div class="row g-3 mb-3">
+  <div class="col-6 col-lg-3">
+    <div class="rs-kpi-card">
+      <div class="rs-kpi-icon" style="background:var(--rs-azul-claro); color:var(--rs-azul-ruta);"><i
+          class="fa-solid fa-user-shield"></i></div>
+      <div class="rs-kpi-label">Solicitudes activas</div>
+      <div class="rs-kpi-value">4</div>
+      <div class="d-flex align-items-center justify-content-between mt-1">
+        <span class="rs-kpi-sub">en este momento</span>
+        <span class="rs-kpi-delta text-danger"><i class="fa-solid fa-arrow-up"></i> 2</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="rs-kpi-card">
+      <div class="rs-kpi-icon" style="background:var(--rs-verde-claro); color:var(--rs-verde-seguro);"><i
+          class="fa-solid fa-stopwatch"></i></div>
+      <div class="rs-kpi-label">Tiempo de respuesta</div>
+      <div class="rs-kpi-value">38s</div>
+      <div class="d-flex align-items-center justify-content-between mt-1">
+        <span class="rs-kpi-sub">promedio hoy</span>
+        <span class="rs-kpi-delta text-success"><i class="fa-solid fa-arrow-down"></i> 12%</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="rs-kpi-card">
+      <div class="rs-kpi-icon" style="background:var(--rs-morado-claro); color:var(--rs-morado-chat);"><i
+          class="fa-solid fa-flag-checkered"></i></div>
+      <div class="rs-kpi-label">Finalizadas hoy</div>
+      <div class="rs-kpi-value">21</div>
+      <div class="d-flex align-items-center justify-content-between mt-1">
+        <span class="rs-kpi-sub">sin novedad</span>
+        <span class="rs-kpi-delta text-success"><i class="fa-solid fa-arrow-up"></i> 15%</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 col-lg-3">
+    <div class="rs-kpi-card">
+      <div class="rs-kpi-icon" style="background:var(--rs-ambar-claro); color:var(--rs-ambar-aviso);"><i
+          class="fa-solid fa-headset"></i></div>
+      <div class="rs-kpi-label">Agentes disponibles</div>
+      <div class="rs-kpi-value">6</div>
+      <div class="d-flex align-items-center justify-content-between mt-1">
+        <span class="rs-kpi-sub">de 9 en turno</span>
+        <span class="rs-kpi-delta text-secondary">—</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <!-- Cola de solicitudes -->
+  <div class="col-lg-7">
+    <div class="rs-panel h-100">
+      <div class="rs-panel-header">
+        <h5>Solicitudes de acompañamiento</h5>
+      </div>
+
+      <table class="rs-table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Ruta</th>
+            <th>Agente</th>
+            <th>Estado</th>
+            <th>Tiempo</th>
+            <th class="text-end">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
+                <div class="fw-semibold text-dark">Carlos Mendoza</div>
+              </div>
+            </td>
+            <td class="text-secondary" style="font-size:.82rem;">Lima → Matucana</td>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-avatar-sm" style="background:var(--rs-morado-claro); color:var(--rs-morado-chat);"><i
+                    class="fa-solid fa-headset"></i></div>
+                <span class="text-dark" style="font-size:.82rem;">Rocío Vega</span>
+              </div>
+            </td>
+            <td><span class="rs-pill rs-pill-success">En acompañamiento</span></td>
+            <td class="text-secondary">04:12</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-eye me-1"></i>Ver sesión</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
+                <div class="fw-semibold text-dark">María López</div>
+              </div>
+            </td>
+            <td class="text-secondary" style="font-size:.82rem;">Lurín → Pachacamac</td>
+            <td><span class="text-secondary" style="font-size:.82rem;">Sin asignar</span></td>
+            <td><span class="rs-pill rs-pill-danger">Esperando agente</span></td>
+            <td class="text-secondary">00:47</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-primary"><i class="fa-solid fa-headset me-1"></i>Atender</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
+                <div class="fw-semibold text-dark">Ana Torres</div>
+              </div>
+            </td>
+            <td class="text-secondary" style="font-size:.82rem;">Chosica → San Mateo</td>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-avatar-sm" style="background:var(--rs-morado-claro); color:var(--rs-morado-chat);"><i
+                    class="fa-solid fa-headset"></i></div>
+                <span class="text-dark" style="font-size:.82rem;">Diego Farfán</span>
+              </div>
+            </td>
+            <td><span class="rs-pill rs-pill-success">En acompañamiento</span></td>
+            <td class="text-secondary">11:30</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-eye me-1"></i>Ver sesión</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
+                <div class="fw-semibold text-dark">Jorge Silva</div>
+              </div>
+            </td>
+            <td class="text-secondary" style="font-size:.82rem;">Callao → Lima</td>
+            <td><span class="text-secondary" style="font-size:.82rem;">Sin asignar</span></td>
+            <td><span class="rs-pill rs-pill-warning">En cola</span></td>
+            <td class="text-secondary">00:09</td>
+            <td class="text-end">
+              <button class="btn btn-sm btn-primary"><i class="fa-solid fa-headset me-1"></i>Atender</button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Sesión activa (ejemplo) -->
+  <div class="col-lg-5">
+    <div class="rs-panel h-100 d-flex flex-column">
+      <div class="rs-panel-header">
+        <h5>Sesión activa</h5>
+        <span class="rs-pill rs-pill-success">En vivo</span>
+      </div>
+
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
+        <div>
+          <div class="fw-semibold text-dark" style="font-size:.9rem;">Carlos Mendoza</div>
+          <div class="text-secondary" style="font-size:.76rem;">Atendido por Rocío Vega · 04:12</div>
+        </div>
+      </div>
+
+      <div class="rs-map-wrap mb-3" style="height:160px;">
+        <svg viewBox="0 0 400 160" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="160" fill="#EAF2E6" />
+          <path d="M0 110 Q100 90 200 100 T400 100 L400 160 L0 160 Z" fill="#D9E8CE" />
+          <path d="M40 120 C 100 100, 160 90, 220 70 S 320 40, 360 30" stroke="#2563EB" stroke-width="4" fill="none"
+            stroke-linecap="round" />
+          <circle cx="220" cy="70" r="7" fill="#2563EB" stroke="#fff" stroke-width="2" />
+          <circle cx="40" cy="120" r="6" fill="#10B981" stroke="#fff" stroke-width="2" />
+          <circle cx="360" cy="30" r="7" fill="#EF4444" stroke="#fff" stroke-width="2" />
+        </svg>
+      </div>
+
+      <div class="d-flex flex-column gap-2 mb-3" style="font-size:.85rem;">
+        <div class="d-flex justify-content-between">
+          <span class="text-secondary">Velocidad</span>
+          <span class="fw-semibold text-dark">54 km/h</span>
+        </div>
+        <div class="d-flex justify-content-between">
+          <span class="text-secondary">Batería del dispositivo</span>
+          <span class="fw-semibold text-dark">78%</span>
+        </div>
+        <div class="d-flex justify-content-between">
+          <span class="text-secondary">Contactos notificados</span>
+          <span class="fw-semibold text-dark">2</span>
+        </div>
+      </div>
+
+      <div class="d-flex gap-2 mt-auto">
+        <button class="btn btn-outline-secondary flex-grow-1"><i class="fa-solid fa-comment-dots me-1"></i>Chat</button>
+        <button class="btn btn-outline-secondary flex-grow-1"><i class="fa-solid fa-phone me-1"></i>Llamar</button>
+        <button class="btn btn-danger flex-grow-1"><i
+            class="fa-solid fa-triangle-exclamation me-1"></i>Autoridades</button>
+      </div>
+      <button class="btn btn-outline-primary w-100 mt-2">Finalizar acompañamiento</button>
+    </div>
+  </div>
+</div>

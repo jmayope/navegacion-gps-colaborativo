@@ -1,1 +1,164 @@
-<p>chat-and-shared-content works!</p>
+<div class="rs-panel p-0" style="overflow:hidden;">
+  <div class="row g-0">
+
+    <!-- Lista de conversaciones -->
+    <div class="col-md-4" style="border-right:1px solid var(--rs-gris-borde); max-height:640px; overflow-y:auto;">
+      <div class="p-3" style="border-bottom:1px solid var(--rs-gris-borde);">
+        <div class="input-group">
+          <span class="input-group-text bg-white"><i class="fa-solid fa-magnifying-glass text-secondary"></i></span>
+          <input type="text" class="form-control" placeholder="Buscar conversación...">
+        </div>
+      </div>
+
+      <div class="px-3">
+        <div class="rs-chat-item"
+          style="cursor:pointer; background:var(--rs-azul-claro); border-radius:.6rem; padding:.65rem .6rem;">
+          <div class="rs-chat-icon" style="background:#fff; color:var(--rs-azul-ruta);"><i
+              class="fa-solid fa-people-group"></i></div>
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between">
+              <span class="rs-chat-name">Grupo Familia</span>
+              <span class="rs-chat-time">16:20</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="rs-chat-msg">Todo bien, ya llegué a destino.</span>
+              <span class="rs-chat-unread">2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rs-chat-item" style="cursor:pointer;">
+          <div class="rs-chat-icon" style="background:var(--rs-gris-fondo); color:var(--rs-gris-texto);"><i
+              class="fa-solid fa-user"></i></div>
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between">
+              <span class="rs-chat-name">Ana Torres</span>
+              <span class="rs-chat-time">15:47</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="rs-chat-msg">Compartió su ubicación</span>
+              <span class="rs-chat-unread">1</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rs-chat-item" style="cursor:pointer;">
+          <div class="rs-chat-icon" style="background:var(--rs-rojo-claro); color:var(--rs-rojo-alerta);"><i
+              class="fa-solid fa-triangle-exclamation"></i></div>
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between">
+              <span class="rs-chat-name">Alerta de incidente</span>
+              <span class="rs-chat-time">14:20</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="rs-chat-msg">Se reportó un accidente en el km 32...</span>
+              <span class="rs-chat-unread">3</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rs-chat-item" style="cursor:pointer;">
+          <div class="rs-chat-icon" style="background:var(--rs-gris-fondo); color:var(--rs-gris-texto);"><i
+              class="fa-solid fa-user"></i></div>
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between">
+              <span class="rs-chat-name">Luis Ramírez</span>
+              <span class="rs-chat-time">12:11</span>
+            </div>
+            <span class="rs-chat-msg">Aquí está la ruta alternativa.</span>
+          </div>
+        </div>
+
+        <div class="rs-chat-item" style="cursor:pointer;">
+          <div class="rs-chat-icon" style="background:var(--rs-azul-claro); color:var(--rs-azul-ruta);"><i
+              class="fa-solid fa-link"></i></div>
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between">
+              <span class="rs-chat-name">Compartición de ruta</span>
+              <span class="rs-chat-time">10:33</span>
+            </div>
+            <span class="rs-chat-msg">Enlace de seguimiento activo.</span>
+          </div>
+        </div>
+
+        <div class="rs-chat-item" style="cursor:pointer;">
+          <div class="rs-chat-icon" style="background:var(--rs-gris-fondo); color:var(--rs-gris-texto);"><i
+              class="fa-solid fa-user"></i></div>
+          <div class="flex-grow-1">
+            <div class="d-flex justify-content-between">
+              <span class="rs-chat-name">María López</span>
+              <span class="rs-chat-time">Ayer</span>
+            </div>
+            <span class="rs-chat-msg">Gracias por el acompañamiento 🙏</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conversación activa -->
+    <div class="col-md-8 d-flex flex-column" style="height:640px;">
+      <div class="d-flex align-items-center gap-2 p-3" style="border-bottom:1px solid var(--rs-gris-borde);">
+        <div class="rs-chat-icon" style="background:var(--rs-azul-claro); color:var(--rs-azul-ruta);"><i
+            class="fa-solid fa-people-group"></i></div>
+        <div class="flex-grow-1">
+          <div class="fw-bold text-dark" style="font-size:.92rem;">Grupo Familia</div>
+          <div class="text-secondary" style="font-size:.76rem;">Carlos Mendoza, Ana Torres +2</div>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary"><i class="fa-solid fa-map-location-dot"></i></button>
+      </div>
+
+      <div class="flex-grow-1 p-3" style="overflow-y:auto; background:var(--rs-gris-fondo);">
+
+        <div class="d-flex justify-content-start mb-3">
+          <div style="max-width:70%;">
+            <div class="bg-white rounded-4 px-3 py-2 shadow-sm">
+              <div class="fw-semibold text-dark" style="font-size:.78rem;">Ana Torres</div>
+              <div class="text-dark" style="font-size:.88rem;">Ya voy llegando a Chosica, todo tranquilo.</div>
+            </div>
+            <div class="text-secondary mt-1" style="font-size:.7rem;">15:40</div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-start mb-3">
+          <div style="max-width:70%;">
+            <div class="rounded-4 px-3 py-2" style="background:var(--rs-azul-claro);">
+              <div class="fw-semibold" style="font-size:.78rem; color:var(--rs-azul-ruta);"><i
+                  class="fa-solid fa-location-dot me-1"></i>Ubicación compartida</div>
+              <div class="text-dark" style="font-size:.85rem;">-11.9123, -76.7345</div>
+            </div>
+            <div class="text-secondary mt-1" style="font-size:.7rem;">15:47</div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end mb-3">
+          <div style="max-width:70%;">
+            <div class="rounded-4 px-3 py-2 text-white" style="background:var(--rs-azul-ruta);">
+              <div style="font-size:.88rem;">Perfecto, avísanos cuando llegues 🙌</div>
+            </div>
+            <div class="text-secondary mt-1 text-end" style="font-size:.7rem;">15:48</div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-start mb-3">
+          <div style="max-width:70%;">
+            <div class="bg-white rounded-4 px-3 py-2 shadow-sm">
+              <div class="fw-semibold text-dark" style="font-size:.78rem;">Carlos Mendoza</div>
+              <div class="text-dark" style="font-size:.88rem;">Todo bien, ya llegué a destino.</div>
+            </div>
+            <div class="text-secondary mt-1" style="font-size:.7rem;">16:20</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="d-flex align-items-center gap-2 p-3" style="border-top:1px solid var(--rs-gris-borde);">
+        <button class="btn btn-outline-secondary rounded-circle" style="width:40px;height:40px;"><i
+            class="fa-solid fa-paperclip"></i></button>
+        <input type="text" class="form-control" placeholder="Escribe un mensaje...">
+        <button class="btn btn-primary rounded-circle" style="width:40px;height:40px;"><i
+            class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </div>
+
+  </div>
+</div>

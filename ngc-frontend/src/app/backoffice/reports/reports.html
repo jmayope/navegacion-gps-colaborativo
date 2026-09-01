@@ -1,1 +1,283 @@
-<p>reports works!</p>
+<main class="rs-main">
+
+  <!-- KPIs -->
+  <div class="row g-3 mb-3">
+    <div class="col-6 col-lg-3">
+      <div class="rs-kpi-card">
+        <div class="rs-kpi-icon" style="background:var(--rs-azul-claro); color:var(--rs-azul-ruta);"><i
+            class="fa-solid fa-file-lines"></i></div>
+        <div class="rs-kpi-label">Reportes generados</div>
+        <div class="rs-kpi-value">37</div>
+        <div class="d-flex align-items-center justify-content-between mt-1">
+          <span class="rs-kpi-sub">este mes</span>
+          <span class="rs-kpi-delta text-success"><i class="fa-solid fa-arrow-up"></i> 18%</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="rs-kpi-card">
+        <div class="rs-kpi-icon" style="background:var(--rs-verde-claro); color:var(--rs-verde-seguro);"><i
+            class="fa-solid fa-route"></i></div>
+        <div class="rs-kpi-label">Rutas completadas</div>
+        <div class="rs-kpi-value">642</div>
+        <div class="d-flex align-items-center justify-content-between mt-1">
+          <span class="rs-kpi-sub">últimos 30 días</span>
+          <span class="rs-kpi-delta text-success"><i class="fa-solid fa-arrow-up"></i> 9%</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="rs-kpi-card">
+        <div class="rs-kpi-icon" style="background:var(--rs-rojo-claro); color:var(--rs-rojo-alerta);"><i
+            class="fa-solid fa-triangle-exclamation"></i></div>
+        <div class="rs-kpi-label">Incidencias / semana</div>
+        <div class="rs-kpi-value">5.2</div>
+        <div class="d-flex align-items-center justify-content-between mt-1">
+          <span class="rs-kpi-sub">promedio</span>
+          <span class="rs-kpi-delta text-danger"><i class="fa-solid fa-arrow-up"></i> 4%</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="rs-kpi-card">
+        <div class="rs-kpi-icon" style="background:var(--rs-morado-claro); color:var(--rs-morado-chat);"><i
+            class="fa-solid fa-stopwatch"></i></div>
+        <div class="rs-kpi-label">Tiempo de respuesta</div>
+        <div class="rs-kpi-value">41s</div>
+        <div class="d-flex align-items-center justify-content-between mt-1">
+          <span class="rs-kpi-sub">promedio</span>
+          <span class="rs-kpi-delta text-success"><i class="fa-solid fa-arrow-down"></i> 6%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <!-- Gráfico de barras (rutas completadas por día) -->
+    <div class="col-lg-8">
+      <div class="rs-panel h-100">
+        <div class="rs-panel-header">
+          <h5>Rutas completadas por día</h5>
+          <select class="form-select form-select-sm" style="width:auto;">
+            <option>Últimos 7 días</option>
+            <option>Últimos 30 días</option>
+          </select>
+        </div>
+
+        <div class="d-flex align-items-end gap-3" style="height:200px;">
+          <div class="d-flex flex-column align-items-center flex-grow-1">
+            <div class="w-100 rounded-top" style="height:55%; background:var(--rs-azul-claro);"></div>
+            <span class="text-secondary small mt-2">Lun</span>
+          </div>
+          <div class="d-flex flex-column align-items-center flex-grow-1">
+            <div class="w-100 rounded-top" style="height:70%; background:var(--rs-azul-claro);"></div>
+            <span class="text-secondary small mt-2">Mar</span>
+          </div>
+          <div class="d-flex flex-column align-items-center flex-grow-1">
+            <div class="w-100 rounded-top" style="height:48%; background:var(--rs-azul-claro);"></div>
+            <span class="text-secondary small mt-2">Mié</span>
+          </div>
+          <div class="d-flex flex-column align-items-center flex-grow-1">
+            <div class="w-100 rounded-top" style="height:85%; background:var(--rs-azul-ruta);"></div>
+            <span class="text-secondary small mt-2">Jue</span>
+          </div>
+          <div class="d-flex flex-column align-items-center flex-grow-1">
+            <div class="w-100 rounded-top" style="height:62%; background:var(--rs-azul-claro);"></div>
+            <span class="text-secondary small mt-2">Vie</span>
+          </div>
+          <div class="d-flex flex-column align-items-center flex-grow-1">
+            <div class="w-100 rounded-top" style="height:38%; background:var(--rs-azul-claro);"></div>
+            <span class="text-secondary small mt-2">Sáb</span>
+          </div>
+          <div class="d-flex flex-column align-items-center flex-grow-1">
+            <div class="w-100 rounded-top" style="height:30%; background:var(--rs-azul-claro);"></div>
+            <span class="text-secondary small mt-2">Dom</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Distribución de incidencias -->
+    <div class="col-lg-4">
+      <div class="rs-panel h-100">
+        <div class="rs-panel-header">
+          <h5>Incidencias por tipo</h5>
+        </div>
+        <div class="rs-mood-legend">
+          <div class="row-item">
+            <span class="left"><i class="rs-legend-dot" style="background:var(--rs-rojo-alerta);"></i> Accidentes</span>
+            <span>34%</span>
+          </div>
+          <div class="row-item">
+            <span class="left"><i class="rs-legend-dot" style="background:var(--rs-ambar-aviso);"></i> Tráfico</span>
+            <span>28%</span>
+          </div>
+          <div class="row-item">
+            <span class="left"><i class="rs-legend-dot" style="background:var(--rs-morado-chat);"></i> Robo</span>
+            <span>15%</span>
+          </div>
+          <div class="row-item">
+            <span class="left"><i class="rs-legend-dot" style="background:var(--rs-azul-ruta);"></i> Obstáculo</span>
+            <span>23%</span>
+          </div>
+        </div>
+        <hr style="border-color:var(--rs-gris-borde);">
+        <p class="text-secondary small mb-0">Basado en 148 incidencias registradas en los últimos 30 días.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Historial de reportes -->
+  <div class="rs-panel">
+    <div class="rs-panel-header">
+      <h5>Historial de reportes</h5>
+      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#reportModal">
+        <i class="fa-solid fa-plus me-1"></i> Generar reporte
+      </button>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <select class="form-select" style="max-width:180px;">
+        <option selected>Tipo de reporte</option>
+        <option>Rutas</option>
+        <option>Incidencias</option>
+        <option>Usuarios</option>
+        <option>Acompañamiento</option>
+      </select>
+      <input type="date" class="form-control" style="max-width:170px;">
+      <input type="date" class="form-control" style="max-width:170px;">
+    </div>
+
+    <table class="rs-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Rango</th>
+          <th>Generado por</th>
+          <th>Fecha</th>
+          <th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td class="fw-semibold text-dark">Resumen de rutas — Agosto</td>
+          <td><span class="rs-pill rs-pill-primary">Rutas</span></td>
+          <td class="text-secondary" style="font-size:.82rem;">01 – 31 ago 2026</td>
+          <td class="text-secondary" style="font-size:.82rem;">Jorge Mayo</td>
+          <td class="text-secondary" style="font-size:.82rem;">31 ago 2026</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-secondary me-1" title="Ver"><i class="fa-regular fa-eye"></i></button>
+            <button class="btn btn-sm btn-outline-primary" title="Descargar"><i
+                class="fa-solid fa-file-arrow-down"></i></button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="fw-semibold text-dark">Incidencias críticas</td>
+          <td><span class="rs-pill rs-pill-danger">Incidencias</span></td>
+          <td class="text-secondary" style="font-size:.82rem;">15 – 21 ago 2026</td>
+          <td class="text-secondary" style="font-size:.82rem;">Rocío Vega</td>
+          <td class="text-secondary" style="font-size:.82rem;">22 ago 2026</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-secondary me-1" title="Ver"><i class="fa-regular fa-eye"></i></button>
+            <button class="btn btn-sm btn-outline-primary" title="Descargar"><i
+                class="fa-solid fa-file-arrow-down"></i></button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="fw-semibold text-dark">Nuevos usuarios registrados</td>
+          <td><span class="rs-pill rs-pill-success">Usuarios</span></td>
+          <td class="text-secondary" style="font-size:.82rem;">01 – 15 ago 2026</td>
+          <td class="text-secondary" style="font-size:.82rem;">Jorge Mayo</td>
+          <td class="text-secondary" style="font-size:.82rem;">16 ago 2026</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-secondary me-1" title="Ver"><i class="fa-regular fa-eye"></i></button>
+            <button class="btn btn-sm btn-outline-primary" title="Descargar"><i
+                class="fa-solid fa-file-arrow-down"></i></button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="fw-semibold text-dark">Tiempos de acompañamiento</td>
+          <td><span class="rs-pill rs-pill-neutral">Acompañamiento</span></td>
+          <td class="text-secondary" style="font-size:.82rem;">01 – 31 jul 2026</td>
+          <td class="text-secondary" style="font-size:.82rem;">Diego Farfán</td>
+          <td class="text-secondary" style="font-size:.82rem;">01 ago 2026</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-secondary me-1" title="Ver"><i class="fa-regular fa-eye"></i></button>
+            <button class="btn btn-sm btn-outline-primary" title="Descargar"><i
+                class="fa-solid fa-file-arrow-down"></i></button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between pt-3 mt-2"
+      style="border-top:1px solid var(--rs-gris-borde);">
+      <span class="text-secondary small">Mostrando 1–4 de 37 reportes</span>
+      <nav>
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="modal fade" id="reportModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-file-lines text-primary me-2"></i>Generar
+            reporte</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label small fw-semibold text-dark">Nombre del reporte</label>
+              <input type="text" class="form-control" placeholder="Ej. Resumen de rutas — Setiembre">
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-semibold text-dark">Tipo de reporte</label>
+              <select class="form-select">
+                <option>Rutas</option>
+                <option>Incidencias</option>
+                <option>Usuarios</option>
+                <option>Acompañamiento</option>
+              </select>
+            </div>
+            <div class="row g-3 mb-3">
+              <div class="col-6">
+                <label class="form-label small fw-semibold text-dark">Desde</label>
+                <input type="date" class="form-control">
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-semibold text-dark">Hasta</label>
+                <input type="date" class="form-control">
+              </div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label small fw-semibold text-dark">Formato</label>
+              <select class="form-select">
+                <option>PDF</option>
+                <option>Excel (.xlsx)</option>
+                <option>CSV</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Generar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
