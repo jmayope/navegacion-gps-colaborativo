@@ -1,1 +1,314 @@
-<router-outlet />
+<div class="rs-shell">
+
+  <!-- =====================================================
+       BACKDROP MOBILE
+       ===================================================== -->
+  <div
+    class="rs-sidebar-backdrop"
+    [class.show]="mobileSidebarOpen"
+    (click)="closeMobileSidebar()">
+  </div>
+
+
+  <!-- =====================================================
+       SIDEBAR
+       ===================================================== -->
+  <aside
+    class="rs-sidebar"
+    [class.collapsed]="sidebarCollapsed"
+    [class.mobile-open]="mobileSidebarOpen">
+
+
+    <!-- ================= BRAND ================= -->
+
+    <div class="rs-sidebar-brand">
+
+      <svg
+        class="rs-logo"
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+
+        <path
+          d="M20 2 4 8v10c0 10 6.8 17.4 16 20 9.2-2.6 16-10 16-20V8L20 2Z"
+          fill="#2563EB"/>
+
+        <path
+          d="M20 11c-3.3 0-6 2.7-6 6 0 4.5 6 11 6 11s6-6.5 6-11c0-3.3-2.7-6-6-6Z"
+          fill="#fff"/>
+
+        <circle
+          cx="20"
+          cy="17"
+          r="2.4"
+          fill="#2563EB"/>
+
+      </svg>
+
+      <span class="rs-brand-text">
+        RutaSegura
+      </span>
+
+    </div>
+
+
+    <!-- =====================================================
+         NAVEGACIÓN
+         ===================================================== -->
+
+    <nav class="rs-sidebar-nav">
+
+      <ng-container *ngFor="let m of modules">
+        <a
+          class="nav-link hand"
+          [class.active]="activeModule === m.code"
+          title="{{m.name}}"
+          (click)="selectModule(m.code)">
+          <i class="{{m.icon}}"></i>
+          <span class="link-label">
+            {{m.name}}
+          </span>
+          <span *ngIf="m.badge" class="nav-badge">
+            {{m.badge}}
+          </span>
+        </a>
+      </ng-container>
+
+    </nav>
+
+
+    <!-- =====================================================
+         ESTADO DEL SISTEMA
+         ===================================================== -->
+
+    <div class="rs-sidebar-status">
+
+      <span class="status-dot"></span>
+
+      <div>
+
+        <div class="status-title">
+          Sistema en línea
+        </div>
+
+        <div class="status-sub">
+          Última actualización<br>
+          27 ago. 2026 09:14
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         FOOTER SIDEBAR
+         ===================================================== -->
+
+    <div class="rs-sidebar-footer">
+
+      <button
+        type="button"
+        class="rs-collapse-btn"
+        title="Contraer / expandir menú"
+        (click)="toggleSidebar()">
+
+        <i
+          class="fa-solid"
+          [class.fa-angles-left]="!sidebarCollapsed"
+          [class.fa-angles-right]="sidebarCollapsed">
+        </i>
+
+        <span class="btn-label">
+          {{ sidebarCollapsed ? 'Expandir menú' : 'Contraer menú' }}
+        </span>
+
+      </button>
+
+    </div>
+
+  </aside>
+  <!-- =====================================================
+       CONTENIDO
+       ===================================================== -->
+
+  <div class="rs-content">
+
+
+    <!-- ===================================================
+         TOPBAR
+         =================================================== -->
+
+    <header class="rs-topbar">
+
+
+      <!-- Hamburguesa mobile -->
+
+      <button
+        type="button"
+        class="rs-icon-btn rs-mobile-toggle"
+        [class.d-none]="!isMobile()"
+        (click)="openMobileSidebar()"
+        aria-label="Abrir menú">
+
+        <i class="fa-solid fa-bars"></i>
+
+      </button>
+
+
+      <!-- Búsqueda -->
+
+      <div class="rs-search">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+          type="text"
+          placeholder="Buscar usuario, ruta o incidencia...">
+
+      </div>
+
+
+      <!-- =================================================
+           ACCIONES
+           ================================================= -->
+
+      <div class="rs-topbar-actions">
+
+
+        <!-- Notificaciones -->
+
+        <button
+          type="button"
+          class="rs-icon-btn"
+          title="Notificaciones">
+
+          <i class="fa-regular fa-bell"></i>
+
+          <span class="badge-count">
+            3
+          </span>
+
+        </button>
+
+
+        <!-- =================================================
+             USUARIO
+             ================================================= -->
+
+        <div
+          class="rs-user-menu"
+          (click)="$event.stopPropagation()">
+
+
+          <button
+            type="button"
+            class="rs-user-trigger"
+            (click)="toggleUserMenu($event)">
+
+
+            <img
+              class="rs-user-avatar"
+              src="https://i.pravatar.cc/80?img=13"
+              alt="Jorge Mayo">
+
+
+            <div class="rs-user-meta d-none d-sm-block">
+
+              <span class="u-name">
+                {{user_loged.short_name}}
+              </span>
+
+              <span class="u-role">
+                Administrador
+              </span>
+
+            </div>
+
+
+            <i class="fa-solid fa-chevron-down chev"></i>
+
+          </button>
+
+
+          <!-- =================================================
+               DROPDOWN
+               ================================================= -->
+
+          <div
+            class="rs-user-dropdown"
+            [class.show]="userDropdownOpen">
+
+
+            <a class="hand"
+              (click)="$event.preventDefault(); goToProfile()">
+
+              <i class="fa-regular fa-user"></i>
+
+              Mi perfil
+
+            </a>
+
+
+            <a class="hand"
+              (click)="goToSetting()">
+
+              <i class="fa-solid fa-gear"></i>
+
+              Configuración
+
+            </a>
+
+
+            <!-- <a
+              href="#"
+              (click)="$event.preventDefault()">
+
+              <i class="fa-regular fa-circle-question"></i>
+
+              Ayuda
+
+            </a> -->
+
+
+            <hr>
+
+
+            <a
+              class="logout hand"
+              (click)="logout()">
+
+              <i class="fa-solid fa-right-from-bracket"></i>
+
+              Cerrar sesión
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+      <!-- ===================================================
+         CONTENIDO DINÁMICO
+         =================================================== -->
+
+    <main class="rs-main">
+
+      <!-- Aquí permanece TODO tu dashboard actual -->
+
+      <!-- KPIs -->
+      <!-- Mapa -->
+      <!-- Rutas en curso -->
+      <!-- Incidencias -->
+      <!-- Estado de ánimo -->
+      <!-- Chats -->
+      <router-outlet />
+
+    </main>
+
+  </div>
+
+</div>

@@ -47,6 +47,9 @@ public class User {
     
     @JsonProperty("updated_at")
     private OffsetDateTime updatedAt;
+
+    @JsonProperty("is_admin")
+    private Boolean isAdmin = false;
     
     // ============================================================
     // CONSTRUCTORES
@@ -177,6 +180,14 @@ public class User {
     
     public void setUpdatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+    
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
     
     // ============================================================

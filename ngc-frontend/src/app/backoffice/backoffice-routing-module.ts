@@ -7,6 +7,10 @@ import { Incident } from "./incident/incident";
 import { Profile } from "./profile/profile";
 import { Reports } from "./reports/reports";
 import { NgModule } from "@angular/core";
+import { Accompaniment } from "./accompaniment/accompaniment";
+import { MovementsHistory } from "./movements-history/movements-history";
+import { ChatAndSharedContent } from "./chat-and-shared-content/chat-and-shared-content";
+import { Setting } from "./setting/setting";
 
 export const routes: Routes = [
   {
@@ -34,6 +38,21 @@ export const routes: Routes = [
           data: { title: 'Administración de Incidentes' }
       },
       {
+          path: 'acompaniamiento',
+          component: Accompaniment,
+          data: { title: 'Acompañamiento' }
+      },
+      {
+          path: 'historial-de-movimientos',
+          component: MovementsHistory,
+          data: { title: 'Historial de Movimientos' }
+      },
+      {
+          path: 'chat-y-comparticiones',
+          component: ChatAndSharedContent,
+          data: { title: 'Chats y Comparticiones' }
+      },
+      {
           path: 'perfil',
           component: Profile,
           data: { title: 'Perfil de Usuario' }
@@ -42,6 +61,11 @@ export const routes: Routes = [
           path: 'reporteria',
           component: Reports,
           data: { title: 'Reporteria' }
+      },
+      {
+          path: 'configuracion',
+          component: Setting,
+          data: { title: 'Configuración' }
       },
     ]
   }
