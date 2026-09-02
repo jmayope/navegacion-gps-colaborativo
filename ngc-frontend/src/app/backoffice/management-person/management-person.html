@@ -24,40 +24,35 @@
         <div class="filters-grid">
           <!-- Búsqueda -->
           <div class="filter-group search-group">
-            <div class="search-wrapper">
-              <i class="icon-search"></i>
-              <input type="text" placeholder="Buscar por nombre, email o teléfono..." class="search-input" />
-              <!-- (input)="onSearch($any($event.target).value)" -->
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fa fa-search me-1"></i>
+              </span>
+              <input type="text" name="text" [(ngModel)]="filters.text" class="form-control text-uppercase" placeholder="BUSCAR POR TEXTO">
             </div>
           </div>
       
           <!-- Filtro por estado -->
           <div class="filter-group">
-            <select class="filter-select" [value]="filters.status">
-              <!-- (change)="onStatusChange($any($event.target).value)" -->
-              <option value="all">Todos los estados</option>
-              <option value="active">Activos</option>
-              <option value="inactive">Inactivos</option>
+            <select class="form-select" name="status" [(ngModel)]="filters.status">
+              <option [ngValue]="undefined">--TODOS--</option>
+              <option *ngFor="let sr of status_records" [ngValue]="sr.id">{{sr.name | uppercase}}</option>
             </select>
           </div>
       
           <!-- Filtro por verificación -->
           <div class="filter-group">
-            <select class="filter-select" [value]="filters.verified">
-              <!-- (change)="onVerifiedChange($any($event.target).value)" -->
-              <option value="all">Todos (verificación)</option>
-              <option value="verified">Verificados</option>
-              <option value="unverified">No verificados</option>
+            <select class="form-select" name="is_verified" [(ngModel)]="filters.is_verified">
+              <option [ngValue]="undefined">--TODOS--</option>
+              <option *ngFor="let vr of verifieds_records" [ngValue]="vr.id">{{vr.name | uppercase}}</option>
             </select>
           </div>
       
           <!-- Ordenamiento -->
           <div class="filter-group">
-            <select class="filter-select" [value]="filters.sortBy">
-              <!-- (change)="onSortChange($any($event.target).value)" -->
-              <option value="created_at">Más recientes</option>
-              <option value="full_name">Nombre A-Z</option>
-              <option value="last_activity_at">Última actividad</option>
+            <select class="filter-select" name="sortField" [(ngModel)]="filters.sort">
+              <option [ngValue]="undefined">--NINGUNO--</option>
+              <option *ngFor="let fs of fields_sorts" [ngValue]="fs">{{fs.name}}</option>
             </select>
           </div>
         </div>
@@ -100,7 +95,9 @@
               </tr>
       
               <!-- Filas de usuarios -->
-              <tr *ngFor="let user of users">
+              <tr *ngFor="let user of (users | filter:filters.text:['full_name', 'email'] | filter:filters.status:['is_active'] | filter:filters.is_verified:['is_verified'] )">
+                <!-- (filters.sort ? sort : null)  sort: filters.sort.field + (filters.sort.order === 'desc' ? '-' : '') -->
+                <!-- | sort:sortField + (sortDirection === 'desc' ? '-' : ''))"> FALTA APLICAR -->
                 <td>
                   <div class="user-info">
                     <div class="user-avatar">
@@ -170,12 +167,10 @@
                 </td>
                 <td>
                   <div class="action-buttons">
-                    <button class="btn-action btn-edit" title="Editar">
-                      <!-- (click)="openEditUserModal(user)" -->
+                    <button class="btn-action btn-edit" title="Editar" (click)="toggleUser(user)">
                       <i class="fa fa-edit"></i>
                     </button>
-                    <button class="btn-action btn-delete" title="Eliminar">
-                      <!-- (click)="openDeleteConfirm(user)" -->
+                    <button class="btn-action btn-delete" title="Eliminar" (click)="deleteUser(user)">
                       <i class="fa fa-trash text-danger"></i>
                     </button>
                   </div>

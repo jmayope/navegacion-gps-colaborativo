@@ -13,6 +13,22 @@ export function generateRandomString(length: number) {
   return result;
 }
 
+export const DOCUMENT_TYPES = [
+  {id: 'DNI', name: "DNI"},
+  {id: 'CE', name: "Carnet de Extranjeria"},
+  {id: 'PAS', name: "Pasaporte"},
+];
+
+export const STATUS_RECORDS = [
+  {id: true, name: "Activo" },
+  {id: false, name: "Inactivo" },
+];
+
+export const VERIFIEDS_RECORDS = [
+  {id: true, name: "Verificado" },
+  {id: false, name: "No Verificado" },
+];
+
 export function loadingAlert(message: string, timerInSeconds?: number) {
   if (timerInSeconds) {
     Swal.fire({

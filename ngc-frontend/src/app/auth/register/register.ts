@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Main } from '../../services/main';
-import { loadingAlert, messageAlert } from '../../constants';
+import { DOCUMENT_TYPES, loadingAlert, messageAlert } from '../../constants';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -24,11 +24,7 @@ export class Register implements OnInit {
 
   }
 
-  documentTypes: any = [
-    {id: 'DNI', name: "DNI"},
-    {id: 'CE', name: "Carnet de Extranjeria"},
-    {id: 'PAS', name: "Pasaporte"},
-  ];
+  documentTypes: any = DOCUMENT_TYPES;
 
   newUser: any = {};
 

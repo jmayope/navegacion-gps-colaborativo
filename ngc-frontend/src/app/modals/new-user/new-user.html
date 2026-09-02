@@ -1,0 +1,58 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{ user && user.id ? 'Editar' : 'Nuevo' }}&nbsp;Usuario</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-12">
+      <small class="text-secondary">Correo Electrónico</small>
+      <input type="text" name="email" [(ngModel)]="user.email" class="form-control">
+    </div>
+    <div class="col-12">
+      <small class="text-secondary">Nombre Completo</small>
+      <input type="text" name="full_name" [(ngModel)]="user.full_name" class="form-control">
+    </div>
+    <div class="col-12">
+      <small class="text-secondary">Número de Celular</small>
+      <input type="text" name="phone" [(ngModel)]="user.phone" class="form-control">
+    </div>
+    <div class="col-12">
+      <small class="text-secondary">Tipo de Documento</small>
+      <select name="document_type" [(ngModel)]="user.document_type" class="form-select">
+        <option [ngValue]="undefined">--SELECCIONE--</option>
+        <option *ngFor="let dt of document_types" [ngValue]="dt.id">{{dt.name | uppercase}}</option>
+      </select>
+    </div>
+    <div class="col-12">
+      <small class="text-secondary">Número de Documento</small>
+      <input type="text" name="document_number" [(ngModel)]="user.document_number" class="form-control">
+    </div>
+    <div class="col-12">
+      <small class="text-secondary">Estado</small>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="is_active" name="is_active" [(ngModel)]="user.is_active">
+        <label class="form-check-label" for="is_active">Activo</label>
+      </div>
+    </div>
+    <div class="col-12">
+      <small class="text-secondary">¿Esta verificado?</small>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="is_verified" name="is_verified" [(ngModel)]="user.is_verified">
+        <label class="form-check-label" for="is_verified">{{user.is_verified ? 'Si' : 'No'}}</label>
+      </div>
+    </div>
+    <div class="col-12">
+      <small class="text-secondary">Administrador</small>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="is_admin" name="is_admin" [(ngModel)]="user.is_admin">
+        <label class="form-check-label" for="is_admin">{{user.is_admin ? 'Si' : 'No'}}</label>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancelar</button>
+  <button type="button" class="btn btn-primary" (click)="save()">Grabar</button>
+</div>

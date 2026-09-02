@@ -61,6 +61,24 @@ export class Main {
     }
   }
 
+  async updateUser(id: string, data: any) {
+    try {
+      let result: any = await firstValueFrom(this.Http.put(`${this.uri}/users/${id}`, data));
+      return result || [];
+    } catch (error: any) {
+      messageAlert(null, `Error al actualizar el usuario con ID: ${id} + ${error.message}`, 'error');
+    }
+  }
+
+  async deleteUser(id: string) {
+    try {
+      let result: any = await firstValueFrom(this.Http.delete(`${this.uri}/users/${id}`));
+      return result || [];
+    } catch (error: any) {
+      messageAlert(null, `Error al actualizar el usuario con ID: ${id} + ${error.message}`, 'error');
+    }
+  }
+
 
 
 }
