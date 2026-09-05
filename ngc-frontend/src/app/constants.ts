@@ -3,6 +3,11 @@ import Swal from "sweetalert2";
 export const API_URI = "http://localhost:8080/api";
 export const TOKEN_NAME = 'NGS-TOKEN';
 
+export const COLLECTIONS = {
+  USERS: 'users',
+  ROUTES: 'routes'
+};
+
 
 export function generateRandomString(length: number) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';

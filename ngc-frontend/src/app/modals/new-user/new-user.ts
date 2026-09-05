@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { DOCUMENT_TYPES, generateRandomString, messageAlert } from '../../constants';
+import { COLLECTIONS, DOCUMENT_TYPES, generateRandomString, messageAlert } from '../../constants';
 import { Main } from '../../services/main';
 import { Subject } from 'rxjs';
 
@@ -54,7 +54,7 @@ export class NewUser implements OnInit {
       messageAlert("Éxito", "Se crearon correctamente el usuario", "success");
     } else {
       delete newUser.id;
-      let resultUpdate: any = await this.Main.updateUser(this.user.id, newUser);
+      let resultUpdate: any = await this.Main.updateRow(COLLECTIONS.USERS, this.user.id, newUser);
       if (!resultUpdate) {
         messageAlert("Error", "Hubo un error al actualizar el usuario", "error");
         return;

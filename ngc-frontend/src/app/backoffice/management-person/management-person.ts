@@ -8,7 +8,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NewUser } from '../../modals/new-user/new-user';
 import Swal from 'sweetalert2';
 import { FilterPipe } from '../../pipes/filter-pipe';
-import { STATUS_RECORDS, VERIFIEDS_RECORDS } from '../../constants';
+import { COLLECTIONS, STATUS_RECORDS, VERIFIEDS_RECORDS } from '../../constants';
 import { SortPipe } from '../../pipes/sort-pipe';
 
 @Component({
@@ -106,7 +106,7 @@ export class ManagementPerson {
    */
   async loadUsers() {
     this.loading = true;
-    let result: any = await this.Main.getUsers();
+    let result: any = await this.Main.getRows(COLLECTIONS.USERS);
     this.users = result;
     this.loading = false;
     this.pagination.total = this.users.length;
@@ -138,7 +138,7 @@ export class ManagementPerson {
       showConfirmButton: true
     }).then(async (choice) => {
       if (choice.isConfirmed) {
-        let resultDelete: any = await this.Main.deleteUser(user.id);
+        let resultDelete: any = await this.Main.deleteRow(COLLECTIONS.USERS, user.id);
         console.log(resultDelete);
         this.loadUsers();
       }

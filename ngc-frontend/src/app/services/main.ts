@@ -52,33 +52,31 @@ export class Main {
     }
   }
 
-  async getUsers() {
+  async getRows(table: string) {
     try {
-      let result: any = await firstValueFrom(this.Http.get(`${this.uri}/users`));
+      let result: any = await firstValueFrom(this.Http.get(`${this.uri}/${table}`));
       return result || [];
     } catch (error: any) {
       messageAlert(null, `Error al listar usuarios + ${error.message}`, 'error');
     }
   }
 
-  async updateUser(id: string, data: any) {
+  async updateRow(table: string, id: string, data: any) {
     try {
-      let result: any = await firstValueFrom(this.Http.put(`${this.uri}/users/${id}`, data));
+      let result: any = await firstValueFrom(this.Http.put(`${this.uri}/${table}/${id}`, data));
       return result || [];
     } catch (error: any) {
       messageAlert(null, `Error al actualizar el usuario con ID: ${id} + ${error.message}`, 'error');
     }
   }
 
-  async deleteUser(id: string) {
+  async deleteRow(table: string, id: string) {
     try {
-      let result: any = await firstValueFrom(this.Http.delete(`${this.uri}/users/${id}`));
+      let result: any = await firstValueFrom(this.Http.delete(`${this.uri}/${table}/${id}`));
       return result || [];
     } catch (error: any) {
       messageAlert(null, `Error al actualizar el usuario con ID: ${id} + ${error.message}`, 'error');
     }
   }
-
-
 
 }
