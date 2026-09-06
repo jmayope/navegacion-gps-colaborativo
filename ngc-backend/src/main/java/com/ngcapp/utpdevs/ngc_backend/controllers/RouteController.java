@@ -1,5 +1,6 @@
 package com.ngcapp.utpdevs.ngc_backend.controllers;
 
+import com.ngcapp.utpdevs.ngc_backend.dtos.RouteFunctionResponse;
 import com.ngcapp.utpdevs.ngc_backend.dtos.RouteRequest;
 import com.ngcapp.utpdevs.ngc_backend.dtos.RouteStatusUpdate;
 import com.ngcapp.utpdevs.ngc_backend.models.Route;
@@ -16,7 +17,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/routes")
-@CrossOrigin(origins = "*")
 public class RouteController {
     
   @Autowired
@@ -29,6 +29,11 @@ public class RouteController {
   @GetMapping
   public ResponseEntity<List<Route>> getAll() {
       return ResponseEntity.ok(routeService.findAll());
+  }
+
+  @GetMapping("by-text")
+  public ResponseEntity<List<RouteFunctionResponse>> getByText(@RequestParam(required = false) String text) {
+      return ResponseEntity.ok(routeService.findRoutes(null, text));
   }
   
   @GetMapping("/{id}")

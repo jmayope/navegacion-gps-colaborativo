@@ -70,6 +70,15 @@ export class Main {
     }
   }
 
+  async getByText(table: string, text: string) {
+    try {
+      let result: any = await firstValueFrom(this.Http.get(`${this.uri}/${table}/by-text?text=${text}`));
+      return result || [];
+    } catch (error: any) {
+      messageAlert(null, `Error al obtener datos con el texto: ${text} + ${error.message}`, 'error');
+    }
+  }
+
   async deleteRow(table: string, id: string) {
     try {
       let result: any = await firstValueFrom(this.Http.delete(`${this.uri}/${table}/${id}`));

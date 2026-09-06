@@ -24,6 +24,13 @@ export const DOCUMENT_TYPES = [
   {id: 'PAS', name: "Pasaporte"},
 ];
 
+export const ROUTE_STATUS = [
+  { id: 'planning', name: 'Planificación', }, 
+  { id: 'in_progress', name: 'En progreso', }, 
+  { id: 'completed', name: 'Completado', }, 
+  { id: 'cancelled', name: 'Cancelado', }
+];
+
 export const STATUS_RECORDS = [
   {id: true, name: "Activo" },
   {id: false, name: "Inactivo" },

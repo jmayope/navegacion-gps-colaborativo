@@ -32,6 +32,15 @@ public class UserService {
         return result.isEmpty() ? null : result.get(0);
     }
 
+    public List<User> findByText(String text) {
+        List<User> result = crudService.find(
+            TABLE, 
+            "or=(full_name=ilike.*" + text +"*,email=ilike.*&"+text+"*,document_number=ilike.*"+text+"*", 
+            User[].class
+        );
+        return result.isEmpty() ? null : result;
+    }
+
     public User findByEmail(String email) {
         List<User> result = crudService.find(
             TABLE, 

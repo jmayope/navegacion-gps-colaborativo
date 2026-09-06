@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ngcapp.utpdevs.ngc_backend.models.User;
@@ -32,6 +33,11 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
         return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping("by-text")
+    public ResponseEntity<List<User>> getByText(@RequestParam String text) {
+        return ResponseEntity.ok(service.findByText(text));
     }
     
     @GetMapping("/{id}")

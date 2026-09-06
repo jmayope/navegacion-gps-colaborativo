@@ -1,5 +1,7 @@
 package com.ngcapp.utpdevs.ngc_backend.services;
 
+import com.ngcapp.utpdevs.ngc_backend.dtos.RouteFunctionResponse;
+import com.ngcapp.utpdevs.ngc_backend.dtos.RouteQueryParams;
 import com.ngcapp.utpdevs.ngc_backend.models.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,23 @@ public class RouteService {
   // Obtener todas las rutas
   public List<Route> findAll() {
       return crudService.findAll(TABLE, Route[].class);
+  }
+
+  public List<RouteFunctionResponse> findRoutes(
+      UUID userId,
+      String search
+  ) {
+
+    RouteQueryParams params = new RouteQueryParams(
+                  userId,
+                  search
+          );
+
+    return crudService.rpc(
+            "fn_get_routes",
+            params,
+            RouteFunctionResponse[].class
+    );
   }
   
   // Obtener ruta por ID

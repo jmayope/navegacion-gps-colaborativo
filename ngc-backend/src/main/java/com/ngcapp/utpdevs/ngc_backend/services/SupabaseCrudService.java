@@ -590,6 +590,57 @@ public class SupabaseCrudService {
         }
     }
 
+    
+    /**
+     * Ejecuta una función PostgreSQL expuesta mediante Supabase RPC.
+     *
+     * Ejemplo:
+     *
+     * List<RouteResponse> routes =
+     *     supabaseCrudService.rpc(
+     *         "fn_get_routes",
+     *         params,
+     *         RouteResponse[].class
+     *     );
+     */
+    public <T> List<T> rpc(
+            String functionName,
+            Object params,
+            Class<T[]> responseType
+    ) {
+
+    try {
+
+            T[] result = webClient.post()
+                    .uri("/rpc/" + functionName)
+                    .bodyValue(params)
+                    .retrieve()
+                    .onStatus(
+                            HttpStatusCode::isError,
+                            response -> buildError(
+                                    response,
+                                    "rpc/" + functionName
+                            )
+                    )
+                    .bodyToMono(responseType)
+                    .block();
+
+            return result != null
+                    ? Arrays.asList(result)
+                    : new ArrayList<>();
+
+    } catch (WebClientResponseException e) {
+
+            throw buildException(
+                    "ejecutar función RPC",
+                    functionName,
+                    e
+            );
+    }
+    }
+
+
+
 
     // ============================================================
     // MANEJO DE ERRORES
