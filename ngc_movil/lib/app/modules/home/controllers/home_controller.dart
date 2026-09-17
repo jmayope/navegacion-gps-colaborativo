@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
+import 'package:ngc_movil/app/routes/app_pages.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final count = 0.obs;
+  
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +18,16 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  Future<void> goToProfile() async {
+    Get.offAllNamed(Routes.PROFILE);
+  }
+
+  Future<void> goToRouteActive() async {
+    Get.offAllNamed(Routes.ROUTE);
+  }
+
+  Future<void> logout() async {
+    Get.offAllNamed(Routes.LOGIN);
+  }
+
 }

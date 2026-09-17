@@ -1,6 +1,26 @@
+-- CREACIÓN DE BASE DE DATOS
+-- DROP DATABASE IF EXISTS ngc_app;
+-- CREATE DATABASE ngc_app;
 -- =============================================
 -- TABLAS PARA APLICACIÓN DE NAVEGACIÓN
 -- =============================================
+
+-- USE ngc_app;
+
+/*
+
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS routes;
+DROP TABLE IF EXISTS segments;
+DROP TABLE IF EXISTS segment_details;
+DROP TABLE IF EXISTS incidents;
+DROP TABLE IF EXISTS mood_states;
+DROP TABLE IF EXISTS chats;
+DROP TABLE IF EXISTS movement_history;
+DROP TABLE IF EXISTS route_queries;
+DROP TABLE IF EXISTS user_sessions;
+
+*/
 
 -- 1. TABLA USUARIOS
 CREATE TABLE users (
@@ -16,7 +36,9 @@ CREATE TABLE users (
     last_location_lng DECIMAL(11, 8),
     last_activity_at TIMESTAMP WITH TIME ZONE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    password VARCHAR NOT NULL,
+    is_admin BOOLEAN DEFAULT false
 );
 
 -- 2. TABLA RUTAS
