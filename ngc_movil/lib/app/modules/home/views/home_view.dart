@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:ngc_movil/app/routes/app_pages.dart';
 import 'package:ngc_movil/app/theme/app_colors.dart';
 import '../controllers/home_controller.dart';
 
@@ -326,36 +327,42 @@ class HomeView extends GetView<HomeController> {
         label: 'Nueva ruta',
         iconColor: AppColors.navy,
         bgColor: const Color(0xFFEFF2FB),
+        route: Routes.ROUTE
       ),
       _QuickAccessItem(
         icon: Icons.navigation,
         label: 'Viaje activo',
         iconColor: AppColors.safe,
         bgColor: const Color(0xFFEAF9EE),
+        route: Routes.MAP
       ),
       _QuickAccessItem(
         icon: Icons.people_alt_outlined,
         label: 'Acompañantes',
         iconColor: const Color(0xFF7C3AED),
         bgColor: const Color(0xFFF3EEFD),
+        route: Routes.ACCOMPANIMENT
       ),
       _QuickAccessItem(
         icon: Icons.warning_amber_rounded,
         label: 'Alertas',
         iconColor: AppColors.warn,
         bgColor: const Color(0xFFFDF0E6),
+        route: Routes.HISTORY
       ),
       _QuickAccessItem(
         icon: Icons.access_time,
         label: 'Historial',
         iconColor: Colors.blueGrey,
         bgColor: const Color(0xFFEFF4F7),
+        route: Routes.HISTORY
       ),
       _QuickAccessItem(
         icon: Icons.phone_in_talk_outlined,
         label: 'Pánico SOS',
         iconColor: AppColors.sos,
         bgColor: const Color(0xFFFDECEC),
+        route: Routes.SOS
       ),
     ];
  
@@ -375,6 +382,8 @@ class HomeView extends GetView<HomeController> {
     return InkWell(
       onTap: () {
         // TODO: acción de navegación para item.label
+        print("A la ruta conocida ${item.route}");
+        Get.offAllNamed(item.route);
       },
       borderRadius: BorderRadius.circular(14),
       child: Container(
@@ -542,12 +551,14 @@ class _QuickAccessItem {
   final String label;
   final Color iconColor;
   final Color bgColor;
+  final String route;
  
   _QuickAccessItem({
     required this.icon,
     required this.label,
     required this.iconColor,
     required this.bgColor,
+    required this.route
   });
 }
  
