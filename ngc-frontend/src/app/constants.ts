@@ -5,7 +5,8 @@ export const TOKEN_NAME = 'NGS-TOKEN';
 
 export const COLLECTIONS = {
   USERS: 'users',
-  ROUTES: 'routes'
+  ROUTES: 'routes',
+  INCIDENTS: 'incidents'
 };
 
 
