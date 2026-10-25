@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/incidents")
-@CrossOrigin(origins = "*")
+// @CrossOrigin(origins = "*")
 public class IncidentController {
     
     @Autowired
