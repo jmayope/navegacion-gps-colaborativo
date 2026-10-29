@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:ngc_movil/app/data/constants.dart';
 import 'package:ngc_movil/app/routes/app_pages.dart';
 import 'package:ngc_movil/app/theme/app_colors.dart';
 import '../controllers/home_controller.dart';
@@ -9,17 +10,36 @@ class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
   @override
   Widget build(BuildContext context) {
+    
+    final container = Obx(() {
+      return controller.loading.value ? 
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Text("Cargando Información Inicial")
+            ],
+          ),
+        )
+      :
+        SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeader(context),
+              _buildContentArea(context),
+            ],
+          ),
+        )
+      ;
+    });
+
+
      return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeader(context),
-            _buildContentArea(context),
-          ],
-        ),
-      ),
+      body: container,
     );
   }
  
@@ -57,9 +77,9 @@ class HomeView extends GetView<HomeController> {
                     border: Border.all(color: Colors.white, width: 1.5),
                     color: Colors.white.withOpacity(0.15),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      'JP', // tu_controller_usuario.iniciales
+                      controller.userLoged.value.fullName!.substring(0,2).toUpperCase(),
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -78,8 +98,8 @@ class HomeView extends GetView<HomeController> {
                       'Bienvenido de vuelta,',
                       style: TextStyle(color: Colors.white70, fontSize: 12),
                     ),
-                    const Text(
-                      'Juan Pérez', // tu_controller_usuario.nombre
+                    Text(
+                      controller.userLoged.value.fullName!,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -139,15 +159,15 @@ class HomeView extends GetView<HomeController> {
           Row(
             children: [
               Expanded(
-                child: _buildStatCard('24', 'Viajes totales'),
+                child: _buildStatCard('${controller.routeMaps.length}', 'Viajes totales'),
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: _buildStatCard('312', 'Km recorridos'),
+                child: _buildStatCard('${controller.distanceTotal.value}', 'Km recorridos'),
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: _buildStatCard('2', 'Alertas enviadas'),
+                child: _buildStatCard('${controller.incidents.length}', 'Alertas enviadas'),
               ),
             ],
           ),
@@ -203,7 +223,11 @@ class HomeView extends GetView<HomeController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildActiveTripCard(),
+            controller.existsRouteMap.value ? 
+              _buildActiveTripCard()
+            :
+              Container()
+            ,
             const SizedBox(height: 24),
             _buildSectionTitle('ACCESO RÁPIDO'),
             // const SizedBox(height: 12),
@@ -211,32 +235,69 @@ class HomeView extends GetView<HomeController> {
             
             _buildSectionTitle('ÚLTIMOS VIAJES', actionLabel: 'Ver todos'),
             const SizedBox(height: 12),
-            _buildTripItem(
-              icon: Icons.navigation_outlined,
-              iconColor: AppColors.safe,
-              title: 'Centro → Los Próceres 12...',
-              subtitle: 'Hoy, 08:30 AM · 12.4 km',
-              status: 'ACTIVO',
-              statusColor: AppColors.safe,
-            ),
-            const SizedBox(height: 10),
-            _buildTripItem(
-              icon: Icons.navigation_outlined,
-              iconColor: Colors.grey,
-              title: 'Sur → Este',
-              subtitle: 'Ayer, 07:45 PM · 13.1 km',
-              status: 'OK',
-              statusColor: Colors.grey,
-            ),
-            const SizedBox(height: 10),
-            _buildTripItem(
-              icon: Icons.navigation_outlined,
-              iconColor: Colors.grey,
-              title: 'Oeste → Centro',
-              subtitle: '18 May, 06:20 PM · 11.8 km',
-              status: 'OK',
-              statusColor: Colors.grey,
-            ),
+            controller.routeMaps.isEmpty ? 
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.close, color: AppColors.danger,),
+                    Text(
+                      "No se tienen viajes registrados aún",
+                      style: TextStyle(
+                        color: Colors.grey
+                      ),
+                    )
+                  ],
+                ),
+              )
+            :
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ...controller.routeMaps.map((rm) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: _buildTripItem(
+                        icon: Icons.navigation_outlined,
+                        iconColor: AppColors.safe,
+                        title: '${rm.originName} → ${rm.destinationName}',
+                        subtitle: '${timeAgo(rm.startedAt!)} · ${rm.estimatedDistance} km',
+                        status: (rm.status ?? 'completed') == 'in_progress' ? 'ACTIVO' : 'OK',
+                        statusColor: (rm.status ?? 'completed') == 'in_progress' ? AppColors.safe : Colors.grey,
+                      ),
+                    );
+                  })
+                ],
+              )
+            ,
+            // _buildTripItem(
+            //   icon: Icons.navigation_outlined,
+            //   iconColor: AppColors.safe,
+            //   title: 'Centro → Los Próceres 12...',
+            //   subtitle: 'Hoy, 08:30 AM · 12.4 km',
+            //   status: 'ACTIVO',
+            //   statusColor: AppColors.safe,
+            // ),
+            // const SizedBox(height: 10),
+            // _buildTripItem(
+            //   icon: Icons.navigation_outlined,
+            //   iconColor: Colors.grey,
+            //   title: 'Sur → Este',
+            //   subtitle: 'Ayer, 07:45 PM · 13.1 km',
+            //   status: 'OK',
+            //   statusColor: Colors.grey,
+            // ),
+            // const SizedBox(height: 10),
+            // _buildTripItem(
+            //   icon: Icons.navigation_outlined,
+            //   iconColor: Colors.grey,
+            //   title: 'Oeste → Centro',
+            //   subtitle: '18 May, 06:20 PM · 11.8 km',
+            //   status: 'OK',
+            //   statusColor: Colors.grey,
+            // ),
           ],
         ),
       ),
@@ -248,9 +309,7 @@ class HomeView extends GetView<HomeController> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       child: Container(
-        padding: EdgeInsets.all(15),
-        height: 70,
-        width: double.infinity,
+        // width: double.infinity,
         decoration: const BoxDecoration(
           // Imagen/mapa de fondo de referencia (reemplazar por tu asset o mapa real)
           // image: DecorationImage(
@@ -259,30 +318,29 @@ class HomeView extends GetView<HomeController> {
           // ),
           color: AppColors.navyLight, // color de respaldo si no carga la imagen
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.car_crash_outlined, size: 40, color: Colors.white,),
-                SizedBox(width: 10,),
-                Text(
-                  'En progreso · 25 min · 12.4 km', // tu_controller_dashboard.viajeActivo
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                  ),
-                )
-              ],
+        child: ListTile(
+          leading: Icon(Icons.car_crash_outlined, size: 40, color: Colors.white,),
+          title: Text(
+            'En progreso · ${controller.routeMapActive.value.estimatedDuration} h · ${controller.routeMapActive.value.estimatedDistance} km', // tu_controller_dashboard.viajeActivo
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
             ),
-            IconButton(
-              onPressed: () {
-                controller.goToRouteActive();
-              }, 
-              icon: Icon(Icons.arrow_forward_ios, color: Colors.white,)
-            )
-          ],
+          ),
+          subtitle: Text(
+            "De: ${controller.routeMapActive.value.originName} a ${controller.routeMapActive.value.destinationName}",
+            style: TextStyle(
+              color: Colors.grey.shade400,
+              fontSize: 11
+            ),
+          ),
+          trailing: IconButton(
+            onPressed: () {
+              controller.goToRouteActive();
+            }, 
+            icon: Icon(Icons.arrow_forward_ios, color: Colors.white,)
+          ),
         ),
       ),
     );
@@ -329,13 +387,13 @@ class HomeView extends GetView<HomeController> {
         bgColor: const Color(0xFFEFF2FB),
         route: Routes.ROUTE
       ),
-      _QuickAccessItem(
-        icon: Icons.navigation,
-        label: 'Viaje activo',
-        iconColor: AppColors.safe,
-        bgColor: const Color(0xFFEAF9EE),
-        route: Routes.MAP
-      ),
+      // _QuickAccessItem(
+      //   icon: Icons.navigation,
+      //   label: 'Viaje activo',
+      //   iconColor: AppColors.safe,
+      //   bgColor: const Color(0xFFEAF9EE),
+      //   route: Routes.MAP
+      // ),
       _QuickAccessItem(
         icon: Icons.people_alt_outlined,
         label: 'Acompañantes',

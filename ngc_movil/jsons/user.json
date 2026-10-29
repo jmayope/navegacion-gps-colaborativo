@@ -1,0 +1,19 @@
+{
+  "id?": "74aabbb5-6ee8-43fd-8b3e-4f74e31a22b7",
+  "email?": "lookmmm@gmail.com",
+  "phone?": "+51956494444",
+  "full_name?": "MAYO CALDERON Jorge Octavio",
+  "document_type?": "DNI",
+  "document_number?": "47006172",
+  "is_active?": true,
+  "is_verified?": false,
+  "last_location_lat?": "13.23231200",
+  "last_location_lng?": "72.23423533",
+  "last_activity_at?": "2026-08-25 00:01:32.807101+00",
+  "created_at?": null,
+  "updated_at?": null,
+  "password?": "12345678.A",
+  "is_admin?": false,
+  "notifications?": true,
+  "share_location?": false
+}

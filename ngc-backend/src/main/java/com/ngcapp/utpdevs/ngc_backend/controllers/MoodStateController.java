@@ -19,7 +19,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/moods")
-@CrossOrigin(origins = "*")
 public class MoodStateController {
     
     @Autowired

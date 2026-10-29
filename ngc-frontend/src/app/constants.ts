@@ -5,7 +5,15 @@ export const TOKEN_NAME = 'NGS-TOKEN';
 
 export const COLLECTIONS = {
   USERS: 'users',
-  ROUTES: 'routes'
+  USER_SESSIONS: 'user_sessions',
+  CHATS: 'chats',
+  ROUTES: 'routes',
+  INCIDENTS: 'incidents',
+  SEGMENTS: 'segments',
+  SEGMENT_DETAILS: 'segment_details',
+  ROUTE_QUERIES: 'route_queries',
+  MOOD_STATES: 'mood_states',
+  MOVEMENT_HISTORY: 'movement_history'
 };
 
 

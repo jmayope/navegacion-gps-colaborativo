@@ -34,6 +34,9 @@ public class IncidentRequest {
     
     @JsonProperty("is_panic")
     private Boolean isPanic = false;
+
+    @JsonProperty("is_resolved")
+    private Boolean isResolved = false;
     
     @JsonProperty("report_photo_url")
     private String reportPhotoUrl;
@@ -117,6 +120,14 @@ public class IncidentRequest {
     
     public void setIsPanic(Boolean isPanic) {
         this.isPanic = isPanic;
+    }
+
+    public Boolean getIsResolved() {
+        return isResolved;
+    }
+    
+    public void setIsResolved(Boolean isResolved) {
+        this.isResolved = isResolved;
     }
     
     public String getReportPhotoUrl() {

@@ -1,0 +1,75 @@
+import 'package:flutter/foundation.dart';
+import 'package:quiver/core.dart';
+
+import 'index.dart';
+
+@immutable
+class TableType {
+
+  const TableType({
+    this.id,
+    this.category,
+    this.code,
+    this.name,
+    this.description,
+    this.status,
+  });
+
+  final String? id;
+  final String? category;
+  final String? code;
+  final String? name;
+  final String? description;
+  final bool? status;
+
+  factory TableType.fromJson(Map<String,dynamic> json) => TableType(
+    id: json['id']?.toString(),
+    category: json['category']?.toString(),
+    code: json['code']?.toString(),
+    name: json['name']?.toString(),
+    description: json['description']?.toString(),
+    status: json['status'] != null ? json['status'] as bool : null
+  );
+  
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'category': category,
+    'code': code,
+    'name': name,
+    'description': description,
+    'status': status
+  };
+
+  TableType clone() => TableType(
+    id: id,
+    category: category,
+    code: code,
+    name: name,
+    description: description,
+    status: status
+  );
+
+
+  TableType copyWith({
+    Optional<String?>? id,
+    Optional<String?>? category,
+    Optional<String?>? code,
+    Optional<String?>? name,
+    Optional<String?>? description,
+    Optional<bool?>? status
+  }) => TableType(
+    id: checkOptional(id, () => this.id),
+    category: checkOptional(category, () => this.category),
+    code: checkOptional(code, () => this.code),
+    name: checkOptional(name, () => this.name),
+    description: checkOptional(description, () => this.description),
+    status: checkOptional(status, () => this.status),
+  );
+
+  @override
+  bool operator ==(Object other) => identical(this, other)
+    || other is TableType && id == other.id && category == other.category && code == other.code && name == other.name && description == other.description && status == other.status;
+
+  @override
+  int get hashCode => id.hashCode ^ category.hashCode ^ code.hashCode ^ name.hashCode ^ description.hashCode ^ status.hashCode;
+}

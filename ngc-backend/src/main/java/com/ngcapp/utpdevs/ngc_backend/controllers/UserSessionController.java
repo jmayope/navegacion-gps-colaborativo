@@ -17,7 +17,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/sessions")
-@CrossOrigin(origins = "*")
 public class UserSessionController {
     
     @Autowired

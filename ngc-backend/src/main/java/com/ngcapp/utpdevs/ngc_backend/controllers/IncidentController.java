@@ -20,7 +20,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/incidents")
-@CrossOrigin(origins = "*")
 public class IncidentController {
     
     @Autowired
@@ -224,6 +223,8 @@ public class IncidentController {
         existing.setIncidentType(request.getIncidentType());
         existing.setSeverity(request.getSeverity());
         existing.setDescription(request.getDescription());
+        existing.setIsResolved(request.getIsResolved());
+        existing.setResolvedAt(OffsetDateTime.now());
         existing.setLocationLat(request.getLocationLat());
         existing.setLocationLng(request.getLocationLng());
         existing.setLocationAddress(request.getLocationAddress());

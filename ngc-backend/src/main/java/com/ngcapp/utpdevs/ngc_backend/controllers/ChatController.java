@@ -20,7 +20,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/chats")
-@CrossOrigin(origins = "*")
 public class ChatController {
     
     @Autowired

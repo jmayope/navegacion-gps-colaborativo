@@ -25,7 +25,6 @@ import com.ngcapp.utpdevs.ngc_backend.services.UserService;
 
 @RestController
 @RequestMapping("/users")
-// @CrossOrigin(origins = "*")
 public class UserController {
     @Autowired
     private UserService service;

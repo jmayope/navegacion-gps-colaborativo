@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ngc_movil/app/routes/app_pages.dart';
 import 'package:ngc_movil/app/theme/app_colors.dart';
+import 'package:ngc_movil/app/theme/app_input_field.dart';
 
 import '../controllers/route_controller.dart';
 
@@ -11,7 +12,17 @@ class RouteView extends GetView<RouteController> {
   @override
   Widget build(BuildContext context) {
     final container = Obx(() {
-      return Expanded(
+      return controller.loading.value ? 
+        Center(
+          child: Column(
+            children: [
+              CircularProgressIndicator(),
+              Text("Cargando Información Inicial")
+            ],
+          ),
+        )
+      :
+       Expanded(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -56,6 +67,7 @@ class RouteView extends GetView<RouteController> {
         ),
       );
     }); 
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.navy,
@@ -156,83 +168,80 @@ class RouteView extends GetView<RouteController> {
           ),
         ],
       ),
-      child: Row(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(
-            child: Column(
-              children: [
-                Row(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
                   children: [
-                    Container(
-                      width: 12,
-                      height: 12,
-                      decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle),
+                    AppInput(
+                      controller: controller.origin, 
+                      hint: '¿De donde va?', 
+                      icon: Icons.pin_drop_outlined
                     ),
-                    const SizedBox(width: 14),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Origen",
-                            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.search),
-                              hintText: "Busca tu Origen"
-                            ),
-                            controller: controller.origin,
-                          )
-                        ],
-                      ),
+                    SizedBox(height: 10,),
+                    AppInput(
+                      controller: controller.destiny, 
+                      hint: '¿Hacia donde va?', 
+                      icon: Icons.edit_location_alt_sharp
                     ),
                   ],
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Divider(height: 1, color: Color(0xFFE5E7EB)),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      width: 12,
-                      height: 12,
-                      decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-                    ),
-                    const SizedBox(width: 14),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Destino",
-                            style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-                          ),
-                          TextField(
-                            decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.search),
-                              hintText: "Busca tu Destino"
-                            ),
-                            controller: controller.destiny,
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      String temporal = controller.destiny.text;
+                      controller.destiny.value = TextEditingValue(text: controller.origin.text);
+                      controller.origin.value = TextEditingValue(text: temporal);
+                    },
+                    icon: const Icon(Icons.swap_vert, color: Colors.grey),
+                  ),
+                ],
+              )
+            ],
+          ),
+          SizedBox(height: 10,),
+          ListTile(
+            title: Text("¿Es ruta favorita?"),
+            trailing: IconButton(
+              onPressed: () {
+                controller.isFavorite.value = !controller.isFavorite.value;
+              }, 
+              icon: Icon(
+                controller.isFavorite.value ? Icons.check_box_outlined : Icons.check_box_outline_blank,
+                color: controller.isFavorite.value ? Colors.green.shade800 : Colors.grey,
+              )
             ),
           ),
-          IconButton(
-            onPressed: () {
-              // TODO: intercambiar origen y destino
-              String temporal = controller.destiny.text;
-              controller.destiny.value = TextEditingValue(text: controller.origin.text);
-              controller.origin.value = TextEditingValue(text: temporal);
-            },
-            icon: const Icon(Icons.swap_vert, color: Colors.grey),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.navy
+                ),
+                onPressed: controller.saving.value ? null : () {
+                  controller.save();
+                }, 
+                child: controller.saving.value ? CircularProgressIndicator() : Text(
+                  "Guardar Ruta",
+                  style: TextStyle(
+                    color: Colors.white
+                  ),
+                )
+              )
+            ],
+          )
         ],
       ),
     );
@@ -247,7 +256,7 @@ class RouteView extends GetView<RouteController> {
     return InkWell(
       onTap: () {
         controller.selectedRoute.value = index;
-        // TODO: acción al seleccionar ruta
+        controller.selectSuggestRoute(index);
       },
       borderRadius: BorderRadius.circular(16),
       child: Container(

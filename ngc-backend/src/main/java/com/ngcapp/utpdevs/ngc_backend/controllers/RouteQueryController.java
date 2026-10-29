@@ -17,7 +17,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/route-queries")
-@CrossOrigin(origins = "*")
 public class RouteQueryController {
     
     @Autowired

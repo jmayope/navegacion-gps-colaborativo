@@ -21,7 +21,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/movement")
-@CrossOrigin(origins = "*")
 public class MovementHistoryController {
 
   @Autowired

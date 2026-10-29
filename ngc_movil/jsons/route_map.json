@@ -1,0 +1,21 @@
+{
+  "id?": "296e5b72-b1b2-4d7b-ad81-943917ee422c",
+  "user_id?": "6ce49e94-db22-4e9a-a234-a6a2f2d4dffe",
+  "origin_name?": "CASA",
+  "origin_lat?": 12.54151500,
+  "origin_lng?": 72.11545150,
+  "origin_address?": "JR. sal si puedes 1233",
+  "destination_name?": "TRABAJO",
+  "destination_lat?": 12.48485000,
+  "destination_lng?": 73.21515000,
+  "destination_address?": "av. huancavelica 2312",
+  "estimated_distance?": 12.00,
+  "estimated_duration?": 3,
+  "is_favorite?": true,
+  "status?": "planning",
+  "in_progress?": false,
+  "started_at?": "@datetime",
+  "completed_at?": null,
+  "created_at?": "@datetime",
+  "updated_at?": "@datetime"
+}

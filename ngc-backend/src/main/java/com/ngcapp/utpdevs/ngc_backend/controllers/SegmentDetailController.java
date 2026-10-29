@@ -13,7 +13,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/segment-details")
-@CrossOrigin(origins = "*")
 public class SegmentDetailController {
 
   @Autowired

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:ngc_movil/app/routes/app_pages.dart';
 import 'package:ngc_movil/app/theme/app_colors.dart';
 
 import '../controllers/map_controller.dart';
@@ -73,7 +74,7 @@ class MapView extends GetView<MapController> {
       child: Row(
         children: [
           InkWell(
-            onTap: () => Navigator.maybePop(context),
+            onTap: () => Get.offAllNamed(Routes.HOME),
             borderRadius: BorderRadius.circular(10),
             child: Container(
               width: 32,

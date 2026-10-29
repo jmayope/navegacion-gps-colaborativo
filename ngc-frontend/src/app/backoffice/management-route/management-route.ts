@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Main } from '../../services/main';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
@@ -51,7 +51,8 @@ export class ManagementRoute implements OnInit {
 
   constructor(
     private Main: Main,
-    private ModalService: BsModalService
+    private ModalService: BsModalService,
+    private ChangeDetector: ChangeDetectorRef
   ) {
 
   }
@@ -76,8 +77,9 @@ export class ManagementRoute implements OnInit {
   async loadRoutes() {
     let resultRoutes: any = await this.Main.getRows(COLLECTIONS.ROUTES);
     console.log(resultRoutes);
-    let resultRoutesByText: any = await this.Main.getByText(COLLECTIONS.ROUTES, 'camino');
+    let resultRoutesByText: any = await this.Main.getByText(COLLECTIONS.ROUTES, 'casa');
     console.log(resultRoutesByText);
+    this.ChangeDetector.detectChanges();
   }
 
 }

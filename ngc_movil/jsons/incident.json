@@ -1,0 +1,18 @@
+{
+  "id?": "ead65460-773f-46a9-9f2c-223a0d539290",
+  "route_id?": "296e5b72-b1b2-4d7b-ad81-943917ee422c",
+  "segment_id?": "e74fd220-000c-45d3-b726-30a7e623d07e",
+  "user_id?": "6ce49e94-db22-4e9a-a234-a6a2f2d4dffe",
+  "incident_type?": "Robo",
+  "severity?": "Alta",
+  "description?": "Re RESUELTO: me robaron",
+  "location_lat?": 72.15845121,
+  "location_lng?": 12.15615100,
+  "location_address?": "cerca a mi casa",
+  "is_panic?": false,
+  "is_resolved?": true,
+  "resolved_at?": "@datetime",
+  "report_photo_url?": "sadfa sdasd asd",
+  "created_at?": "@datetime",
+  "updated_at?": "@datetime"
+}

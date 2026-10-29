@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/accompaniment/bindings/accompaniment_binding.dart';
 import '../modules/accompaniment/views/accompaniment_view.dart';
+import '../modules/active_trip/bindings/active_trip_binding.dart';
+import '../modules/active_trip/views/active_trip_view.dart';
 import '../modules/check/bindings/check_binding.dart';
 import '../modules/check/views/check_view.dart';
 import '../modules/history/bindings/history_binding.dart';
@@ -14,6 +16,8 @@ import '../modules/map/bindings/map_binding.dart';
 import '../modules/map/views/map_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/register/bindings/register_binding.dart';
+import '../modules/register/views/register_view.dart';
 import '../modules/route/bindings/route_binding.dart';
 import '../modules/route/views/route_view.dart';
 import '../modules/sos/bindings/sos_binding.dart';
@@ -71,6 +75,16 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER,
+      page: () => const RegisterView(),
+      binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACTIVE_TRIP,
+      page: () => const ActiveTripView(),
+      binding: ActiveTripBinding(),
     ),
   ];
 }
