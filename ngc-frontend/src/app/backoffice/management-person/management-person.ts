@@ -8,8 +8,9 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NewUser } from '../../modals/new-user/new-user';
 import Swal from 'sweetalert2';
 import { FilterPipe } from '../../pipes/filter-pipe';
-import { COLLECTIONS, STATUS_RECORDS, VERIFIEDS_RECORDS } from '../../constants';
+import { COLLECTIONS, messageAlert, STATUS_RECORDS, VERIFIEDS_RECORDS } from '../../constants';
 import { SortPipe } from '../../pipes/sort-pipe';
+import { Supabase } from '../../services/supabase';
 
 @Component({
   selector: 'app-management-person',
@@ -74,14 +75,17 @@ export class ManagementPerson {
   field: any;
   order: any;
 
+  user_loged: any;
   
   constructor(
     private Main: Main,
     private ChangeDetector: ChangeDetectorRef,
-    private ModalService: BsModalService
+    private ModalService: BsModalService,
+    private Supabase: Supabase
   ) {}
 
   ngOnInit(): void {
+    this.user_loged = this.Main.getSession();
     this.loadUsers();
     
     // Configurar búsqueda con debounce
@@ -106,7 +110,12 @@ export class ManagementPerson {
    */
   async loadUsers() {
     this.loading = true;
-    let result: any = await this.Main.getRows(COLLECTIONS.USERS);
+    let result: any;
+    if (this.user_loged.usage_supabase) {
+      result = await firstValueFrom(this.Supabase.select(COLLECTIONS.USERS));
+    } else {
+      result = await this.Main.getRows(COLLECTIONS.USERS);
+    }
     this.users = result;
     this.loading = false;
     this.pagination.total = this.users.length;
@@ -117,7 +126,7 @@ export class ManagementPerson {
     console.log(user);
     this.modalRef = this.ModalService.show(NewUser, {class: 'modal-sm'});
     
-    if (this.modalRef && this.modalRef.content) {
+    if (this.modalRef && this.modalRef.content && user) {
       this.modalRef.content.user = structuredClone(user);
     }
 
@@ -129,6 +138,10 @@ export class ManagementPerson {
   }
 
   deleteUser(user: any) {
+    if (user.id === this.user_loged.id) {
+      messageAlert("Validación", "No puedes darte de BAJA tu mismo", "warning");
+      return;
+    }
     Swal.fire({
       icon: 'question',
       text: `¿Estás seguro de eliminar el Usuario con ID: ${user.id}?`,
@@ -138,7 +151,12 @@ export class ManagementPerson {
       showConfirmButton: true
     }).then(async (choice) => {
       if (choice.isConfirmed) {
-        let resultDelete: any = await this.Main.deleteRow(COLLECTIONS.USERS, user.id);
+        let resultDelete: any;
+        if (this.user_loged.usage_supabase) {
+          resultDelete = await firstValueFrom(this.Supabase.delete(COLLECTIONS.USERS, user.id));
+        } else {
+          resultDelete = await this.Main.deleteRow(COLLECTIONS.USERS, user.id);
+        }
         console.log(resultDelete);
         this.loadUsers();
       }

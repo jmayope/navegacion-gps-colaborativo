@@ -3,6 +3,9 @@ import Swal from "sweetalert2";
 export const API_URI = "http://localhost:8080/api";
 export const TOKEN_NAME = 'NGS-TOKEN';
 
+export const SUPABASE_URL = "https://vkandgvzpxpyvijwwaaj.supabase.co/rest/v1/";
+export const SUPABASE_API_KEY = "sb_publishable_657f3Z1zxNcI_hAOr64mcA_LCaeCrWl";
+
 export const COLLECTIONS = {
   USERS: 'users',
   USER_SESSIONS: 'user_sessions',
@@ -16,6 +19,32 @@ export const COLLECTIONS = {
   MOVEMENT_HISTORY: 'movement_history'
 };
 
+export const STATUS_COMPLETED = 'completed';
+export const STATUS_IN_PROGRESS = 'in_progress';
+export const STATUS_PLANNING = 'planning';
+
+export function getStatusInfo(status: string) {
+  switch (status) {
+    case STATUS_COMPLETED:
+      return {name: 'Completado', color: 'success'};
+    case STATUS_IN_PROGRESS:
+      return {name: 'En progreso', color: 'warning'};
+    case STATUS_PLANNING:
+      return {name: 'Planificado', color: 'primary'};
+    default:
+      return {name: 'Sin estado', color: 'dark'};
+  }
+}
+
+export const NUM_ROWS = [5,10,20,50,100];
+
+export function buildPagination(total: number, rows: number) {
+    let pages = [];
+    for (let p = 1; p <= Math.ceil(total / rows); p++) {
+      pages.push(p);
+    }
+    return pages;
+}
 
 export function generateRandomString(length: number) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';

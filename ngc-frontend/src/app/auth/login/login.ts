@@ -6,6 +6,7 @@ import { Main } from '../../services/main';
 import { COLLECTIONS, loadingAlert, messageAlert } from '../../constants';
 import Swal from 'sweetalert2';
 import { firstValueFrom } from 'rxjs';
+import { Supabase } from '../../services/supabase';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class Login implements OnInit {
   constructor(
     private Main: Main,
     private Router: Router,
-    private ChangeDetector: ChangeDetectorRef
+    private ChangeDetector: ChangeDetectorRef,
+    private Supabase: Supabase
   ) { }
 
   credentials: any = {};
@@ -126,6 +128,7 @@ export class Login implements OnInit {
   ];
 
   current_year: number = new Date().getFullYear();
+  usage_supabase: boolean = true;
 
   ngOnInit(): void {
     let remembered_email = localStorage.getItem('remember_email');
@@ -151,8 +154,14 @@ export class Login implements OnInit {
     this.logging = true;
 
     try {
-      let users: any = await this.Main.getRows(COLLECTIONS.USERS);
-      let result_users = users.filter((u: any) => u.email === email);
+      let users: any[] = [];
+      let result_users: any;
+      if (this.usage_supabase) {
+        result_users = await firstValueFrom(this.Supabase.select(COLLECTIONS.USERS, {filters: {email: email}}));
+      } else {
+        users = await this.Main.getRows(COLLECTIONS.USERS);
+        result_users = users.filter((u: any) => u.email === email);
+      }
       let user = (result_users && result_users.length) ? result_users[0] : null;
 
       // Mismo mensaje si el usuario no existe o la contraseña no coincide
@@ -178,11 +187,13 @@ export class Login implements OnInit {
         first_name: user.first_name,
         last_name: user.last_name,
         role: user.role,
-        company_id: user.company_id
+        company_id: user.company_id,
+        usage_supabase: this.usage_supabase
       }));
 
       if (user.is_admin) {
         let userLoged = structuredClone(user);
+        userLoged.usage_supabase = this.usage_supabase;
         delete userLoged.message;
         delete userLoged.success;
     

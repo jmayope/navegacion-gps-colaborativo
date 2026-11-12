@@ -12,6 +12,10 @@
   font-size: 38px !important;
 }
 
+.font-xxs {
+  font-size: 11px;
+}
+
 .hand {
   cursor: pointer;
 }

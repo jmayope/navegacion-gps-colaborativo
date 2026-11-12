@@ -5,7 +5,7 @@
       <div class="rs-kpi-icon" style="background:var(--rs-azul-claro); color:var(--rs-azul-ruta);"><i
           class="fa-solid fa-route"></i></div>
       <div class="rs-kpi-label">Rutas totales hoy</div>
-      <div class="rs-kpi-value">12</div>
+      <div class="rs-kpi-value">{{pagination.total}}</div>
       <div class="d-flex align-items-center justify-content-between mt-1">
         <span class="rs-kpi-sub">planificadas</span>
         <span class="rs-kpi-delta text-success"><i class="fa-solid fa-arrow-up"></i> 8%</span>
@@ -60,7 +60,7 @@
         </div>
         <!-- Filtros -->
         <div class="row mb-2">
-          <div class="col-7">
+          <div class="col-9">
             <div class="row">
               <div class="col-6">
                 <div class="input-group">
@@ -81,90 +81,106 @@
               </div>
             </div>
           </div>
-          <div class="col-5"></div>
+          <div class="col-3">
+            <div class="input-group">
+              <span class="input-group-text">
+                Registros
+              </span>
+              <select name="num_rows" (change)="changeNumRows()" [(ngModel)]="pagination.num_rows" class="form-select">
+                <option *ngFor="let n of num_rows" [ngValue]="n">{{n}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+
+            <table class="rs-table" *ngIf="routes.length">
+              <thead>
+                <tr>
+                  <th>Usuario</th>
+                  <th>Origen → Destino</th>
+                  <th>Estado</th>
+                  <th class="text-end">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let r of routes">
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
+                      <div>
+                        <ng-container *ngIf="r.user">
+                          <div class="fw-semibold text-dark">{{r.user.full_name}}</div>
+                          <div class="text-secondary" style="font-size:.74rem;">
+                            {{r.user.phone}} | <small><i class="fa fa-window-minimize me-1"></i>{{r.estimated_distance}} km - <i class="fa fa-clock me-1"></i>{{r.estimated_duration}} h
+                            </small>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-dark">
+                    <small>
+                      <span class="font-xxs">{{r.origin_address}} → {{r.destination_address}}</span> <br>
+                      <ng-container style="min-width:120px;">
+                        <div class="progress" style="height:6px;">
+                          <div class="progress-bar bg-primary" style="width:62%;"></div>
+                        </div>
+                        <span class="text-secondary" style="font-size:.72rem;">62%</span>
+                      </ng-container>
+                    </small>
+                  </td>
+                  <td><span class="rs-pill rs-pill-{{r.status_color}}">{{r.status_name}}</span></td>
+                  <td class="text-end">
+                    <div class="dropdown" dropdown>
+                      <button class="btn btn-sm btn-outline-primary" type="button" dropdownToggle data-bs-toggle="dropdown"><i
+                          class="fa-solid fa-ellipsis"></i></button>
+                      <ul class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+                        <li (click)="seeInTheMap(r)"><a class="dropdown-item hand"><i class="fa-solid fa-map-location-dot me-2"></i>Ver en mapa</a>
+                        </li>
+                        <li><a class="dropdown-item hand"><i class="fa-solid fa-share-nodes me-2"></i>Compartir ruta</a></li>
+                        <li *ngIf="r.status === 'in_progress  '"><a class="dropdown-item hand"><i class="fa-solid fa-flag-checkered me-2"></i>Marcar finalizada</a>
+                        </li>
+                        <li *ngIf="r.status !== 'completed'">
+                          <hr class="dropdown-divider">
+                        </li>
+                        <li *ngIf="r.status !== 'completed'"><a class="dropdown-item text-danger hand"><i class="fa-solid fa-ban me-2"></i>Cancelar ruta</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-6">
+            <div class="rs-map-wrap" style="height:450px; width: 100%;">
+              <div id="map"></div>
+            </div>
+          </div>
         </div>
       
         <!-- Tabla -->
-        <table class="rs-table" *ngIf="routes.length">
-          <thead>
-            <tr>
-              <th>Usuario</th>
-              <th>Origen → Destino</th>
-              <th>Distancia</th>
-              <th>Progreso</th>
-              <th>Estado</th>
-              <th>Tiempo</th>
-              <th class="text-end">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let r of routes">
-              <td>
-                <div class="d-flex align-items-center gap-2">
-                  <div class="rs-avatar-sm"><i class="fa-solid fa-user"></i></div>
-                  <div>
-                    <div class="fw-semibold text-dark">Carlos Mendoza</div>
-                    <div class="text-secondary" style="font-size:.74rem;">+51 987 654 321</div>
-                  </div>
-                </div>
-              </td>
-              <td class="text-dark">Lima → Matucana</td>
-              <td>68 km</td>
-              <td style="min-width:120px;">
-                <div class="progress" style="height:6px;">
-                  <div class="progress-bar bg-primary" style="width:62%;"></div>
-                </div>
-                <span class="text-secondary" style="font-size:.72rem;">62%</span>
-              </td>
-              <td><span class="rs-pill rs-pill-success">En progreso</span></td>
-              <td class="text-secondary">1h 20m</td>
-              <td class="text-end">
-                <div class="dropdown">
-                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="dropdown"><i
-                      class="fa-solid fa-ellipsis"></i></button>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-map-location-dot me-2"></i>Ver en mapa</a>
-                    </li>
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-share-nodes me-2"></i>Compartir ruta</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-flag-checkered me-2"></i>Marcar finalizada</a>
-                    </li>
-                    <li>
-                      <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-ban me-2"></i>Cancelar ruta</a>
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       
         <!-- Paginación -->
         <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between pt-3 mt-2"
           style="border-top:1px solid var(--rs-gris-borde);">
-          <span class="text-secondary small">Mostrando 1–5 de 12 rutas</span>
+          <span class="text-secondary small">Mostrando {{pagination.offset + 1}} - {{pagination.limit}} de {{pagination.total}} rutas</span>
           <nav>
+            <!-- <div class="input-group input-group-sm">
+                <button class="btn btn-light text-primary" type="button" id="button-addon1" *ngIf="filter.pagination.page !== 1" (click)="changePage(filter.pagination.page-1)">Anterior</button>
+                <select name="page" [(ngModel)]="filter.pagination.page" (change)="getPatients()" class="form-select">
+                  <option *ngFor="let p of pages" [ngValue]="p">{{p}}</option>
+                </select>
+                <button class="btn btn-light text-primary-color" type="button" id="button-addon2" *ngIf="filter.pagination.page < pages.length" (click)="changePage(filter.pagination.page+1)">Siguiente</button>
+              </div> -->
             <ul class="pagination pagination-sm mb-0">
-              <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+              <li class="page-item hand" *ngIf="pagination.current_page !== 1" (click)="changePage(pagination.current_page - 1)"><a class="page-link">Anterior</a></li>
+              <li class="page-item hand" *ngFor="let p of pages" (click)="changePage(p)" [ngClass]="{'active': pagination.current_page === p}"><a class="page-link">{{p}}</a></li>
+              <li class="page-item hand" *ngIf="pagination.current_page < pages.length" (click)="changePage(pagination.current_page + 1)"><a class="page-link">Siguiente</a></li>
             </ul>
           </nav>
-        </div>
-
-        <!-- Mapa general de rutas -->
-        <div class="rs-map-wrap mt-3" style="height:450px;">
-          <div class="row">
-            <div class="col-12" style="height: 450px !important; width: 100%;">
-              <div class="map"
-                leaflet
-                [leafletOptions]="options">
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
