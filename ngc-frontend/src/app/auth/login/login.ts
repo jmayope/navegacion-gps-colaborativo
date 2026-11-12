@@ -157,13 +157,15 @@ export class Login implements OnInit {
       let users: any[] = [];
       let result_users: any;
       if (this.usage_supabase) {
-        result_users = await firstValueFrom(this.Supabase.select(COLLECTIONS.USERS, {filters: {email: email}}));
+        let result_login: any = await firstValueFrom(this.Supabase.select(COLLECTIONS.USERS, {filters: {email: email}}));
+        result_users = result_login.data;
       } else {
         users = await this.Main.getRows(COLLECTIONS.USERS);
         result_users = users.filter((u: any) => u.email === email);
       }
       let user = (result_users && result_users.length) ? result_users[0] : null;
-
+      console.log(result_users);
+      console.log(user);
       // Mismo mensaje si el usuario no existe o la contraseña no coincide
       if (!user || !(await this.verifyPassword(password, user.password))) {
         messageAlert("Error", "Correo o contraseña incorrectos", "error");

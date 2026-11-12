@@ -112,7 +112,8 @@ export class ManagementPerson {
     this.loading = true;
     let result: any;
     if (this.user_loged.usage_supabase) {
-      result = await firstValueFrom(this.Supabase.select(COLLECTIONS.USERS));
+      let result_users: any = await firstValueFrom(this.Supabase.select(COLLECTIONS.USERS));
+      result = result_users.data;
     } else {
       result = await this.Main.getRows(COLLECTIONS.USERS);
     }

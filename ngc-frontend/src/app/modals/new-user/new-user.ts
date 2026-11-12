@@ -47,33 +47,32 @@ export class NewUser implements OnInit {
 
   async save() {
     let newUser = structuredClone(this.user);
-
+    let result: any;
     if (!newUser.id) {
       newUser.password = generateRandomString(8);
       newUser.last_location_lat = 72.0333;
       newUser.last_location_lng = 72.0333;
-      let resultUser: any;
+      
       if (this.user_loged.usage_supabase) {
-        resultUser = await firstValueFrom(this.Supabase.insert(COLLECTIONS.USERS, newUser));
+        result = await firstValueFrom(this.Supabase.insert(COLLECTIONS.USERS, newUser));
       } else {
-        resultUser = await this.Main.registerUser(newUser);
+        result = await this.Main.registerUser(newUser);
       }
-      console.log(resultUser);
-      if (!resultUser) {
+      console.log(result);
+      if (!result.success) {
         messageAlert("Error", "Hubo un error al insertar el usuario", "error");
         return;
       }
       messageAlert("Éxito", "Se crearon correctamente el usuario", "success");
     } else {
-      let resultUpdate: any;
       if (this.user_loged.usage_supabase) {
         delete newUser.editing;
-        resultUpdate = await firstValueFrom(this.Supabase.update(COLLECTIONS.USERS, newUser.id, newUser));
+        result = await firstValueFrom(this.Supabase.update(COLLECTIONS.USERS, newUser.id, newUser));
       } else {
         delete newUser.id;
-        resultUpdate = await this.Main.updateRow(COLLECTIONS.USERS, this.user.id, newUser);
+        result = await this.Main.updateRow(COLLECTIONS.USERS, this.user.id, newUser);
       }
-      if (!resultUpdate) {
+      if (!result.success) {
         messageAlert("Error", "Hubo un error al actualizar el usuario", "error");
         return;
       }
