@@ -14,14 +14,18 @@
 
     <div class="profile-user">
         <div class="avatar-container">
-            <img src="https://img.magnific.com/vector-premium/avatar-mujer-sonriente_937492-6135.jpg?semt=ais_hybrid&w=740&q=80" alt="Foto de perfil" class="avatar">
+            <img src="https://i.pravatar.cc/80?img=13" alt="Foto de perfil" class="avatar">
             <button class="camera-btn"><i class="fas fa-camera"></i> </button>
         </div>
 
         <div class="user-name">
-            <h2>Anghely </h2>
+            <h2 *ngIf="!edit">{{user_loged.full_name}}</h2>
+            <div *ngIf="edit">
+                <span class="text-secondary">Nombre completo</span>
+                <input type="text" name="full_name" [(ngModel)]="user_loged.full_name" *ngIf="edit" class="form-control">
+            </div>
             <span class="role">Administrador</span>
-            <p>Encargada de la administración de rutas y coordinación del sistema. </p>
+            <p>Encargada de la administración de rutas y coordinación del sistema. <span *ngIf="user_loged.company_id">{{user_loged.company_id}}</span></p>
         </div>
 
     </div>
@@ -30,21 +34,23 @@
         <div class="info-item"> <i class="fas fa-envelope"></i>
             <div>
                 <span>Correo electrónico</span>
-                <strong>anghely@rutasapp.com</strong>
+                <strong *ngIf="!edit">{{user_loged.email}}</strong>
+                <input type="text" name="email" [(ngModel)]="user_loged.email" *ngIf="edit" class="form-control">
             </div>
         </div>
 
         <div class="info-item"> <i class="fas fa-phone"></i>
             <div>
                 <span>Teléfono</span>
-                <strong>+51 90290393939</strong>
+                <strong *ngIf="!edit">{{user_loged.phone}}</strong>
+                <input type="text" name="phone" [(ngModel)]="user_loged.phone" *ngIf="edit" class="form-control">
             </div>
         </div>
 
         <div class="info-item"><i class="fas fa-user"></i>
             <div>
                 <span>Nombre de usuario</span>
-                <strong>anghely</strong>
+                <strong>{{user_loged.email}}</strong>
             </div>
         </div>
 
@@ -59,7 +65,7 @@
             <i class="fas fa-calendar"></i>
             <div>
                 <span>Miembro desde</span>
-                <strong>26 de Agosto, 2026</strong>
+                <strong>{{user_loged.updated_at | date: 'dd/MM/yyyy'}}</strong>
             </div>
         </div>
 
@@ -67,16 +73,20 @@
             <i class="fas fa-check-circle status-icon"></i>
             <div>
                 <span>Estado de la cuenta</span>
-                <strong class="status">Activa</strong>
+                <strong *ngIf="!edit" class="status">{{user_loged.is_active ? 'Activo' : 'Inactivo'}}</strong>
+                <select name="is_active" [(ngModel)]="user_loged.is_active" *ngIf="edit" class="form-select">
+                    <option [ngValue]="true">Activo</option>
+                    <option [ngValue]="false">Inactivo</option>
+                </select>
             </div>
         </div>
     </div>
 
 
     <div class="profile-actions">
-        <button class="action-btn"> <i class="fas fa-lock"></i>Cambiar contraseña </button>
-        <button class="action-btn"><i class="fas fa-shield-alt"></i> Configuración de seguridad</button>
-        <button class="action-btn logout"><i class="fas fa-sign-out-alt"></i>Cerrar sesión</button>
+        <button type="button" class="btn btn-light"> <i class="fas fa-lock"></i>Cambiar contraseña </button>
+        <button type="button" [ngClass]="{'btn-primary': edit, 'btn-light': !edit}" class="btn" (click)="toggleEdit()"><i class="fas fa-shield-alt"></i><span *ngIf="edit">Guardar&nbsp;</span>Configuración de seguridad</button>
+        <button type="button" (click)="logout()" class="btn btn-light logout text-danger"><i class="fas fa-sign-out-alt"></i>Cerrar sesión</button>
     </div>
 </div>
 
