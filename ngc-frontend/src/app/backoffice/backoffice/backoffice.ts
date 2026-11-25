@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 import { Main } from '../../services/main';
+import { APP_NAME } from '../../constants';
 
 @Component({
   selector: 'app-backoffice',
@@ -18,8 +19,11 @@ export class Backoffice implements OnInit {
 
   constructor(
     private Main: Main,
-    private Router: Router
+    private Router: Router,
+    private ChangeDetector: ChangeDetectorRef
   ) {}
+
+  app_name: string = APP_NAME;
 
   ngOnInit(): void {
     this.user_loged = this.Main.getSession();
@@ -27,6 +31,7 @@ export class Backoffice implements OnInit {
     this.user_loged.short_name = `${parts[2]} ${parts[0]}`;
     console.log(this.user_loged);
     this.activeModule = sessionStorage.getItem('menuSelected') || 'Inicio';
+    this.ChangeDetector.detectChanges();
   }
 
   user_loged: any;

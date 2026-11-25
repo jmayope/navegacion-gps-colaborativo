@@ -2,9 +2,12 @@ import Swal from "sweetalert2";
 
 export const API_URI = "http://localhost:8080/api";
 export const TOKEN_NAME = 'NGS-TOKEN';
+export const APP_NAME = 'Ruta Segura';
 
 export const SUPABASE_URL = "https://vkandgvzpxpyvijwwaaj.supabase.co/rest/v1/";
 export const SUPABASE_API_KEY = "sb_publishable_657f3Z1zxNcI_hAOr64mcA_LCaeCrWl";
+
+
 
 export const COLLECTIONS = {
   USERS: 'users',

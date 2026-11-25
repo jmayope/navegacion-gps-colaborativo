@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { Supabase } from '../../services/supabase';
 import { COLLECTIONS, messageAlert } from '../../constants';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ChangePassword } from '../../modals/change-password/change-password';
 
 @Component({
   selector: 'app-profile',
@@ -21,11 +23,13 @@ export class Profile implements OnInit {
   constructor(
     private Main: Main,
     private Router: Router,
-    private Supabase: Supabase
+    private Supabase: Supabase,
+    private ModalService: BsModalService,
   ) {
 
   }
 
+  modalRef?: BsModalRef;
   user_loged: any;
   edit: boolean = false;
   ngOnInit(): void {
@@ -55,7 +59,7 @@ export class Profile implements OnInit {
       let data_to_update: any = structuredClone(this.user_loged);
       delete data_to_update.id;
       data_to_update.updated_at = (new Date()).toISOString();
-      let result: any = await this.Supabase.update(COLLECTIONS.USERS, this.user_loged.id, data_to_update);
+      let result: any = await firstValueFrom(this.Supabase.update(COLLECTIONS.USERS, this.user_loged.id, data_to_update));
       if (!result.success) {
         messageAlert("Error", "Error mientras se actualiza la información del usuario", "error");
         return;
@@ -63,6 +67,10 @@ export class Profile implements OnInit {
 
       messageAlert("Éxito", "Se actualizaron todos los datos", "success");
     }
+  }
+
+  toggleChangePassword() {
+    this.modalRef = this.ModalService.show(ChangePassword, {class: 'modal-sm'});
   }
   
 }

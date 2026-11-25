@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Main } from '../../services/main';
-import { COLLECTIONS, loadingAlert, messageAlert } from '../../constants';
+import { APP_NAME, COLLECTIONS, loadingAlert, messageAlert } from '../../constants';
 import Swal from 'sweetalert2';
 import { firstValueFrom } from 'rxjs';
 import { Supabase } from '../../services/supabase';
@@ -198,7 +198,7 @@ export class Login implements OnInit {
         userLoged.usage_supabase = this.usage_supabase;
         delete userLoged.message;
         delete userLoged.success;
-    
+        userLoged.app_name = APP_NAME;
         let userSaved: boolean = this.Main.setSession(userLoged);
         Swal.close();
         this.Router.navigate(["backoffice/tablero"]);

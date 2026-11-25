@@ -4,9 +4,9 @@
         <p>Información de tu cuenta y actividad</p>
     </div>
     
-    <button class="btn-edit">
+    <button class="btn" [ngClass]="{'btn-primary': edit, 'btn-light': !edit}" (click)="toggleEdit()">
         <i class="fas fa-pen"></i>
-        Editar perfil
+        {{edit ? 'Guardar Cambios' : 'Editar perfil'}}
     </button>
 </div>
 
@@ -84,16 +84,13 @@
 
 
     <div class="profile-actions">
-        <button type="button" class="btn btn-light"> <i class="fas fa-lock"></i>Cambiar contraseña </button>
-        <button type="button" [ngClass]="{'btn-primary': edit, 'btn-light': !edit}" class="btn" (click)="toggleEdit()"><i class="fas fa-shield-alt"></i><span *ngIf="edit">Guardar&nbsp;</span>Configuración de seguridad</button>
+        <button type="button" class="btn btn-light" (click)="toggleChangePassword()"> <i class="fas fa-lock"></i>Cambiar contraseña </button>
         <button type="button" (click)="logout()" class="btn btn-light logout text-danger"><i class="fas fa-sign-out-alt"></i>Cerrar sesión</button>
     </div>
 </div>
 
 
 <div class="bottom-grid">
-
-
     <div class="activity-card">
         <div class="card-title"> <i class="fas fa-chart-line"></i>
             <h3>Resumen de actividad</h3>
