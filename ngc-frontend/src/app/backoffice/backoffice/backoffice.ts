@@ -29,7 +29,6 @@ export class Backoffice implements OnInit {
     this.user_loged = this.Main.getSession();
     let parts = this.user_loged.full_name.split(" ");
     this.user_loged.short_name = `${parts[2]} ${parts[0]}`;
-    console.log(this.user_loged);
     this.activeModule = sessionStorage.getItem('menuSelected') || 'Inicio';
     this.ChangeDetector.detectChanges();
   }

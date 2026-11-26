@@ -645,6 +645,12 @@ h1,h2,h3,h4,h5,h6{ color: var(--rs-azul-nocturno); font-weight: 800; }
   flex-shrink: 0;
 }
 
+.bg-my-chat {
+  background-color: var(--rs-azul-ruta) !important;
+  color: #fff !important;
+}
+
+
 /* =========================================================
    RESPONSIVE
    ========================================================= */
