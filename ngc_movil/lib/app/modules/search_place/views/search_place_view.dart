@@ -13,6 +13,10 @@ class SearchPlaceView extends GetView<SearchPlaceController> {
 
   @override
   Widget build(BuildContext context) {
+    final container = Obx(() {
+      return Container();
+    });
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
