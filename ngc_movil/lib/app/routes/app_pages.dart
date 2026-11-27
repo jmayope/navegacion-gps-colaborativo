@@ -20,6 +20,8 @@ import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/route/bindings/route_binding.dart';
 import '../modules/route/views/route_view.dart';
+import '../modules/search_place/bindings/search_place_binding.dart';
+import '../modules/search_place/views/search_place_view.dart';
 import '../modules/sos/bindings/sos_binding.dart';
 import '../modules/sos/views/sos_view.dart';
 
@@ -85,6 +87,11 @@ class AppPages {
       name: _Paths.ACTIVE_TRIP,
       page: () => const ActiveTripView(),
       binding: ActiveTripBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH_PLACE,
+      page: () => const SearchPlaceView(),
+      binding: SearchPlaceBinding(),
     ),
   ];
 }

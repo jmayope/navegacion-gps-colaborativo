@@ -35,11 +35,17 @@ class RouteController extends GetxController {
   
   final isFavorite = false.obs;
 
+  final originSelected = false.obs;
+  final originName = "".obs;
+
+  final destinySelected = false.obs;
+  final destinyName = "".obs;
+
   final originLat = Random().nextDouble().obs;
   final originLng = Random().nextDouble().obs;
 
-  final destinationLat = Random().nextDouble().obs;
-  final destinationLng = Random().nextDouble().obs;
+  final destinyLat = Random().nextDouble().obs;
+  final destinyLng = Random().nextDouble().obs;
   final estimatedDistance = Random().nextDouble().obs;
   final estimatedDuration = Random().nextInt(10).obs;
 
@@ -73,6 +79,20 @@ class RouteController extends GetxController {
     super.onClose();
   }
 
+  Future<void> catchOrigin(dynamic place) async {
+    originName.value = place["name"];
+    originLat.value = place["lat"];
+    originLng.value = place["lng"];
+    originSelected.value = true;
+  }
+
+  Future<void> catchDestiny(dynamic place) async {
+    destinyName.value = place["name"];
+    destinyLat.value = place["lat"];
+    destinyLng.value = place["lng"];
+    destinySelected.value = true;
+  }
+
   Future<void> save() async {
     if (saving.value) return;
     saving.value = true;
@@ -103,8 +123,8 @@ class RouteController extends GetxController {
       "origin_lng": originLng.value,
       "origin_address": origin.value.text,
       "destination_name": destiny.value.text,
-      "destination_lat": destinationLat.value,
-      "destination_lng": destinationLng.value,
+      "destination_lat": destinyLat.value,
+      "destination_lng": destinyLng.value,
       "destination_address": destiny.value.text,
       "estimated_distance": estimatedDistance.value,
       "estimated_duration": estimatedDuration.value,
@@ -127,8 +147,8 @@ class RouteController extends GetxController {
     RouteMap routeSelected = routeMaps[index];
     originLat.value = routeSelected.originLat!;
     originLng.value = routeSelected.originLng!;
-    destinationLat.value = routeSelected.destinationLat!;
-    destinationLng.value = routeSelected.destinationLng!;
+    destinyLat.value = routeSelected.destinationLat!;
+    destinyLng.value = routeSelected.destinationLng!;
     estimatedDistance.value = routeSelected.estimatedDistance!;
     estimatedDuration.value = routeSelected.estimatedDuration!;
 

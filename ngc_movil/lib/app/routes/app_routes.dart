@@ -14,6 +14,7 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const REGISTER = _Paths.REGISTER;
   static const ACTIVE_TRIP = _Paths.ACTIVE_TRIP;
+  static const SEARCH_PLACE = _Paths.SEARCH_PLACE;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const REGISTER = '/register';
   static const ACTIVE_TRIP = '/active-trip';
+  static const SEARCH_PLACE = '/search-place';
 }

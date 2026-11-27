@@ -84,10 +84,10 @@ class RouteView extends GetView<RouteController> {
           ),
         ),
         actions: [
-          ElevatedButton(
-            onPressed: () {}, 
-            child: Icon(Icons.tune)
-          )
+          // ElevatedButton(
+          //   onPressed: () {}, 
+          //   child: Icon(Icons.tune)
+          // )
         ],
       ),
       backgroundColor: const Color(0xFFF3F5F9),
@@ -178,11 +178,47 @@ class RouteView extends GetView<RouteController> {
             children: [
               Expanded(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Row(
+                    //   children: [
+                    //     Text("¿De donde va?"),
+                    //     SizedBox(width: 10,),
+                    //     ElevatedButton(
+                    //       onPressed: () {
+                    //         controller.destinyName.value = "";
+                    //         Get.offAllNamed(Routes.SEARCH_PLACE);
+                    //       }, 
+                    //       child: Text(
+                    //         controller.originSelected.value ? "De: ${controller.originName.value}" : "Ubicar en el Mapa"
+                    //       )
+                    //     ),
+
+                    //   ],
+                    // ),
+                    // SizedBox(height: 10,),
+                    // Row(
+                    //   children: [
+                    //     Text("Hacia donde va?"),
+                    //     SizedBox(width: 10,),
+                    //     ElevatedButton(
+                    //       onPressed: () {
+                    //         if (!controller.originName.value.isBlank!) {
+                    //           print("Ir al mapa");
+                    //         }
+                    //       }, 
+                    //       child: Text(
+                    //         controller.originSelected.value ? "De: ${controller.originName.value}" : "Ubicar en el Mapa"
+                    //       )
+                    //     ),
+
+                    //   ],
+                    // ),
                     AppInput(
                       controller: controller.origin, 
                       hint: '¿De donde va?', 
-                      icon: Icons.pin_drop_outlined
+                      icon: Icons.pin_drop_outlined,
                     ),
                     SizedBox(height: 10,),
                     AppInput(
