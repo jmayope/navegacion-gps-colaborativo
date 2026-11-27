@@ -3,6 +3,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Main } from '../../services/main';
 import { COLLECTIONS, messageAlert } from '../../constants';
+import { firstValueFrom } from 'rxjs';
+import { Supabase } from '../../services/supabase';
 
 type Type = 'Accidente' | 'Robo' | 'Tráfico' | 'Cierre de vía' | 'Peligro';
 type Severity = 'Crítica' | 'Alta' | 'Media' | 'Baja';
@@ -12,6 +14,7 @@ export class Incident implements OnInit {
 
   constructor(
     private Main: Main,
+    private Supabase: Supabase,
     private ChangeDetector: ChangeDetectorRef
   ) {
 
@@ -24,17 +27,17 @@ export class Incident implements OnInit {
   }
 
   async getIncidents() {
-    let result_incidents: any = await this.Main.getRows(COLLECTIONS.INCIDENTS);
+    let result_incidents: any = await firstValueFrom(this.Supabase.select(COLLECTIONS.INCIDENTS, { order: 'date.desc' }));
     console.log(result_incidents);
-    this.incidents = result_incidents;
+    this.incidents = result_incidents.data;
     this.getRoutesInfo();
     
   }
 
   async getRoutesInfo() {
-    let result_routes: any = await this.Main.getRows(COLLECTIONS.ROUTES);
-    let result_segments: any = await this.Main.getRows(COLLECTIONS.SEGMENTS);
-    let result_users: any = await this.Main.getRows(COLLECTIONS.USERS);
+    let result_routes: any = await firstValueFrom(this.Supabase.select(COLLECTIONS.ROUTES));
+    let result_segments: any = await firstValueFrom(this.Supabase.select(COLLECTIONS.SEGMENTS))
+    let result_users: any = await firstValueFrom(this.Supabase.select(COLLECTIONS.USERS));
 
     this.incidents.map((i: any) => {
       i.route = result_routes.find((r: any) => r.id === i.route_id);
@@ -113,7 +116,7 @@ export class Incident implements OnInit {
     data.resolved_at = new Date();
     data.description = `Re | RESUELTO: ${data.description}`; 
     delete data.id;
-    let result_incident: any = await this.Main.updateRow(COLLECTIONS.INCIDENTS, i.id, data);
+    let result_incident: any = await firstValueFrom(this.Supabase.update(COLLECTIONS.INCIDENTS, i.id, data));
     if (!result_incident) {
       messageAlert("Error", "Hubo un error al momento de resolver el incidente", "error");
       return;
